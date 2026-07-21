@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ fitly.bio
 
-## Getting Started
+> **The ultimate "Link in Bio" & Lead Generation platform built specifically for Personal Trainers and Fitness Coaches.**
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Frontend-Next.js-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Supabase](https://img.shields.io/badge/Backend-Supabase-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏋️‍♂️ About The Project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Standard "Link in Bio" tools like Linktree are often too generic for personal trainers. They lack built-in fitness price lists, client onboarding questionnaires, and instant lead management.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**fitly.bio** solves this problem by giving fitness professionals a dedicated, ultra-fast mobile landing page to showcase their services, display clear pricing, and capture high-intent leads straight from Instagram & TikTok.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🆓 Free Tier
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Personalized Bio Link:** Clean, fast-loading URL (`fitly.bio/username`).
+- **Services & Pricing Showcase:** Display up to 3 fitness packages/offerings with clear pricing.
+- **Built-in Client Intake Form:** Default 5-question survey designed to capture essential client info (goals, fitness level, training frequency, phone number).
+- **Lead Dashboard:** Manage and review all client applications inside the user dashboard.
 
-## Deploy on Vercel
+### 🚀 PRO Tier
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Custom Questionnaire Builder:** Fully customizable form fields to ask about budget, injuries, or preferred training locations.
+- **Instant Email Notifications:** Real-time email alerts sent to the trainer as soon as a client submits an intake form (powered by Resend).
+- **Custom Branding:** Remove the `fitly.bio` badge and customize colors/themes to match personal brand identity.
+- **Unlimited Offerings:** Add unlimited packages, online coaching plans, and consultation links.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js (App Router), React, Tailwind CSS, shadcn/ui
+- **Backend & Database:** Supabase (PostgreSQL, Row Level Security, Auth)
+- **Serverless Functions:** Supabase Edge Functions
+- **Email Service:** Resend API
+- **Payments & Subscriptions:** Stripe Connect / Stripe Billing

@@ -29,7 +29,7 @@ export default async function UserProfilePage({
             </p>
           </div>
 
-          <div className="size-30 bg-gray-100 rounded-full"></div>
+          <div className="w-full h-50 bg-gray-100 rounded-2xl md:size-30 md:rounded-full md:shrink-0"></div>
         </div>
 
         <div className="mt-8 md:mt-10">
@@ -40,6 +40,7 @@ export default async function UserProfilePage({
           <div className="flex flex-wrap gap-2 mt-3">
             <Badge
               variant="outline"
+              className="px-3 py-1"
               render={
                 <a href="#link">
                   Instagram <ArrowUpRightIcon data-icon="inline-end" />
@@ -48,6 +49,7 @@ export default async function UserProfilePage({
             />
             <Badge
               variant="outline"
+              className="px-3 py-1"
               render={
                 <a href="#link">
                   Facebook <ArrowUpRightIcon data-icon="inline-end" />
@@ -56,6 +58,7 @@ export default async function UserProfilePage({
             />
             <Badge
               variant="outline"
+              className="px-3 py-1"
               render={
                 <a href="#link">
                   TikTok <ArrowUpRightIcon data-icon="inline-end" />

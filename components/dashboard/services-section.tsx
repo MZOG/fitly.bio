@@ -91,7 +91,7 @@ export function ServicesSection() {
 
               <Button
                 type="button"
-                className="self-end"
+                className="self-end md:self-auto"
                 onClick={() => handleSelectService(service)}
               >
                 Umów trening

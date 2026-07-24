@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl" className={`${geistSans.className} antialiased`}>
-      <body>{children}</body>
+      <body>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

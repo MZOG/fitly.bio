@@ -95,6 +95,11 @@ export default async function UserProfilePage({
 
         {/* usługi i cennik */}
         <ServicesSection />
+
+        {/* specjalizacje */}
+        <div className="mt-8 md:mt-10 flex justify-center">
+          <p className="text-sm text-gray-600">&copy; 2026 Fitly.</p>
+        </div>
       </div>
     </section>
   );

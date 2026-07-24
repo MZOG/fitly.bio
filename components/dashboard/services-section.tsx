@@ -6,6 +6,7 @@ import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 type Service = {
   id: string;
@@ -29,6 +30,7 @@ const services: Service[] = [
 export function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (selectedService && formRef.current) {
@@ -45,6 +47,27 @@ export function ServicesSection() {
 
   const cancelSelectedService = () => {
     setSelectedService(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // zapis do Supabase
+
+      toast.success("Zgłoszenie zostało wysłane", {
+        description: "Trener skontaktuje się z Tobą wkrótce.",
+      });
+
+      setSelectedService(null);
+    } catch (error) {
+      toast.error("Nie udało się wysłać zgłoszenia", {
+        description: "Spróbuj ponownie za chwilę.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -95,7 +118,7 @@ export function ServicesSection() {
             </div>
           </div>
 
-          <form className="mt-5 flex flex-col gap-5">
+          <form className="mt-5 flex flex-col gap-5" onSubmit={handleSubmit}>
             {/* To przesyłasz do backendu */}
             <input type="hidden" name="serviceId" value={selectedService.id} />
 
@@ -197,8 +220,8 @@ export function ServicesSection() {
                 Anuluj
               </Button>
 
-              <Button type="submit" size="lg">
-                Wyślij zgłoszenie
+              <Button type="submit" size="lg" disabled={isSubmitting}>
+                {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
               </Button>
             </div>
           </form>

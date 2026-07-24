@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -30,15 +30,17 @@ export function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectService = (service: Service) => {
-    setSelectedService(service);
-
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({
+  useEffect(() => {
+    if (selectedService && formRef.current) {
+      formRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
-    }, 100);
+    }
+  }, [selectedService]);
+
+  const handleSelectService = (service: Service) => {
+    setSelectedService(service);
   };
 
   const cancelSelectedService = () => {
@@ -48,7 +50,7 @@ export function ServicesSection() {
   return (
     <>
       {/* Usługi i cennik */}
-      <div className="mt-10">
+      <div className="mt-8 md:mt-10">
         <h2 className="text-xs uppercase tracking-wide font-medium">
           Usługi i cennik
         </h2>
@@ -57,14 +59,18 @@ export function ServicesSection() {
           {services.map((service) => (
             <div
               key={service.id}
-              className="bg-gray-50 p-4 rounded-lg flex items-center justify-between"
+              className="bg-gray-50 p-4 rounded-lg flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
             >
-              <div>
+              <div className="flex justify-between items-center md:block">
                 <p>{service.name}</p>
                 <p className="text-gray-600 font-medium">{service.price}</p>
               </div>
 
-              <Button onClick={() => handleSelectService(service)}>
+              <Button
+                type="button"
+                className="self-end"
+                onClick={() => handleSelectService(service)}
+              >
                 Umów trening
               </Button>
             </div>

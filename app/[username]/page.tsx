@@ -1,29 +1,29 @@
 import { ServicesSection } from "@/components/dashboard/services-section";
-import { Button } from "@/components/ui/button";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { Dumbbell, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowUpRightIcon, Dumbbell, MapPin } from "lucide-react";
 
 export default async function UserProfilePage({
   params,
 }: {
   params: Promise<{ username: string }>;
 }) {
-  const { username } = await params;
+  // const { username } = await params;
 
   return (
-    <section className="p-5 mt-5 mx-auto max-w-2xl">
-      <header>
-        <p className="text-lg font-medium px-5">marcin.revs</p>
+    <section className="p-5 mx-auto max-w-2xl">
+      <header className="hidden md:block">
+        <p className="text-center md:text-left text-lg font-medium px-5">
+          Fitly
+        </p>
       </header>
 
-      <div className="border mt-5 p-7 rounded-2xl">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-xl font-medium mb-3">Marcin Zogrodnik</h1>
-            <p className="text-gray-600 max-w-75">
+      <div className="md:border mt-5 md:p-7 rounded-2xl">
+        <div className="flex flex-col-reverse md:flex-row gap-2 md:gap-3 md:justify-between items-center">
+          <div className="flex flex-col items-center md:items-start">
+            <h1 className="text-xl font-medium mb-3 md:mb-1">
+              Marcin Zogrodnik
+            </h1>
+            <p className="text-gray-600 max-w-75 text-sm md:text-base text-center md:text-left">
               Hej, tutaj będzie moje bio, trzeba zrobić tak, żeby było max
               powiedzmy 300-400 znaków.
             </p>
@@ -32,8 +32,41 @@ export default async function UserProfilePage({
           <div className="size-30 bg-gray-100 rounded-full"></div>
         </div>
 
+        <div className="mt-8 md:mt-10">
+          <h2 className="text-xs uppercase tracking-wide font-medium">
+            Social media
+          </h2>
+
+          <div className="flex flex-wrap gap-2 mt-3">
+            <Badge
+              variant="outline"
+              render={
+                <a href="#link">
+                  Instagram <ArrowUpRightIcon data-icon="inline-end" />
+                </a>
+              }
+            />
+            <Badge
+              variant="outline"
+              render={
+                <a href="#link">
+                  Facebook <ArrowUpRightIcon data-icon="inline-end" />
+                </a>
+              }
+            />
+            <Badge
+              variant="outline"
+              render={
+                <a href="#link">
+                  TikTok <ArrowUpRightIcon data-icon="inline-end" />
+                </a>
+              }
+            />
+          </div>
+        </div>
+
         {/* lokalizacja */}
-        <div className="mt-10">
+        <div className="mt-8 md:mt-10">
           <h2 className="text-xs uppercase tracking-wide font-medium">
             Lokalizacja i siłownie
           </h2>
@@ -48,21 +81,15 @@ export default async function UserProfilePage({
         </div>
 
         {/* specjalizacje */}
-        <div className="mt-10">
+        <div className="mt-8 md:mt-10">
           <h2 className="text-xs uppercase tracking-wide font-medium">
             Specjalizacje
           </h2>
 
-          <div className="flex gap-3 mt-3">
-            <div className="bg-gray-100 px-3 py-1 rounded-full text-sm">
-              Dietetyka
-            </div>
-            <div className="bg-gray-100 px-3 py-1 rounded-full text-sm">
-              Trening siłowy
-            </div>
-            <div className="bg-gray-100 px-3 py-1 rounded-full text-sm">
-              Trening funkcjonalny
-            </div>
+          <div className="flex flex-wrap gap-1 mt-3">
+            <Badge variant="outline">Dietetyka</Badge>
+            <Badge variant="outline">Trening siłowy</Badge>
+            <Badge variant="outline">Trening funkcjonalny</Badge>
           </div>
         </div>
 

@@ -1,7 +1,10 @@
+import PanelTitle from "@/components/dashboard/panel-title";
+
 export default function AppearancePage() {
   return (
     <section className="container">
-      <p>appearance page</p>
+      <PanelTitle title="Appearance" />
+      <p>Appearance page</p>
     </section>
   );
 }

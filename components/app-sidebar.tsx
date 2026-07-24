@@ -1,13 +1,9 @@
 import * as React from "react";
 
-import { SearchForm } from "@/components/search-form";
-import { VersionSwitcher } from "@/components/version-switcher";
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -41,6 +37,10 @@ const data = {
       title: "Ustawienia",
       url: "/dashboard/settings",
     },
+    {
+      title: "Podgląd profilu",
+      url: "#",
+    },
   ],
 };
 
@@ -54,7 +54,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* We create a SidebarGroup for each parent. */}
         <SidebarMenu>
           {data.navMain.map((item) => (
-            <SidebarMenuItem key={item.title}>
+            <SidebarMenuItem key={item.title} className="last:mt-5">
               <SidebarMenuButton
                 render={<a href={item.url}>{item.title}</a>}
               ></SidebarMenuButton>
@@ -62,6 +62,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ))}
         </SidebarMenu>
       </SidebarContent>
+      <SidebarFooter className="px-2 pb-3 mb-10">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <span>Wyloguj</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

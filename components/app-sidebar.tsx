@@ -51,7 +51,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <p className="font-semibold">Fitly</p>
       </SidebarHeader>
       <SidebarContent className="px-2">
-        {/* We create a SidebarGroup for each parent. */}
         <SidebarMenu>
           {data.navMain.map((item) => (
             <SidebarMenuItem key={item.title} className="last:mt-5">

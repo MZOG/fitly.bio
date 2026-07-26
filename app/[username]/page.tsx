@@ -20,7 +20,7 @@ export default async function UserProfilePage({
       <div className="md:border mt-5 md:p-7 rounded-2xl">
         <div className="flex flex-col-reverse md:flex-row gap-2 md:gap-3 md:justify-between items-center">
           <div className="flex flex-col items-center md:items-start">
-            <h1 className="text-xl font-medium mb-3 md:mb-1">
+            <h1 className="text-xl font-medium mb-3 md:mb-1 shimmer shimmer-color-blue-500/60">
               Marcin Zogrodnik
             </h1>
             <p className="text-gray-600 max-w-75 text-sm md:text-base text-center md:text-left">

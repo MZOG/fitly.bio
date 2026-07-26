@@ -26,7 +26,7 @@ const data = {
       url: "/dashboard/services",
     },
     {
-      title: "Zgłoszenia",
+      title: "Formularz",
       url: "/dashboard/leads",
     },
     {

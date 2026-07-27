@@ -7,11 +7,19 @@ import { useRouter } from "next/navigation";
 
 type AuthContextType = {
   user: User | null;
+  profile: Profile | null;
   session: Session | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
+};
+
+type Profile = {
+  id: string;
+  full_name: string;
+  username: string | null;
+  plan: "free" | "pro";
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,6 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -32,6 +41,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setSession(session);
       setUser(session?.user ?? null);
+
+      if (session?.user) {
+        await fetchProfile(session.user.id);
+      }
       setIsLoading(false);
     };
 
@@ -39,13 +52,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
-      setIsLoading(false);
 
-      console.log(`session:`, session);
-      console.log(`user:`, session?.user);
+      if (session?.user) {
+        await fetchProfile(session.user.id);
+      } else {
+        setProfile(null);
+      }
+      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();
@@ -66,10 +82,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.refresh();
   };
 
+  const fetchProfile = async (userId: string) => {
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .maybeSingle();
+
+    setProfile(data);
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
+        profile,
         session,
         isAuthenticated: !!user,
         isLoading,

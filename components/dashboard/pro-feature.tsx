@@ -26,7 +26,7 @@ export function ProFeature({
 }: ProFeatureProps) {
   return (
     <div className="relative">
-      <div className="pointer-events-none opacity-20 select-none">
+      <div className="pointer-events-none opacity-50 select-none">
         {children}
       </div>
 

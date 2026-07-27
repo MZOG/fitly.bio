@@ -11,6 +11,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { LogoutButton } from "./dashboard/logout-button";
+import { ProfilePreviewLink } from "./dashboard/profile-preview-link";
 
 const data = {
   navMain: [
@@ -38,10 +39,6 @@ const data = {
       title: "Ustawienia",
       url: "/dashboard/settings",
     },
-    {
-      title: "Podgląd profilu",
-      url: "#",
-    },
   ],
 };
 
@@ -54,12 +51,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent className="px-2">
         <SidebarMenu>
           {data.navMain.map((item) => (
-            <SidebarMenuItem key={item.title} className="last:mt-5">
-              <SidebarMenuButton
-                render={<a href={item.url}>{item.title}</a>}
-              ></SidebarMenuButton>
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton render={<a href={item.url}>{item.title}</a>} />
             </SidebarMenuItem>
           ))}
+
+          <SidebarMenuItem className="mt-5">
+            <ProfilePreviewLink />
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="px-2 pb-3 mb-10">

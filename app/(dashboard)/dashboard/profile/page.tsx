@@ -1,5 +1,6 @@
 import PanelTitle from "@/components/dashboard/panel-title";
 import { ProFeature } from "@/components/dashboard/pro-feature";
+import { ProfileForm } from "@/components/dashboard/profile-form";
 import {
   Field,
   FieldDescription,
@@ -11,88 +12,26 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createClient } from "@/lib/supabase/server";
+import { cookies } from "next/headers";
 
-export default function ProfilePage() {
-  return (
-    <section className="container max-w-md">
-      <PanelTitle title="Mój profil" />
+export default async function ProfilePage() {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
-      <div className="mt-5 space-y-5">
-        <p>@zdjęcie profilowe</p>
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-        <FieldSet>
-          <FieldDescription className="uppercase tracking-wide text-xs text-gray-600">
-            Informacje podstawowe
-          </FieldDescription>
-          <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="name">Imię i nazwisko</FieldLabel>
-              <Input
-                id="name"
-                autoComplete="off"
-                className="bg-white border-border"
-              />
-            </Field>
-            <ProFeature>
-              <Field>
-                <FieldLabel htmlFor="url">Nazwa użytkownika</FieldLabel>
-                <Input
-                  id="url"
-                  autoComplete="off"
-                  className="bg-white border-border"
-                />
-                <FieldDescription>
-                  Nazwa użytkownika w adresie URL Twojego profilu. Możesz użyć
-                  liter, cyfr i myślników.
-                </FieldDescription>
-              </Field>
-            </ProFeature>
+  if (!user) {
+    return null; // albo redirect("/login")
+  }
 
-            <Field>
-              <FieldLabel htmlFor="bio">Bio</FieldLabel>
-              <Textarea
-                id="bio"
-                autoComplete="off"
-                className="bg-white border-border"
-              />
-              <FieldDescription>
-                Nazwa użytkownika w adresie URL Twojego profilu. Możesz użyć
-                liter, cyfr i myślników.
-              </FieldDescription>
-            </Field>
-          </FieldGroup>
-        </FieldSet>
-      </div>
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user?.id)
+    .maybeSingle();
 
-      <div className="mt-10 space-y-5">
-        <p className="uppercase tracking-wide text-xs text-gray-600">
-          Lokalizacja i siłownie
-        </p>
-
-        <p>miasto</p>
-        <p>siłownie</p>
-      </div>
-
-      <div className="mt-10 space-y-5">
-        <p className="uppercase tracking-wide text-xs text-gray-600">
-          Specjalizacje
-        </p>
-
-        <p>specjalizacje max 3 dla free</p>
-      </div>
-
-      <div className="mt-10 space-y-5">
-        <p className="uppercase tracking-wide text-xs text-gray-600">
-          Social media
-        </p>
-
-        <p>instagram</p>
-        <p>facebook</p>
-        <p>tiktok</p>
-        <p>youtube</p>
-        <p>linkedin</p>
-        <p>strona internetowa</p>
-      </div>
-    </section>
-  );
+  return <ProfileForm user={user} profile={profile} />;
 }

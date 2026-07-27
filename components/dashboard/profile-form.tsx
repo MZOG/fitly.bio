@@ -140,15 +140,7 @@ export function ProfileForm({ user, profile }: Props) {
               <FieldLabel>Nazwa użytkownika</FieldLabel>
               <Input
                 {...form.register("username", {
-                  setValueAs: (value: string) =>
-                    value
-                      .toLowerCase()
-                      .normalize("NFD")
-                      .replace(/[\u0300-\u036f]/g, "")
-                      .trim()
-                      .replace(/\s+/g, "-")
-                      .replace(/[^a-z0-9-]/g, "")
-                      .replace(/-+/g, "-"),
+                  setValueAs: (value: string) => slugify(value),
                 })}
               />
               <FieldDescription>fitly.bio/twoja-nazwa</FieldDescription>

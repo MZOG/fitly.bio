@@ -17,6 +17,7 @@ import {
 import { toast } from "sonner";
 import { ProFeature } from "./pro-feature";
 import { createSlug } from "@/lib/slug";
+import { Plus, Save, Trash2 } from "lucide-react";
 
 type Gym = {
   name: string;
@@ -239,6 +240,7 @@ export function ProfileForm({ user, profile }: Props) {
                     variant="outline"
                     onClick={() => remove(index)}
                   >
+                    <Trash2 className="text-red-600" />
                     Usuń
                   </Button>
                 </div>
@@ -250,6 +252,7 @@ export function ProfileForm({ user, profile }: Props) {
                 disabled={!isPro && fields.length >= 1}
                 onClick={() => append({ name: "" })}
               >
+                <Plus />
                 Dodaj siłownię
               </Button>
               {!isPro && fields.length > 1 && (
@@ -264,6 +267,7 @@ export function ProfileForm({ user, profile }: Props) {
       </FieldSet>
 
       <Button type="submit" disabled={isPending}>
+        <Save />
         {isPending ? "Zapisywanie..." : "Zapisz"}
       </Button>
 

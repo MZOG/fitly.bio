@@ -160,14 +160,19 @@ export function ProfileForm({ user, profile }: Props) {
           <Field>
             <FieldLabel>Imię i nazwisko</FieldLabel>
             <Input {...form.register("full_name")} />
-            <FieldDescription>
+            <FieldDescription className="text-xs">
               fitly.bio/
               {profilePreviewSlug}
             </FieldDescription>
             {isPro && (
               <FieldDescription>
-                W planie <strong>Pro</strong> adres profilu jest tworzony z pola
-                <strong> Nazwa użytkownika</strong>.
+                W planie <span className="font-semibold">pro</span> adres
+                profilu jest tworzony z pola
+                <span className="underline underline-offset-2">
+                  {" "}
+                  Nazwa użytkownika
+                </span>
+                .
               </FieldDescription>
             )}
           </Field>
@@ -180,7 +185,7 @@ export function ProfileForm({ user, profile }: Props) {
                   setValueAs: (value: string) => createSlug(value),
                 })}
               />
-              <FieldDescription>
+              <FieldDescription className="text-xs">
                 fitly.bio/
                 {usernamePreviewSlug}
               </FieldDescription>
@@ -221,6 +226,10 @@ export function ProfileForm({ user, profile }: Props) {
               {fields.map((field, index) => (
                 <div key={field.id} className="flex gap-2">
                   <Input
+                    readOnly={!isPro && index > 0}
+                    className={
+                      !isPro && index > 0 ? "opacity-50 cursor-not-allowed" : ""
+                    }
                     {...form.register(`gyms.${index}.name`)}
                     placeholder="Nazwa siłowni"
                   />
@@ -243,11 +252,12 @@ export function ProfileForm({ user, profile }: Props) {
               >
                 Dodaj siłownię
               </Button>
-              <FieldDescription>
-                {isPro
-                  ? "Możesz dodać dowolną liczbę siłowni."
-                  : "Plan Free pozwala dodać tylko jedną siłownię."}
-              </FieldDescription>
+              {!isPro && fields.length > 1 && (
+                <FieldDescription>
+                  Przejdź na <span className="font-semibold">pro</span>, aby
+                  edytować dodatkowe siłownie. Możesz je jednak usunąć.
+                </FieldDescription>
+              )}
             </div>
           </Field>
         </FieldGroup>

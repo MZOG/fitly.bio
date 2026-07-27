@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Check, Crown, Lock } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 interface ProFeatureProps {
   children: ReactNode;
@@ -24,6 +25,14 @@ export function ProFeature({
   title = "Funkcja Pro",
   description = "Ta funkcja jest dostępna tylko dla użytkowników Pro.",
 }: ProFeatureProps) {
+  const { profile } = useAuth();
+
+  const isPro = profile?.plan === "pro";
+
+  if (isPro) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="relative">
       <div className="pointer-events-none opacity-50 select-none">

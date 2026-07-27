@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { LogoutButton } from "./dashboard/logout-button";
 import { ProfilePreviewLink } from "./dashboard/profile-preview-link";
+import { SidebarLogo } from "./dashboard/sidebar-logo";
 
 const data = {
   navMain: [
@@ -46,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader className="px-5 py-3">
-        <p className="font-semibold">Fitly</p>
+        <SidebarLogo />
       </SidebarHeader>
       <SidebarContent className="px-2">
         <SidebarMenu>

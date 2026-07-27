@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,11 @@ import {
 } from "@/components/ui/field";
 import { toast } from "sonner";
 import { ProFeature } from "./pro-feature";
+import { createSlug } from "@/lib/slug";
 
-import slugify from "slugify";
+type Gym = {
+  name: string;
+};
 
 type Profile = {
   id: string;
@@ -26,7 +29,7 @@ type Profile = {
   username: string | null;
   bio: string | null;
   city: string | null;
-  gyms: string[];
+  gyms: Gym[];
   specializations: string[];
   socials: {
     instagram?: string;
@@ -36,6 +39,7 @@ type Profile = {
     linkedin?: string;
     website?: string;
   };
+  plan: string | null;
 };
 
 type Props = {
@@ -51,7 +55,7 @@ type ProfileFormValues = {
   bio: string;
   city: string;
 
-  gyms: string[];
+  gyms: Gym[];
   specializations: string[];
 
   socials: {
@@ -66,6 +70,7 @@ type ProfileFormValues = {
 
 export function ProfileForm({ user, profile }: Props) {
   const [isPending, startTransition] = useTransition();
+  const isPro = profile?.plan === "pro";
 
   const form = useForm<ProfileFormValues>({
     defaultValues: {
@@ -73,8 +78,7 @@ export function ProfileForm({ user, profile }: Props) {
       username: profile?.username ?? "",
       bio: profile?.bio ?? "",
       city: profile?.city ?? "",
-
-      gyms: profile?.gyms ?? [],
+      gyms: profile?.gyms ?? [{ name: "" }],
       specializations: profile?.specializations ?? [],
 
       socials: {
@@ -88,16 +92,18 @@ export function ProfileForm({ user, profile }: Props) {
     },
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "gyms",
+  });
+
+  const bio = form.watch("bio");
+
   const onSubmit = (values: ProfileFormValues) => {
     startTransition(async () => {
       const supabase = createClient();
 
-      const slug = slugify(values.username || values.full_name, {
-        lower: true,
-        strict: true,
-        trim: true,
-        locale: "pl",
-      });
+      const slug = createSlug(values.username || values.full_name);
 
       const { error } = await supabase.from("profiles").upsert({
         id: user.id,
@@ -117,8 +123,38 @@ export function ProfileForm({ user, profile }: Props) {
   const fullName = form.watch("full_name");
   const username = form.watch("username");
 
+  const changePlan = async (plan: "free" | "pro") => {
+    const supabase = createClient();
+
+    const slug =
+      plan === "pro"
+        ? createSlug(profile?.username ?? "")
+        : createSlug(profile?.full_name ?? "");
+
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        plan,
+        slug,
+      })
+      .eq("id", user.id);
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    window.location.reload();
+  };
+
+  const profilePreviewSlug = createSlug(
+    isPro ? username || fullName : fullName,
+  );
+
+  const usernamePreviewSlug = createSlug(username || fullName);
+
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-lg">
       <FieldSet>
         <FieldGroup>
           <Field>
@@ -126,13 +162,14 @@ export function ProfileForm({ user, profile }: Props) {
             <Input {...form.register("full_name")} />
             <FieldDescription>
               fitly.bio/
-              {slugify(username || fullName, {
-                lower: true,
-                strict: true,
-                trim: true,
-                locale: "pl",
-              })}
+              {profilePreviewSlug}
             </FieldDescription>
+            {isPro && (
+              <FieldDescription>
+                W planie <strong>Pro</strong> adres profilu jest tworzony z pola
+                <strong> Nazwa użytkownika</strong>.
+              </FieldDescription>
+            )}
           </Field>
 
           <ProFeature>
@@ -140,21 +177,78 @@ export function ProfileForm({ user, profile }: Props) {
               <FieldLabel>Nazwa użytkownika</FieldLabel>
               <Input
                 {...form.register("username", {
-                  setValueAs: (value: string) => slugify(value),
+                  setValueAs: (value: string) => createSlug(value),
                 })}
               />
-              <FieldDescription>fitly.bio/twoja-nazwa</FieldDescription>
+              <FieldDescription>
+                fitly.bio/
+                {usernamePreviewSlug}
+              </FieldDescription>
             </Field>
           </ProFeature>
 
           <Field>
             <FieldLabel>Bio</FieldLabel>
-            <Textarea rows={5} {...form.register("bio")} />
+
+            <Textarea
+              rows={5}
+              maxLength={isPro ? undefined : 400}
+              {...form.register("bio", {
+                maxLength: isPro
+                  ? undefined
+                  : {
+                      value: 400,
+                      message: "Bio może mieć maksymalnie 400 znaków.",
+                    },
+              })}
+            />
+
+            <FieldDescription>
+              {bio.length}
+              {!isPro && "/400"} znaków
+            </FieldDescription>
           </Field>
 
           <Field>
             <FieldLabel>Miasto</FieldLabel>
             <Input {...form.register("city")} />
+          </Field>
+
+          <Field>
+            <FieldLabel>Siłownie</FieldLabel>
+
+            <div className="space-y-2">
+              {fields.map((field, index) => (
+                <div key={field.id} className="flex gap-2">
+                  <Input
+                    {...form.register(`gyms.${index}.name`)}
+                    placeholder="Nazwa siłowni"
+                  />
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => remove(index)}
+                  >
+                    Usuń
+                  </Button>
+                </div>
+              ))}
+
+              <Button
+                type="button"
+                variant="outline"
+                disabled={!isPro && fields.length >= 1}
+                onClick={() => append({ name: "" })}
+              >
+                Dodaj siłownię
+              </Button>
+              <FieldDescription>
+                {isPro
+                  ? "Możesz dodać dowolną liczbę siłowni."
+                  : "Plan Free pozwala dodać tylko jedną siłownię."}
+              </FieldDescription>
+            </div>
           </Field>
         </FieldGroup>
       </FieldSet>
@@ -162,6 +256,24 @@ export function ProfileForm({ user, profile }: Props) {
       <Button type="submit" disabled={isPending}>
         {isPending ? "Zapisywanie..." : "Zapisz"}
       </Button>
+
+      <div className="flex gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => changePlan("free")}
+        >
+          Zmień na Free
+        </Button>
+
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => changePlan("pro")}
+        >
+          Zmień na Pro
+        </Button>
+      </div>
     </form>
   );
 }

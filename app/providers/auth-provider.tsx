@@ -20,6 +20,7 @@ type Profile = {
   full_name: string;
   username: string | null;
   plan: "free" | "pro";
+  slug: string | null;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

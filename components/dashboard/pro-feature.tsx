@@ -44,7 +44,7 @@ export function ProFeature({
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Odblokuj PRO</DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="text-gray-600">
                 Zyskaj dostęp do wszystkich funkcji Fitly.
               </DialogDescription>
             </DialogHeader>
@@ -67,7 +67,7 @@ export function ProFeature({
             </div>
 
             <DialogFooter>
-              <Button className="w-full">Przejdź na PRO</Button>
+              <Button className="">Przejdź na PRO</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

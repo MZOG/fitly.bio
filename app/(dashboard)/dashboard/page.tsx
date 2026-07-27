@@ -1,3 +1,4 @@
+import { LogoutButton } from "@/components/dashboard/logout-button";
 import PanelTitle from "@/components/dashboard/panel-title";
 
 export const metadata = {
@@ -9,7 +10,6 @@ export default function DashboardPage() {
   return (
     <section className="container">
       <PanelTitle title="Panel" />
-      <p>panel page</p>
     </section>
   );
 }

@@ -35,7 +35,7 @@ export default function ProfilePage() {
             </Field>
             <ProFeature>
               <Field>
-                <FieldLabel htmlFor="url">Nazwa użytkownika (pro)</FieldLabel>
+                <FieldLabel htmlFor="url">Nazwa użytkownika</FieldLabel>
                 <Input
                   id="url"
                   autoComplete="off"

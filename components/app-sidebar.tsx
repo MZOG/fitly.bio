@@ -10,6 +10,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { LogoutButton } from "./dashboard/logout-button";
 
 const data = {
   navMain: [
@@ -64,9 +65,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter className="px-2 pb-3 mb-10">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
+            {/* <SidebarMenuButton onClick={signOu}>
               <span>Wyloguj</span>
-            </SidebarMenuButton>
+            </SidebarMenuButton> */}
+            <LogoutButton />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

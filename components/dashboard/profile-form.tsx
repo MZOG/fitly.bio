@@ -21,31 +21,15 @@ import { Plus, Save, Trash2 } from "lucide-react";
 import { AvatarUpload } from "./avatar-upload";
 import { MultiSelect } from "../ui/multi-select";
 import { SPECIALIZATIONS } from "@/lib/specializations";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
-type Gym = {
-  name: string;
-};
-
-type Profile = {
-  id: string;
-  full_name: string | null;
-  slug: string | null;
-  username: string | null;
-  avatar_url: string | null;
-  bio: string | null;
-  city: string | null;
-  gyms: Gym[];
-  specializations: string[];
-  socials: {
-    instagram?: string;
-    facebook?: string;
-    tiktok?: string;
-    youtube?: string;
-    linkedin?: string;
-    website?: string;
-  };
-  plan: string | null;
-};
+import { Gym, Social, Profile } from "@/lib/types";
 
 type Props = {
   user: {
@@ -63,15 +47,19 @@ type ProfileFormValues = {
   gyms: Gym[];
   specializations: string[];
 
-  socials: {
-    instagram: string;
-    facebook: string;
-    tiktok: string;
-    youtube: string;
-    linkedin: string;
-    website: string;
-  };
+  socials: Social[];
 };
+
+export const SOCIAL_PLATFORMS = [
+  { value: "instagram", label: "Instagram" },
+  { value: "tiktok", label: "TikTok" },
+  { value: "youtube", label: "YouTube" },
+  { value: "facebook", label: "Facebook" },
+  { value: "x", label: "X" },
+  { value: "website", label: "Strona internetowa" },
+] as const;
+
+export type SocialPlatform = (typeof SOCIAL_PLATFORMS)[number];
 
 export function ProfileForm({ user, profile }: Props) {
   const [isPending, startTransition] = useTransition();
@@ -90,20 +78,26 @@ export function ProfileForm({ user, profile }: Props) {
       gyms: profile?.gyms ?? [{ name: "" }],
       specializations: profile?.specializations ?? [],
 
-      socials: {
-        instagram: profile?.socials?.instagram ?? "",
-        facebook: profile?.socials?.facebook ?? "",
-        tiktok: profile?.socials?.tiktok ?? "",
-        youtube: profile?.socials?.youtube ?? "",
-        linkedin: profile?.socials?.linkedin ?? "",
-        website: profile?.socials?.website ?? "",
-      },
+      socials: profile?.socials ?? [],
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: gymFields,
+    append: appendGym,
+    remove: removeGym,
+  } = useFieldArray({
     control: form.control,
     name: "gyms",
+  });
+
+  const {
+    fields: socialFields,
+    append: appendSocial,
+    remove: removeSocial,
+  } = useFieldArray({
+    control: form.control,
+    name: "socials",
   });
 
   const bio = form.watch("bio");
@@ -285,7 +279,7 @@ export function ProfileForm({ user, profile }: Props) {
             <FieldLabel>Siłownie</FieldLabel>
 
             <div className="space-y-2">
-              {fields.map((field, index) => (
+              {gymFields.map((field, index) => (
                 <div key={field.id} className="flex gap-2">
                   <Input
                     readOnly={!isPro && index > 0}
@@ -299,7 +293,7 @@ export function ProfileForm({ user, profile }: Props) {
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => remove(index)}
+                    onClick={() => removeGym(index)}
                   >
                     <Trash2 className="text-red-600" />
                     Usuń
@@ -310,18 +304,79 @@ export function ProfileForm({ user, profile }: Props) {
               <Button
                 type="button"
                 variant="outline"
-                disabled={!isPro && fields.length >= 1}
-                onClick={() => append({ name: "" })}
+                disabled={!isPro && gymFields.length >= 1}
+                onClick={() => appendGym({ name: "" })}
               >
                 <Plus />
                 Dodaj siłownię
               </Button>
-              {!isPro && fields.length > 1 && (
+              {!isPro && gymFields.length > 1 && (
                 <FieldDescription>
                   Przejdź na <span className="font-semibold">pro</span>, aby
                   edytować dodatkowe siłownie. Możesz je jednak usunąć.
                 </FieldDescription>
               )}
+            </div>
+          </Field>
+
+          <Field>
+            <FieldLabel>Social media</FieldLabel>
+
+            <div className="space-y-3">
+              {socialFields.map((field, index) => (
+                <div
+                  key={field.id}
+                  className="grid grid-cols-[180px_1fr_auto] gap-3"
+                >
+                  <Select
+                    value={form.watch(`socials.${index}.platform`) ?? ""}
+                    onValueChange={(value) => {
+                      if (value === null) return;
+
+                      form.setValue(`socials.${index}.platform`, value);
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Platforma" />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      {SOCIAL_PLATFORMS.map((platform) => (
+                        <SelectItem key={platform.value} value={platform.value}>
+                          {platform.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Input
+                    placeholder="https://..."
+                    {...form.register(`socials.${index}.url`)}
+                  />
+
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeSocial(index)}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </div>
+              ))}
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  appendSocial({
+                    platform: "",
+                    url: "",
+                  })
+                }
+              >
+                Dodaj social
+              </Button>
             </div>
           </Field>
         </FieldGroup>

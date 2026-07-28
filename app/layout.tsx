@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Montserrat } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./providers/auth-provider";
 
@@ -7,6 +7,11 @@ import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
@@ -21,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={`${geistSans.className} antialiased`}>
+    <html
+      lang="pl"
+      className={`${geistSans.className} ${montserrat.variable} antialiased`}
+    >
       <body>
         <AuthProvider>
           <main>{children}</main>

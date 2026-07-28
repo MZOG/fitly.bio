@@ -73,8 +73,8 @@ export function ServicesSection() {
   return (
     <>
       {/* Usługi i cennik */}
-      <div className="mt-8 md:mt-10">
-        <h2 className="text-xs uppercase tracking-wide font-medium">
+      <div className="mt-12">
+        <h2 className="text-center text-gray-600 font-montserrat font-black uppercase tracking-wide italic">
           Usługi i cennik
         </h2>
 

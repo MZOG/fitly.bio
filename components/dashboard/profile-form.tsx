@@ -18,6 +18,9 @@ import { toast } from "sonner";
 import { ProFeature } from "./pro-feature";
 import { createSlug } from "@/lib/slug";
 import { Plus, Save, Trash2 } from "lucide-react";
+import { AvatarUpload } from "./avatar-upload";
+import { MultiSelect } from "../ui/multi-select";
+import { SPECIALIZATIONS } from "@/lib/specializations";
 
 type Gym = {
   name: string;
@@ -28,6 +31,7 @@ type Profile = {
   full_name: string | null;
   slug: string | null;
   username: string | null;
+  avatar_url: string | null;
   bio: string | null;
   city: string | null;
   gyms: Gym[];
@@ -72,6 +76,10 @@ type ProfileFormValues = {
 export function ProfileForm({ user, profile }: Props) {
   const [isPending, startTransition] = useTransition();
   const isPro = profile?.plan === "pro";
+  const specializationOptions = SPECIALIZATIONS.map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   const form = useForm<ProfileFormValues>({
     defaultValues: {
@@ -154,10 +162,43 @@ export function ProfileForm({ user, profile }: Props) {
 
   const usernamePreviewSlug = createSlug(username || fullName);
 
+  // useEffect(() => {
+  //   if (!profile) return;
+
+  //   form.reset({
+  //     full_name: profile.full_name ?? "",
+  //     username: profile.username ?? "",
+  //     bio: profile.bio ?? "",
+  //     city: profile.city ?? "",
+  //     gyms: profile.gyms?.length ? profile.gyms : [{ name: "" }],
+  //     specializations: profile.specializations ?? [],
+  //     socials: {
+  //       instagram: profile.socials?.instagram ?? "",
+  //       facebook: profile.socials?.facebook ?? "",
+  //       tiktok: profile.socials?.tiktok ?? "",
+  //       youtube: profile.socials?.youtube ?? "",
+  //       linkedin: profile.socials?.linkedin ?? "",
+  //       website: profile.socials?.website ?? "",
+  //     },
+  //   });
+  // }, [profile, form]);
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-lg">
       <FieldSet>
         <FieldGroup>
+          <Field>
+            <FieldLabel>Zdjęcie profilowe</FieldLabel>
+
+            <AvatarUpload
+              userId={user.id}
+              avatarUrl={profile?.avatar_url ?? null}
+            />
+
+            <FieldDescription>
+              JPG, PNG lub WEBP. Zdjęcie będzie widoczne na Twoim profilu.
+            </FieldDescription>
+          </Field>
           <Field>
             <FieldLabel>Imię i nazwisko</FieldLabel>
             <Input {...form.register("full_name")} />
@@ -212,6 +253,26 @@ export function ProfileForm({ user, profile }: Props) {
             <FieldDescription>
               {bio.length}
               {!isPro && "/400"} znaków
+            </FieldDescription>
+          </Field>
+
+          <Field>
+            <FieldLabel>Specjalizacje</FieldLabel>
+
+            <MultiSelect
+              value={form.watch("specializations")}
+              options={specializationOptions}
+              maxSelected={isPro ? undefined : 3}
+              placeholder="Wybierz specjalizacje"
+              onChange={(value) => {
+                form.setValue("specializations", value);
+              }}
+            />
+
+            <FieldDescription>
+              {isPro
+                ? `${form.watch("specializations").length} wybranych`
+                : `${form.watch("specializations").length}/3 wybrane`}
             </FieldDescription>
           </Field>
 

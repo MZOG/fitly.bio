@@ -17,7 +17,7 @@ export default function Localization({ city, gyms }: LocalizationProps) {
 
         <div className="flex flex-col self-start col-span-3">
           {gyms.map((gym) => (
-            <p className=" text-gray-600" key={gym.name}>
+            <p className=" text-gray-600 text-sm" key={gym.name}>
               <Dumbbell className="inline-block mr-1" size={15} />
               <span key={gym.name}>{gym.name}</span>
             </p>

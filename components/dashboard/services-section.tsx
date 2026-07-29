@@ -113,7 +113,7 @@ export function ServicesSection({ trainerId, services }: Props) {
               className="bg-gray-50 p-4 rounded-lg flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
             >
               <div className="flex justify-between items-center md:block">
-                <p>{service.name}</p>
+                <p className="font-bold uppercase italic">{service.name}</p>
                 <p className="text-gray-600 font-medium">{service.price}</p>
               </div>
 
@@ -145,8 +145,12 @@ export function ServicesSection({ trainerId, services }: Props) {
             <p className="text-sm text-gray-600">Wybrana usługa</p>
 
             <div className="mt-1 flex items-center justify-between">
-              <p className="font-medium">{selectedService.name}</p>
-              <p className="font-medium">{selectedService.price}</p>
+              <p className=" uppercase italic font-bold">
+                {selectedService.name}
+              </p>
+              <p className="text-gray-600 font-medium">
+                {selectedService.price}
+              </p>
             </div>
           </div>
 
@@ -159,7 +163,12 @@ export function ServicesSection({ trainerId, services }: Props) {
                 case "textarea":
                   return (
                     <Field key={field.id} className="gap-2">
-                      <FieldLabel>{field.label}</FieldLabel>
+                      <FieldLabel className="text-base">
+                        {field.label}
+                        {field.required && (
+                          <span className="text-red-600">*</span>
+                        )}
+                      </FieldLabel>
 
                       {field.description && (
                         <FieldDescription className="text-gray-600">
@@ -185,11 +194,16 @@ export function ServicesSection({ trainerId, services }: Props) {
                 case "radio":
                   return (
                     <Field key={field.id} className="gap-2">
-                      <FieldLabel>{field.label}</FieldLabel>
+                      <FieldLabel className="text-base">
+                        {field.label}
+                      </FieldLabel>
 
                       {field.description && (
                         <FieldDescription className="text-gray-600">
                           {field.description}
+                          {field.required && (
+                            <span className="text-red-600">*</span>
+                          )}
                         </FieldDescription>
                       )}
 
@@ -226,7 +240,12 @@ export function ServicesSection({ trainerId, services }: Props) {
                 case "checkbox":
                   return (
                     <Field key={field.id} className="gap-2">
-                      <FieldLabel>{field.label}</FieldLabel>
+                      <FieldLabel className="text-base">
+                        {field.label}
+                        {field.required && (
+                          <span className="text-red-600">*</span>
+                        )}
+                      </FieldLabel>
 
                       {field.description && (
                         <FieldDescription className="text-gray-600">
@@ -284,12 +303,15 @@ export function ServicesSection({ trainerId, services }: Props) {
             <Separator />
 
             <Field className="gap-2">
-              <FieldLabel htmlFor="name">Imię i nazwisko</FieldLabel>
+              <FieldLabel htmlFor="name">
+                Imię i nazwisko
+                <span className="text-red-600">*</span>
+              </FieldLabel>
 
               <Input
                 id="name"
                 placeholder="Wpisz swoje imię i nazwisko"
-                className="placeholder:text-gray-600 bg-white border-border rounded-lg"
+                className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg"
                 {...form.register("name", {
                   required: "Imię i nazwisko jest wymagane",
                 })}
@@ -297,13 +319,15 @@ export function ServicesSection({ trainerId, services }: Props) {
             </Field>
 
             <Field className="gap-2">
-              <FieldLabel htmlFor="phone">Numer telefonu</FieldLabel>
+              <FieldLabel htmlFor="phone">
+                Numer telefonu <span className="text-red-600">*</span>
+              </FieldLabel>
 
               <Input
                 id="phone"
                 type="tel"
                 placeholder="Wpisz swój numer telefonu"
-                className="placeholder:text-gray-600 bg-white border-border rounded-lg"
+                className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg"
                 {...form.register("phone", {
                   required: "Numer telefonu jest wymagany",
                 })}
@@ -311,13 +335,15 @@ export function ServicesSection({ trainerId, services }: Props) {
             </Field>
 
             <Field className="gap-2">
-              <FieldLabel htmlFor="email">Adres e-mail</FieldLabel>
+              <FieldLabel htmlFor="email">
+                Adres e-mail <span className="text-red-600">*</span>
+              </FieldLabel>
 
               <Input
                 id="email"
                 type="email"
                 placeholder="Wpisz swój adres e-mail"
-                className="placeholder:text-gray-600 bg-white border-border rounded-lg"
+                className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg"
                 {...form.register("email", {
                   required: "Adres e-mail jest wymagany",
                 })}

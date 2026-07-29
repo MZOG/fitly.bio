@@ -32,10 +32,10 @@ const data = {
       title: "Formularz",
       url: "/dashboard/leads",
     },
-    {
-      title: "Wygląd",
-      url: "/dashboard/appearance",
-    },
+    // {
+    //   title: "Wygląd",
+    //   url: "/dashboard/appearance",
+    // },
     {
       title: "Ustawienia",
       url: "/dashboard/settings",

@@ -8,6 +8,17 @@ type MainInfoProps = Pick<
   "full_name" | "bio" | "avatar_url" | "socials"
 >;
 
+export const SOCIAL_LABELS = {
+  instagram: "Instagram",
+  facebook: "Facebook",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+  linkedin: "LinkedIn",
+  x: "X",
+  threads: "Threads",
+  snapchat: "Snapchat",
+} as const;
+
 export default function MainInfo({
   full_name,
   bio,
@@ -55,7 +66,8 @@ export default function MainInfo({
               className="px-3 py-1"
               render={
                 <a href={social.url}>
-                  {social.platform} <ArrowUpRightIcon data-icon="inline-end" />
+                  {SOCIAL_LABELS[social.platform as keyof typeof SOCIAL_LABELS]}{" "}
+                  <ArrowUpRightIcon data-icon="inline-end" />
                 </a>
               }
             />

@@ -26,10 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pl"
-      className={`${geistSans.className} ${montserrat.variable} antialiased`}
-    >
+    <html lang="pl" className={` ${montserrat.className} antialiased`}>
       <body>
         <AuthProvider>
           <main>{children}</main>

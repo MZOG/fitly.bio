@@ -9,6 +9,13 @@ import {
 } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 
+import { Geist } from "next/font/google";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -26,7 +33,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className={`${geistSans.className}`}>
       <AppSidebar />
 
       <SidebarInset>

@@ -10,6 +10,35 @@ import ProfileHeader from "@/components/profile/profile-header";
 import Specializations from "@/components/profile/specializations";
 import Localization from "@/components/profile/localization";
 import MainInfo from "@/components/profile/main-info";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+  const { username } = await params;
+  const cookieStore = await cookies();
+  const supabase = await createClient(cookieStore);
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("full_name, bio, avatar_url")
+    .eq("slug", username)
+    .single();
+
+  if (!profile) {
+    return {
+      title: "Profil nie istnieje",
+    };
+  }
+
+  return {
+    title: `${profile.full_name} | Trener personalny`,
+    description:
+      profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+  };
+}
 
 type Props = {
   params: Promise<{

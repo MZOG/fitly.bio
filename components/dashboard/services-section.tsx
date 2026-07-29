@@ -8,15 +8,35 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Service } from "@/lib/types";
+import { useForm } from "react-hook-form";
+import { createLead } from "@/app/actions/create-lead";
+import { Controller } from "react-hook-form";
 
 type Props = {
+  trainerId: string;
   services: Service[];
 };
 
-export function ServicesSection({ services }: Props) {
+type FormValues = {
+  answers: Record<string, string | string[]>;
+  name: string;
+  phone: string;
+  email: string;
+};
+
+export function ServicesSection({ trainerId, services }: Props) {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<FormValues>({
+    defaultValues: {
+      answers: {},
+      name: "",
+      phone: "",
+      email: "",
+    },
+  });
 
   useEffect(() => {
     if (selectedService && formRef.current) {
@@ -35,26 +55,48 @@ export function ServicesSection({ services }: Props) {
     setSelectedService(null);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = form.handleSubmit(async (values) => {
+    if (!selectedService) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // zapis do Supabase
+      await createLead({
+        trainerId,
+
+        service: {
+          id: selectedService.id,
+          name: selectedService.name,
+        },
+
+        contact: {
+          name: values.name,
+          phone: values.phone,
+          email: values.email,
+        },
+
+        answers: selectedService.fields.map((field) => ({
+          fieldId: field.id,
+          label: field.label,
+          type: field.type,
+          value: values.answers[field.id] ?? "",
+        })),
+      });
 
       toast.success("Zgłoszenie zostało wysłane", {
         description: "Trener skontaktuje się z Tobą wkrótce.",
       });
 
+      form.reset();
       setSelectedService(null);
-    } catch (error) {
-      toast.error("Nie udało się wysłać zgłoszenia", {
-        description: "Spróbuj ponownie za chwilę.",
-      });
+    } catch {
+      toast.error("Nie udało się wysłać zgłoszenia");
     } finally {
       setIsSubmitting(false);
     }
-  };
+  });
 
   return (
     <>
@@ -74,6 +116,10 @@ export function ServicesSection({ services }: Props) {
                 <p>{service.name}</p>
                 <p className="text-gray-600 font-medium">{service.price}</p>
               </div>
+
+              {service.description && (
+                <p className="text-sm text-gray-600">{service.description}</p>
+              )}
 
               <Button
                 type="button"
@@ -121,10 +167,17 @@ export function ServicesSection({ services }: Props) {
                         </FieldDescription>
                       )}
 
-                      <Textarea
-                        name={field.id}
-                        required={field.required}
-                        className="bg-white border border-border rounded-lg"
+                      <Controller
+                        name={`answers.${field.id}`}
+                        control={form.control}
+                        render={({ field: controllerField }) => (
+                          <Textarea
+                            {...controllerField}
+                            value={(controllerField.value as string) ?? ""}
+                            required={field.required}
+                            className="bg-white border border-border rounded-lg"
+                          />
+                        )}
                       />
                     </Field>
                   );
@@ -140,22 +193,33 @@ export function ServicesSection({ services }: Props) {
                         </FieldDescription>
                       )}
 
-                      <div className="space-y-2">
-                        {field.options.map((option) => (
-                          <label
-                            key={option}
-                            className="flex items-center gap-2"
-                          >
-                            <input
-                              type="radio"
-                              name={field.id}
-                              value={option}
-                              required={field.required}
-                            />
-                            {option}
-                          </label>
-                        ))}
-                      </div>
+                      <Controller
+                        name={`answers.${field.id}`}
+                        control={form.control}
+                        rules={{
+                          required: field.required,
+                        }}
+                        render={({ field: controllerField }) => (
+                          <div className="space-y-2">
+                            {field.options.map((option) => (
+                              <label
+                                key={option}
+                                className="flex items-center gap-2"
+                              >
+                                <input
+                                  type="radio"
+                                  checked={controllerField.value === option}
+                                  onChange={() =>
+                                    controllerField.onChange(option)
+                                  }
+                                />
+
+                                {option}
+                              </label>
+                            ))}
+                          </div>
+                        )}
+                      />
                     </Field>
                   );
 
@@ -170,21 +234,45 @@ export function ServicesSection({ services }: Props) {
                         </FieldDescription>
                       )}
 
-                      <div className="space-y-2">
-                        {field.options.map((option) => (
-                          <label
-                            key={option}
-                            className="flex items-center gap-2"
-                          >
-                            <input
-                              type="checkbox"
-                              name={field.id}
-                              value={option}
-                            />
-                            {option}
-                          </label>
-                        ))}
-                      </div>
+                      <Controller
+                        name={`answers.${field.id}`}
+                        control={form.control}
+                        defaultValue={[]}
+                        render={({ field: controllerField }) => (
+                          <div className="space-y-2">
+                            {field.options.map((option) => {
+                              const values =
+                                (controllerField.value as string[]) ?? [];
+
+                              return (
+                                <label
+                                  key={option}
+                                  className="flex items-center gap-2"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    checked={values.includes(option)}
+                                    onChange={(e) => {
+                                      if (e.target.checked) {
+                                        controllerField.onChange([
+                                          ...values,
+                                          option,
+                                        ]);
+                                      } else {
+                                        controllerField.onChange(
+                                          values.filter((v) => v !== option),
+                                        );
+                                      }
+                                    }}
+                                  />
+
+                                  {option}
+                                </label>
+                              );
+                            })}
+                          </div>
+                        )}
+                      />
                     </Field>
                   );
 
@@ -200,9 +288,11 @@ export function ServicesSection({ services }: Props) {
 
               <Input
                 id="name"
-                name="name"
                 placeholder="Wpisz swoje imię i nazwisko"
                 className="placeholder:text-gray-600 bg-white border-border rounded-lg"
+                {...form.register("name", {
+                  required: "Imię i nazwisko jest wymagane",
+                })}
               />
             </Field>
 
@@ -211,10 +301,12 @@ export function ServicesSection({ services }: Props) {
 
               <Input
                 id="phone"
-                name="phone"
                 type="tel"
                 placeholder="Wpisz swój numer telefonu"
                 className="placeholder:text-gray-600 bg-white border-border rounded-lg"
+                {...form.register("phone", {
+                  required: "Numer telefonu jest wymagany",
+                })}
               />
             </Field>
 
@@ -223,10 +315,12 @@ export function ServicesSection({ services }: Props) {
 
               <Input
                 id="email"
-                name="email"
                 type="email"
                 placeholder="Wpisz swój adres e-mail"
                 className="placeholder:text-gray-600 bg-white border-border rounded-lg"
+                {...form.register("email", {
+                  required: "Adres e-mail jest wymagany",
+                })}
               />
             </Field>
 

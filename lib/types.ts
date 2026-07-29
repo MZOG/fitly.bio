@@ -38,3 +38,50 @@ export type Service = {
   description: string;
   fields: ServiceField[];
 };
+
+export type LeadContact = {
+  name: string;
+  phone: string;
+  email: string;
+};
+
+export type LeadAnswer = {
+  fieldId: string;
+  label: string;
+  type: "textarea" | "radio" | "checkbox";
+  value: string | string[];
+};
+
+export type CreateLeadInput = {
+  trainerId: string;
+
+  service: {
+    id: string;
+    name: string;
+  };
+
+  contact: LeadContact;
+
+  answers: LeadAnswer[];
+};
+
+export type LeadStatus = "new" | "contacted" | "completed" | "cancelled";
+
+export type Lead = {
+  id: string;
+
+  trainer_id: string;
+
+  service_id: string;
+  service_name: string;
+
+  contact: LeadContact;
+
+  answers: LeadAnswer[];
+
+  status: LeadStatus;
+
+  is_read: boolean;
+
+  created_at: string;
+};

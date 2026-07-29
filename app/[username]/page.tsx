@@ -55,7 +55,10 @@ export default async function UserProfilePage({ params }: Props) {
         )}
 
         {/* usługi i cennik */}
-        <ServicesSection services={profile.services ?? []} />
+        <ServicesSection
+          trainerId={profile.id}
+          services={profile.services ?? []}
+        />
 
         {/* CTA */}
         {profile.plan === "free" && <ProfileCTA />}

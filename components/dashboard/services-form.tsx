@@ -10,6 +10,7 @@ import { Separator } from "../ui/separator";
 
 import { Service } from "@/lib/types";
 import { ServiceFieldsEditor } from "./service-fields-editor";
+import { Save, Trash2 } from "lucide-react";
 
 type Props = {
   services: Service[];
@@ -128,6 +129,11 @@ export function ServicesForm({ services, plan }: Props) {
   const isPro = plan === "pro";
 
   const onSubmit = (values: FormValues) => {
+    if (values.services.length === 0) {
+      toast.error("Dodaj przynajmniej jedną usługę.");
+      return;
+    }
+
     startTransition(async () => {
       const supabase = createClient();
 
@@ -272,12 +278,13 @@ export function ServicesForm({ services, plan }: Props) {
               </div>
             </div>
 
-            {isPro && index >= 3 && (
+            {isPro && (
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => remove(index)}
               >
+                <Trash2 />
                 Usuń usługę
               </Button>
             )}
@@ -303,7 +310,12 @@ export function ServicesForm({ services, plan }: Props) {
           </Button>
         )}
 
-        <Button type="submit" disabled={isPending}>
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="bg-green-600 hover:bg-green-700"
+        >
+          <Save />
           {isPending ? "Zapisywanie..." : "Zapisz"}
         </Button>
       </div>

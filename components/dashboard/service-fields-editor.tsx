@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ServiceField } from "@/lib/types";
+import { Trash2 } from "lucide-react";
 
 type Props = {
   fields: ServiceField[];
@@ -146,6 +147,7 @@ export function ServiceFieldsEditor({ fields, onChange }: Props) {
               onChange(fields.filter((_, i) => i !== index));
             }}
           >
+            <Trash2 />
             Usuń pytanie
           </Button>
         </div>

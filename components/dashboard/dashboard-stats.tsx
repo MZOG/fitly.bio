@@ -11,7 +11,7 @@ export function DashboardStats({ leads, unreadLeads, services }: Props) {
     <div className="grid gap-4 md:grid-cols-3">
       <Card>
         <CardHeader>
-          <CardTitle>Leady</CardTitle>
+          <CardTitle>Wszystkie zgłoszenia</CardTitle>
         </CardHeader>
 
         <CardContent>
@@ -21,7 +21,7 @@ export function DashboardStats({ leads, unreadLeads, services }: Props) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Nowe</CardTitle>
+          <CardTitle>Nowe zgłoszenia</CardTitle>
         </CardHeader>
 
         <CardContent>

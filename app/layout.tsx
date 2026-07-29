@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Montserrat } from "next/font/google";
+import { Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./providers/auth-provider";
 
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
+const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -26,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={` ${montserrat.className} antialiased`}>
+    <html
+      lang="pl"
+      className={`${spaceGrotesk.variable} ${geist.className} antialiased`}
+    >
       <body>
         <AuthProvider>
           <main>{children}</main>

@@ -1,6 +1,4 @@
 import Link from "next/link";
-
-import { Lead } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type LatestLead = {

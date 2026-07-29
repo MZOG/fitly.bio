@@ -35,7 +35,7 @@ export function ProfileCompletionBanner({ profile }: Props) {
 
   return (
     <Card className="border-yellow-300 bg-yellow-50">
-      <CardContent className="flex items-start justify-between gap-8 p-6">
+      <CardContent className="flex items-start justify-between gap-5">
         <div className="flex gap-4">
           <CircleAlert className="mt-1 size-5 text-yellow-600" />
 

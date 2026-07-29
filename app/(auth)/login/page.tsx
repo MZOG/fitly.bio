@@ -1,18 +1,20 @@
-"use client";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-import { useAuth } from "@/hooks/use-auth";
+import { createClient } from "@/lib/supabase/server";
+import LoginView from "@/components/login-view";
 
-export default function LoginPage() {
-  const { signInWithGoogle } = useAuth();
+export default async function LoginPage() {
+  const cookieStore = await cookies();
+  const supabase = await createClient(cookieStore);
 
-  return (
-    <main className="flex min-h-screen items-center justify-center">
-      <button
-        onClick={signInWithGoogle}
-        className="rounded-lg bg-black px-6 py-3 text-white hover:bg-neutral-800"
-      >
-        Zaloguj przez Google
-      </button>
-    </main>
-  );
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect("/dashboard");
+  }
+
+  return <LoginView />;
 }

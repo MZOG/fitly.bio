@@ -3,12 +3,8 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { ServicesSection } from "@/components/dashboard/services-section";
-import { Badge } from "@/components/ui/badge";
-import { ArrowUpRightIcon, Dumbbell, MapPin } from "lucide-react";
-import Image from "next/image";
 
 import { Profile } from "@/lib/types";
-import { Button } from "@/components/ui/button";
 import ProfileCTA from "@/components/profile/cta";
 import ProfileHeader from "@/components/profile/profile-header";
 import Specializations from "@/components/profile/specializations";
@@ -46,7 +42,6 @@ export default async function UserProfilePage({ params }: Props) {
           bio={profile.bio}
           avatar_url={profile.avatar_url}
           socials={profile.socials}
-          plan={profile.plan}
         />
 
         {/* specjalizacje */}
@@ -60,7 +55,7 @@ export default async function UserProfilePage({ params }: Props) {
         )}
 
         {/* usługi i cennik */}
-        <ServicesSection />
+        <ServicesSection services={profile.services ?? []} />
 
         {/* CTA */}
         {profile.plan === "free" && <ProfileCTA />}

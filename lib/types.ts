@@ -19,4 +19,22 @@ export type Profile = {
   specializations: string[];
   socials: Social[];
   plan: string | null;
+  services: Service[];
+};
+
+export type ServiceField = {
+  id: string;
+  label: string;
+  description: string;
+  type: "textarea" | "radio" | "checkbox";
+  required: boolean;
+  options: string[];
+};
+
+export type Service = {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  fields: ServiceField[];
 };

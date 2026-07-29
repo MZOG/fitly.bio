@@ -5,12 +5,11 @@ import { Profile } from "@/lib/types";
 
 type MainInfoProps = Pick<
   Profile,
-  "full_name" | "plan" | "bio" | "avatar_url" | "socials"
+  "full_name" | "bio" | "avatar_url" | "socials"
 >;
 
 export default function MainInfo({
   full_name,
-  plan,
   bio,
   socials,
   avatar_url,
@@ -22,7 +21,6 @@ export default function MainInfo({
           {full_name && (
             <h1 className="text-xl font-black italic uppercase mb-3 md:mb-1 flex items-center gap-2">
               {full_name}
-              {plan === "pro" && <Badge variant="outline">PRO</Badge>}
             </h1>
           )}
           {bio && (

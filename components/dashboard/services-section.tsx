@@ -7,27 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { Service } from "@/lib/types";
 
-type Service = {
-  id: string;
-  name: string;
-  price: string;
+type Props = {
+  services: Service[];
 };
 
-const services: Service[] = [
-  {
-    id: "personal-training",
-    name: "Trening personalny",
-    price: "150 zł/h",
-  },
-  {
-    id: "online-training",
-    name: "Prowadzenie online",
-    price: "299 zł/mies.",
-  },
-];
-
-export function ServicesSection() {
+export function ServicesSection({ services }: Props) {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,7 +90,7 @@ export function ServicesSection() {
       {/* Formularz */}
       {selectedService && (
         <div ref={formRef} className="mt-10 scroll-mt-5">
-          <h2 className="text-xs uppercase tracking-wide font-medium">
+          <h2 className="text-center text-gray-600 font-montserrat font-black uppercase tracking-wide italic">
             Formularz kontaktowy
           </h2>
 
@@ -122,51 +108,90 @@ export function ServicesSection() {
             {/* To przesyłasz do backendu */}
             <input type="hidden" name="serviceId" value={selectedService.id} />
 
-            <Field className="gap-2">
-              <FieldLabel htmlFor="goal">Jaki jest Twój główny cel?</FieldLabel>
+            {selectedService.fields.map((field) => {
+              switch (field.type) {
+                case "textarea":
+                  return (
+                    <Field key={field.id} className="gap-2">
+                      <FieldLabel>{field.label}</FieldLabel>
 
-              <FieldDescription className="text-gray-600">
-                np. redukcja, budowa masy, poprawa kondycji, inne.
-              </FieldDescription>
+                      {field.description && (
+                        <FieldDescription className="text-gray-600">
+                          {field.description}
+                        </FieldDescription>
+                      )}
 
-              <Textarea
-                id="goal"
-                name="goal"
-                className="bg-white border border-border rounded-lg"
-              />
-            </Field>
+                      <Textarea
+                        name={field.id}
+                        required={field.required}
+                        className="bg-white border border-border rounded-lg"
+                      />
+                    </Field>
+                  );
 
-            <Field className="gap-2">
-              <FieldLabel htmlFor="experience">
-                Jakie masz doświadczenie treningowe?
-              </FieldLabel>
+                case "radio":
+                  return (
+                    <Field key={field.id} className="gap-2">
+                      <FieldLabel>{field.label}</FieldLabel>
 
-              <FieldDescription className="text-gray-600">
-                początkujący, średniozaawansowany, zaawansowany.
-              </FieldDescription>
+                      {field.description && (
+                        <FieldDescription className="text-gray-600">
+                          {field.description}
+                        </FieldDescription>
+                      )}
 
-              <Textarea
-                id="experience"
-                name="experience"
-                className="bg-white border border-border rounded-lg"
-              />
-            </Field>
+                      <div className="space-y-2">
+                        {field.options.map((option) => (
+                          <label
+                            key={option}
+                            className="flex items-center gap-2"
+                          >
+                            <input
+                              type="radio"
+                              name={field.id}
+                              value={option}
+                              required={field.required}
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
+                    </Field>
+                  );
 
-            <Field className="gap-2">
-              <FieldLabel htmlFor="expectations">
-                Opowiedz krótko o sobie i swoich oczekiwaniach.
-              </FieldLabel>
+                case "checkbox":
+                  return (
+                    <Field key={field.id} className="gap-2">
+                      <FieldLabel>{field.label}</FieldLabel>
 
-              <FieldDescription className="text-gray-600">
-                Podziel się swoimi celami i oczekiwaniami.
-              </FieldDescription>
+                      {field.description && (
+                        <FieldDescription className="text-gray-600">
+                          {field.description}
+                        </FieldDescription>
+                      )}
 
-              <Textarea
-                id="expectations"
-                name="expectations"
-                className="bg-white border border-border rounded-lg"
-              />
-            </Field>
+                      <div className="space-y-2">
+                        {field.options.map((option) => (
+                          <label
+                            key={option}
+                            className="flex items-center gap-2"
+                          >
+                            <input
+                              type="checkbox"
+                              name={field.id}
+                              value={option}
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
+                    </Field>
+                  );
+
+                default:
+                  return null;
+              }
+            })}
 
             <Separator />
 

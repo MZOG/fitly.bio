@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="mx-auto grid container grid-cols-1 items-center gap-12 px-8 md:grid-cols-[1fr_0.95fr]">
             {/* LEWA KOLUMNA */}
             <div>
-              <span className="mb-6.5 inline-flex items-center gap-2 rounded-full border border-[#C7F0DA] bg-[#E9FBF2] px-3.5 py-1.75font-['IBM_Plex_Mono'] text-xs font-medium text-[#0E7A4E]">
+              <span className="mb-6.5 inline-flex items-center gap-2 rounded-full border border-green-700/20 bg-green-600/5 px-3.5 py-1.75 font-['IBM_Plex_Mono'] text-xs font-medium text-[#0E7A4E]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#17B975] shadow-[0_0_0_3px_rgba(23,185,117,0.18)]" />
                 Darmowa strona dla trenerów personalnych
               </span>
@@ -80,22 +80,18 @@ export default function HomePage() {
                     key={item}
                     className="flex items-center gap-2.25 text-sm font-medium text-[#6B6F63]"
                   >
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#E9FBF2] text-[10px] text-[#0E7A4E]">
-                      ✓
-                    </span>
+                    <Check size={15} className="text-green-600" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* PRAWA KOLUMNA — MOCKUP TELEFONU */}
             <div className="relative flex min-h-130 items-center justify-center md:min-h-160">
               <div className="absolute -right-15 -top-10 z-0 h-120 w-120 rounded-full bg-[radial-gradient(circle_at_30%_30%,#B9F5CE,#EAF9E4_60%,transparent_75%)] opacity-90 blur-[70px]" />
               <div className="absolute -bottom-7.5 -left-7.5 z-0 h-90 w-90 rounded-full bg-[radial-gradient(circle_at_60%_40%,#DFF6C8,transparent_70%)] opacity-80 blur-[70px]" />
 
-              {/* dymek: nowy lead */}
-              <div className="absolute left-0 top-14.5 z-4 flex items-center gap-2.5 rounded-xl border border-[#E4E6DE] bg-white px-4 py-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18)] sm:-left-11.5">
+              <div className="absolute left-10 top-14.5 z-4 flex items-center gap-2.5 rounded-xl border border-[#E4E6DE] bg-white px-4 py-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18)] sm:-left-11.5">
                 <span className="flex h-7.5 w-7.5 items-center justify-center rounded-full bg-[#E9FBF2] text-sm">
                   💬
                 </span>
@@ -117,7 +113,7 @@ export default function HomePage() {
                   <div className="flex flex-1 flex-col items-center gap-2.5 overflow-hidden px-4 pb-4 pt-11">
                     <div className="mt-0.5 h-16 w-16 rounded-full border-[3px] border-white bg-[linear-gradient(140deg,#2B2D25,#14150F)] shadow-[0_12px_30px_-14px_rgba(18,20,15,0.14)]" />
                     <div className="mt-0.5 font-['Space_Grotesk'] text-[15.5px] font-bold">
-                      Alex Rivera
+                      Marcin Zogrodnik
                     </div>
                     <span className="rounded-full bg-[#E9FBF2] px-2.5 py-0.75 text-[11px] font-semibold text-[#0E7A4E]">
                       Trener personalny
@@ -247,7 +243,7 @@ export default function HomePage() {
                 <ul className="relative flex flex-col gap-4">
                   {[
                     "Klient musi napisać wiadomość prywatną",
-                    "Oferta ginie w Relacjach i postach",
+                    "Oferta ginie w relacjach i postach",
                     "Cennik wysyłasz każdemu osobno",
                     "Codziennie odpowiadasz na te same pytania",
                     "Nie wiesz, kto był zainteresowany",

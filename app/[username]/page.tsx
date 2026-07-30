@@ -62,25 +62,21 @@ export default async function UserProfilePage({ params }: Props) {
   }
 
   return (
-    <section className="p-5 mx-auto max-w-2xl">
+    <section className="bg-[linear-gradient(180deg,#FAFCF8,#F3F6EF_40%)] ">
       <ProfileHeader />
 
-      <div className="md:border mt-5 md:p-7 rounded-2xl">
+      <div className="px-5">
         <MainInfo
           full_name={profile.full_name}
           bio={profile.bio}
           avatar_url={profile.avatar_url}
           socials={profile.socials}
+          city={profile.city}
         />
 
         {/* specjalizacje */}
         {profile.specializations.length > 0 && (
           <Specializations specializations={profile.specializations} />
-        )}
-
-        {/* lokalizacja */}
-        {profile.city && (
-          <Localization city={profile.city} gyms={profile.gyms} />
         )}
 
         {/* usługi i cennik */}

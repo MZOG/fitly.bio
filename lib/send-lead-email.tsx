@@ -30,7 +30,7 @@ export async function sendLeadEmail({
     to: "fitlybio@gmail.com",
     subject: shouldSendLimitedEmail
       ? "Masz nowe zgłoszenie"
-      : `Nowe zgłoszenie — ${serviceName}`,
+      : `Nowe zgłoszenie - ${serviceName}`,
     react: shouldSendLimitedEmail ? (
       <FreeLimitEmail />
     ) : (

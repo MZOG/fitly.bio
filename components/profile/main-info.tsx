@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowUpRightIcon, MapPin } from "lucide-react";
 import { Profile } from "@/lib/types";
 
 type MainInfoProps = Pick<
   Profile,
-  "full_name" | "bio" | "avatar_url" | "socials"
+  "full_name" | "bio" | "avatar_url" | "socials" | "city"
 >;
 
 export const SOCIAL_LABELS = {
@@ -24,29 +24,37 @@ export default function MainInfo({
   bio,
   socials,
   avatar_url,
+  city,
 }: MainInfoProps) {
   return (
     <>
       <div className="flex flex-col-reverse md:flex-row gap-2 md:gap-3 md:justify-between items-center">
         <div className="flex flex-col items-center md:items-start">
           {full_name && (
-            <h1 className="text-xl font-black italic uppercase mb-3 md:mb-1 flex items-center gap-2">
+            <h1 className="text-xl font-grotesk font-black flex items-center gap-2">
               {full_name}
             </h1>
           )}
+
+          {city && (
+            <Badge className="flex items-center gap-1 mt-2">
+              <span>{city}</span>
+            </Badge>
+          )}
+
           {bio && (
-            <p className="font-montserrat text-center md:text-left">{bio}</p>
+            <p className="font-sans text-center md:text-left mt-2">{bio}</p>
           )}
         </div>
 
-        <div className="relative size-50 overflow-hidden rounded-2xl bg-gray-100 md:size-30 md:shrink-0 md:rounded-full">
+        <div className="relative size-60 overflow-hidden rounded-2xl bg-gray-100 md:size-30 md:shrink-0 md:rounded-full">
           {avatar_url ? (
             <Image
               src={avatar_url}
               alt={full_name || "Fitly - Wizytówka trenera"}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 120px"
+              sizes="(max-width: 768px) 100vw, 140px"
               priority
             />
           ) : (
@@ -63,7 +71,7 @@ export default function MainInfo({
             <Badge
               key={social.platform}
               variant="outline"
-              className="px-3 py-1"
+              className="px-3 py-1 bg-white"
               render={
                 <a href={social.url}>
                   {SOCIAL_LABELS[social.platform as keyof typeof SOCIAL_LABELS]}{" "}

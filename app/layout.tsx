@@ -6,7 +6,7 @@ import { AuthProvider } from "./providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 const geist = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 

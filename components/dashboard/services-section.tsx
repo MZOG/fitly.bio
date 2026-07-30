@@ -101,33 +101,37 @@ export function ServicesSection({ trainerId, services }: Props) {
   return (
     <>
       {/* Usługi i cennik */}
-      <div className="mt-12">
-        <h2 className="text-center text-gray-600 font-montserrat font-black uppercase tracking-wide italic">
-          Usługi i cennik
-        </h2>
-
+      <div className="mt-10">
+        <h2 className="text-center text-lg font-grotesk font-black">Usługi</h2>
         <div className="mt-3 flex flex-col gap-3">
           {services.map((service) => (
             <div
+              onClick={() => handleSelectService(service)}
               key={service.id}
-              className="bg-gray-50 p-4 rounded-lg flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
+              className="bg-white border p-4 rounded-lg flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
             >
-              <div className="flex justify-between items-center md:block">
-                <p className="font-bold uppercase italic">{service.name}</p>
-                <p className="text-gray-600 font-medium">{service.price}</p>
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col justify-between  md:block">
+                  <p className="font-medium font-grotesk">{service.name}</p>
+                  {service.description && (
+                    <p className="text-sm text-gray-600 max-w-55">
+                      {service.description}
+                    </p>
+                  )}
+                </div>
+
+                <p className="text-green-600 font-grotesk text-lg font-medium">
+                  {service.price}
+                </p>
               </div>
 
-              {service.description && (
-                <p className="text-sm text-gray-600">{service.description}</p>
-              )}
-
-              <Button
+              {/* <Button
                 type="button"
                 className="self-end md:self-auto"
                 onClick={() => handleSelectService(service)}
               >
                 Umów trening
-              </Button>
+              </Button> */}
             </div>
           ))}
         </div>
@@ -136,21 +140,15 @@ export function ServicesSection({ trainerId, services }: Props) {
       {/* Formularz */}
       {selectedService && (
         <div ref={formRef} className="mt-10 scroll-mt-5">
-          <h2 className="text-center text-gray-600 font-montserrat font-black uppercase tracking-wide italic">
-            Formularz kontaktowy
+          <h2 className="text-center text-lg font-grotesk font-black">
+            Ankieta
           </h2>
-
           {/* Wybrana usługa */}
-          <div className="mt-3 rounded-lg bg-gray-50 p-4">
+          <div className="mt-3 rounded-lg bg-white border p-4">
             <p className="text-sm text-gray-600">Wybrana usługa</p>
 
             <div className="mt-1 flex items-center justify-between">
-              <p className=" uppercase italic font-bold">
-                {selectedService.name}
-              </p>
-              <p className="text-gray-600 font-medium">
-                {selectedService.price}
-              </p>
+              <p className="font-grotesk font-medium">{selectedService.name}</p>
             </div>
           </div>
 
@@ -350,7 +348,7 @@ export function ServicesSection({ trainerId, services }: Props) {
               />
             </Field>
 
-            <div className="rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
+            <div className="rounded-lg bg-white border p-4 text-sm ">
               Po wysłaniu zgłoszenia trener skontaktuje się z Tobą, aby wspólnie
               ustalić dogodny termin treningu.
             </div>

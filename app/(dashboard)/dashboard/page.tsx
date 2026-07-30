@@ -58,8 +58,8 @@ export default async function DashboardPage() {
   };
 
   return (
-    <section className="container space-y-8">
-      <PanelTitle title="Dashboard" />
+    <section className="max-w-3xl mx-auto space-y-8">
+      <PanelTitle title="Panel" />
 
       {profile && <ProfileCompletionBanner profile={profile} />}
 

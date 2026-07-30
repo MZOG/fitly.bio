@@ -71,7 +71,7 @@ export function MultiSelect({
               )}
 
               {value.map((item) => (
-                <Badge key={item} variant="secondary" className="gap-1">
+                <Badge key={item} variant="outline" className="gap-1">
                   {item}
 
                   <X

@@ -42,7 +42,7 @@ export default async function LeadsPage() {
     profile.plan === "free" ? Math.max(leads.length - 5, 0) : 0;
 
   return (
-    <section className="container">
+    <section className="max-w-3xl mx-auto">
       <PanelTitle title="Leady" />
 
       <LeadsTable

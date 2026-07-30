@@ -30,6 +30,7 @@ import {
 } from "../ui/select";
 
 import { Gym, Social, Profile } from "@/lib/types";
+import PanelTitle from "./panel-title";
 
 type Props = {
   user: {
@@ -178,7 +179,11 @@ export function ProfileForm({ user, profile }: Props) {
   // }, [profile, form]);
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-lg">
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="space-y-8 max-w-3xl mx-auto"
+    >
+      <PanelTitle title="Mój profil" />
       <FieldSet>
         <FieldGroup>
           <Field>
@@ -336,11 +341,11 @@ export function ProfileForm({ user, profile }: Props) {
                       form.setValue(`socials.${index}.platform`, value);
                     }}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="border-border bg-white rounded-lg">
                       <SelectValue placeholder="Platforma" />
                     </SelectTrigger>
 
-                    <SelectContent>
+                    <SelectContent className="rounded-lg">
                       {SOCIAL_PLATFORMS.map((platform) => (
                         <SelectItem key={platform.value} value={platform.value}>
                           {platform.label}
@@ -386,24 +391,6 @@ export function ProfileForm({ user, profile }: Props) {
         <Save />
         {isPending ? "Zapisywanie..." : "Zapisz"}
       </Button>
-
-      <div className="flex gap-2">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => changePlan("free")}
-        >
-          Zmień na Free
-        </Button>
-
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => changePlan("pro")}
-        >
-          Zmień na Pro
-        </Button>
-      </div>
     </form>
   );
 }

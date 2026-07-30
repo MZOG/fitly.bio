@@ -33,7 +33,7 @@ export function LatestLeads({ leads }: Props) {
               <Link
                 key={lead.id}
                 href={`/dashboard/leads/${lead.id}`}
-                className="flex items-center justify-between py-4 bg-blue-50 hover:bg-muted/50  rounded-md px-2 -mx-2"
+                className="flex items-center justify-between py-4 border hover:bg-muted/50 rounded-md px-4"
               >
                 <div>
                   <p className="font-medium">{lead.contact.name}</p>

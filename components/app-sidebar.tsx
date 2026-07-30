@@ -25,7 +25,7 @@ const data = {
       url: "/dashboard/profile",
     },
     {
-      title: "Oferta i cenniki",
+      title: "Usługi",
       url: "/dashboard/services",
     },
     {
@@ -33,12 +33,12 @@ const data = {
       url: "/dashboard/leads",
     },
     // {
-    //   title: "Wygląd",
-    //   url: "/dashboard/appearance",
+    //   title: "Ustawienia",
+    //   url: "/dashboard/settings",
     // },
     {
-      title: "Ustawienia",
-      url: "/dashboard/settings",
+      title: "Fitly PRO",
+      url: "/dashboard/pro",
     },
   ],
 };

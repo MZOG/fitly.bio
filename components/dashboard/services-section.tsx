@@ -106,32 +106,58 @@ export function ServicesSection({ trainerId, services }: Props) {
         <div className="mt-3 flex flex-col gap-3">
           {services.map((service) => (
             <div
-              onClick={() => handleSelectService(service)}
               key={service.id}
-              className="bg-white border p-4 rounded-lg  gap-3 md:flex-row md:items-center md:justify-between"
+              onClick={() => handleSelectService(service)}
+              className="rounded-lg border bg-white p-4"
             >
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col justify-between md:block">
-                  <p className="font-medium font-grotesk">{service.name}</p>
+              <div className="flex flex-col gap-4">
+                {/* Tytuł + opis */}
+                <div>
+                  <p className="font-grotesk font-medium">{service.name}</p>
+
                   {service.description && (
-                    <p className="text-sm text-gray-600 max-w-55 md:max-w-100">
+                    <p className="mt-1 max-w-120 text-sm text-gray-600">
                       {service.description}
                     </p>
                   )}
                 </div>
 
-                <p className="text-green-600 font-grotesk text-lg font-medium">
-                  {service.price}
-                </p>
-              </div>
+                {/* Mobile */}
+                <div className="flex items-center justify-between md:hidden">
+                  <p className="font-grotesk text-lg font-medium text-green-600">
+                    {service.price}
+                  </p>
+                </div>
 
-              {/* <Button
-                type="button"
-                className="self-end md:self-auto"
-                onClick={() => handleSelectService(service)}
-              >
-                Umów trening
-              </Button> */}
+                <Button
+                  type="button"
+                  className="w-full md:hidden h-12 text-base font-medium bg-green-700 hover:bg-green-600"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectService(service);
+                  }}
+                >
+                  Umów trening
+                </Button>
+
+                {/* Desktop */}
+                <div className="hidden items-center justify-between md:flex">
+                  <p className="font-grotesk text-lg font-medium text-green-600">
+                    {service.price}
+                  </p>
+
+                  <Button
+                    type="button"
+                    className="h-10 text-base bg-green-700 hover:bg-green-600"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSelectService(service);
+                    }}
+                  >
+                    Umów trening
+                  </Button>
+                </div>
+              </div>
             </div>
           ))}
         </div>

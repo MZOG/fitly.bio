@@ -62,34 +62,36 @@ export default async function UserProfilePage({ params }: Props) {
   }
 
   return (
-    <section className="bg-[linear-gradient(180deg,#FAFCF8,#F3F6EF_40%)] ">
-      <ProfileHeader />
+    <section className="min-h-screen bg-[linear-gradient(180deg,#FAFCF8,#F3F6EF_40%)]">
+      <div className="md:mx-auto max-w-2xl">
+        <ProfileHeader />
 
-      <div className="px-5">
-        <MainInfo
-          full_name={profile.full_name}
-          bio={profile.bio}
-          avatar_url={profile.avatar_url}
-          socials={profile.socials}
-          city={profile.city}
-        />
+        <div className="px-5">
+          <MainInfo
+            full_name={profile.full_name}
+            bio={profile.bio}
+            avatar_url={profile.avatar_url}
+            socials={profile.socials}
+            city={profile.city}
+          />
 
-        {/* specjalizacje */}
-        {profile.specializations.length > 0 && (
-          <Specializations specializations={profile.specializations} />
-        )}
+          {/* specjalizacje */}
+          {profile.specializations.length > 0 && (
+            <Specializations specializations={profile.specializations} />
+          )}
 
-        {/* usługi i cennik */}
-        <ServicesSection
-          trainerId={profile.id}
-          services={profile.services ?? []}
-        />
+          {/* usługi i cennik */}
+          <ServicesSection
+            trainerId={profile.id}
+            services={profile.services ?? []}
+          />
 
-        {/* CTA */}
-        {profile.plan === "free" && <ProfileCTA />}
+          {/* CTA */}
+          {profile.plan === "free" && <ProfileCTA />}
 
-        <div className="mt-8 md:mt-10 flex justify-center">
-          <p className="text-sm text-gray-600">&copy; 2026 Fitly.</p>
+          <div className="mt-8 md:mt-10 flex justify-center">
+            <p className="text-sm text-gray-600">&copy; 2026 Fitly.</p>
+          </div>
         </div>
       </div>
     </section>

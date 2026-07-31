@@ -31,7 +31,7 @@ export default function MainInfo({
       <div className="flex flex-col-reverse md:flex-row gap-2 md:gap-3 md:justify-between items-center">
         <div className="flex flex-col items-center md:items-start">
           {full_name && (
-            <h1 className="text-xl font-grotesk font-black flex items-center gap-2">
+            <h1 className="text-xl md:text-3xl font-grotesk font-black flex items-center gap-2">
               {full_name}
             </h1>
           )}
@@ -43,11 +43,13 @@ export default function MainInfo({
           )}
 
           {bio && (
-            <p className="font-sans text-center md:text-left mt-2">{bio}</p>
+            <p className="font-sans text-center md:text-left mt-2 text-balance">
+              {bio}
+            </p>
           )}
         </div>
 
-        <div className="relative size-60 overflow-hidden rounded-2xl bg-gray-100 md:size-30 md:shrink-0 md:rounded-full">
+        <div className="relative size-60 overflow-hidden rounded-2xl bg-gray-100 md:size-50  md:shrink-0">
           {avatar_url ? (
             <Image
               src={avatar_url}
@@ -66,7 +68,7 @@ export default function MainInfo({
       </div>
 
       {socials.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-2 mt-3">
+        <div className="flex flex-wrap justify-center md:justify-normal gap-2 mt-3">
           {socials.map((social) => (
             <Badge
               key={social.platform}

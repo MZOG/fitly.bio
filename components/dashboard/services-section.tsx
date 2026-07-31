@@ -108,13 +108,13 @@ export function ServicesSection({ trainerId, services }: Props) {
             <div
               onClick={() => handleSelectService(service)}
               key={service.id}
-              className="bg-white border p-4 rounded-lg flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
+              className="bg-white border p-4 rounded-lg  gap-3 md:flex-row md:items-center md:justify-between"
             >
               <div className="flex justify-between items-center">
-                <div className="flex flex-col justify-between  md:block">
+                <div className="flex flex-col justify-between md:block">
                   <p className="font-medium font-grotesk">{service.name}</p>
                   {service.description && (
-                    <p className="text-sm text-gray-600 max-w-55">
+                    <p className="text-sm text-gray-600 max-w-55 md:max-w-100">
                       {service.description}
                     </p>
                   )}

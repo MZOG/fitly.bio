@@ -101,7 +101,7 @@ export function ServicesSection({ trainerId, services }: Props) {
   return (
     <>
       {/* Usługi i cennik */}
-      <div className="mt-10">
+      <div className="mt-5">
         <h2 className="text-center text-lg font-grotesk font-black">Usługi</h2>
         <div className="mt-3 flex flex-col gap-3">
           {services.map((service) => (

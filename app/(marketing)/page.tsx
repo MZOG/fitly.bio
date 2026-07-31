@@ -6,22 +6,25 @@ export default function HomePage() {
     <section>
       <header className="sticky top-0 z-50 bg-[#FAFAF8]/70 backdrop-blur-md">
         <div className="mx-auto container flex justify-between items-center px-8 py-5">
-          <div className="col-start-2 font-grotesk text-[19px] font-bold tracking-[0.02em]">
-            FITLY
-          </div>
+          <Link
+            href="/"
+            className="col-start-2 font-grotesk text-2xl font-bold tracking-[0.02em]"
+          >
+            Fitly
+          </Link>
           <div className="col-start-3 flex items-center justify-end gap-5.5">
-            <a
-              href="#"
-              className="text-[14.5px] font-medium text-[#1B1D17]/75 transition hover:text-[#1B1D17]"
+            <Link
+              href="/login"
+              className="text-[14px] font-medium text-[#1B1D17]/75 transition hover:text-[#1B1D17]"
             >
               Zaloguj się
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#12140F] px-5 py-2.75 text-[14.5px] font-semibold text-[#FAFAF8] shadow-[0_10px_24px_-10px_rgba(18,20,15,0.45)] transition hover:-translate-y-px hover:shadow-[0_14px_28px_-10px_rgba(18,20,15,0.5)]"
+            </Link>
+            <Link
+              href="/login"
+              className="hidden md:block  items-center justify-center gap-2 rounded-full bg-[#12140F] px-5 py-2.75 text-[14px] font-semibold text-[#FAFAF8] shadow-[0_10px_24px_-10px_rgba(18,20,15,0.45)] transition hover:-translate-y-px hover:shadow-[0_14px_28px_-10px_rgba(18,20,15,0.5)]"
             >
               Załóż darmowe konto
-            </a>
+            </Link>
           </div>
         </div>
       </header>

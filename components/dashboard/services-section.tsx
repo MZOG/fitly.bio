@@ -108,7 +108,7 @@ export function ServicesSection({ trainerId, services }: Props) {
             <div
               key={service.id}
               onClick={() => handleSelectService(service)}
-              className="rounded-lg border bg-white p-4"
+              className="rounded-lg border bg-white p-4 cursor-pointer"
             >
               <div className="flex flex-col gap-4">
                 {/* Tytuł + opis */}

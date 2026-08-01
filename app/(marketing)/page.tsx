@@ -8,22 +8,16 @@ export default function HomePage() {
         <div className="mx-auto container flex justify-between items-center px-8 py-5">
           <Link
             href="/"
-            className="col-start-2 font-grotesk text-2xl font-bold tracking-[0.02em]"
+            className="col-start-2 font-grotesk text-2xl font-bold "
           >
-            Fitly
+            Fitly.
           </Link>
           <div className="col-start-3 flex items-center justify-end gap-5.5">
             <Link
               href="/login"
-              className="text-[14px] font-medium text-[#1B1D17]/75 transition hover:text-[#1B1D17]"
+              className="items-center justify-center gap-2 rounded-full bg-[#12140F] px-5 py-2.75 text-[14px] font-semibold text-[#FAFAF8] shadow-[0_10px_24px_-10px_rgba(18,20,15,0.45)] transition hover:-translate-y-px hover:shadow-[0_14px_28px_-10px_rgba(18,20,15,0.5)]"
             >
               Zaloguj się
-            </Link>
-            <Link
-              href="/login"
-              className="hidden md:block  items-center justify-center gap-2 rounded-full bg-[#12140F] px-5 py-2.75 text-[14px] font-semibold text-[#FAFAF8] shadow-[0_10px_24px_-10px_rgba(18,20,15,0.45)] transition hover:-translate-y-px hover:shadow-[0_14px_28px_-10px_rgba(18,20,15,0.5)]"
-            >
-              Załóż darmowe konto
             </Link>
           </div>
         </div>

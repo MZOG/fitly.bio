@@ -12,7 +12,7 @@ export default function LoginView() {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-b from-background via-background to-muted/30 px-6">
       <div className="flex max-w-md flex-col items-center text-center">
         <h1 className="text-5xl font-grotesk font-black tracking-tight">
-          FITLY.
+          Fitly.
         </h1>
 
         <p className="mt-4 text-base leading-7 text-muted-foreground">

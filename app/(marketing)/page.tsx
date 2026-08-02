@@ -1,5 +1,6 @@
 import { Check, Play, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -25,7 +26,7 @@ export default function HomePage() {
 
       <main>
         {/* HERO */}
-        <section className="relative overflow-hidden pt-24 pb-15">
+        <section className="relative overflow-hidden pt-10 md:pt-24 pb-15">
           <div className="mx-auto grid container grid-cols-1 items-center gap-12 px-8 md:grid-cols-[1fr_0.95fr]">
             {/* LEWA KOLUMNA */}
             <div>
@@ -59,9 +60,6 @@ export default function HomePage() {
                   href="/marcin-zogrodnik"
                   className="group inline-flex items-center gap-2.5 px-2 py-3.5 text-[15px] font-semibold text-[#1B1D17]"
                 >
-                  {/* <span className="flex h-8.5 w-8.5 items-center justify-center rounded-full border border-[#E4E6DE] bg-white shadow-[0_12px_30px_-14px_rgba(18,20,15,0.14)] transition-transform group-hover:scale-[1.07]">
-                    ▶
-                  </span> */}
                   <Play />
                   Zobacz demo
                 </Link>
@@ -88,7 +86,7 @@ export default function HomePage() {
               <div className="absolute -right-15 -top-10 z-0 h-120 w-120 rounded-full bg-[radial-gradient(circle_at_30%_30%,#B9F5CE,#EAF9E4_60%,transparent_75%)] opacity-90 blur-[70px]" />
               <div className="absolute -bottom-7.5 -left-7.5 z-0 h-90 w-90 rounded-full bg-[radial-gradient(circle_at_60%_40%,#DFF6C8,transparent_70%)] opacity-80 blur-[70px]" />
 
-              <div className="absolute left-10 top-14.5 z-4 flex items-center gap-2.5 rounded-xl border border-[#E4E6DE] bg-white px-4 py-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18)] sm:-left-11.5">
+              <div className="absolute left-0 md:-left-11.5 lg:left-2 top-30 md:top-14 z-20 flex items-center gap-2.5 rounded-xl border border-[#E4E6DE] bg-white px-4 py-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18)] ">
                 <span className="flex h-7.5 w-7.5 items-center justify-center rounded-full bg-[#E9FBF2] text-sm">
                   💬
                 </span>
@@ -102,98 +100,24 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* telefon */}
-              <div className="relative z-2 h-135 w-65 rounded-[46px] bg-[#12140F] p-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18),0_2px_0_rgba(255,255,255,0.04)_inset] sm:h-155.5 sm:w-75">
-                <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[34px] bg-[linear-gradient(180deg,#FAFCF8,#F3F6EF_40%)]">
-                  <div className="absolute left-1/2 top-2.5 z-5 h-5.5 w-22.5 -translate-x-1/2 rounded-full bg-[#12140F]" />
+              {/* Telefon */}
+              <div className="relative z-10 h-[620px] w-[300px] rounded-[46px] bg-[#12140F] p-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18),0_2px_0_rgba(255,255,255,0.04)_inset]">
+                <div className="relative h-full w-full overflow-hidden rounded-[34px] bg-black">
+                  {/* Dynamic Island */}
+                  <div className="absolute left-1/2 top-2.5 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-[#12140F]" />
 
-                  <div className="flex flex-1 flex-col items-center gap-2.5 overflow-hidden px-4 pb-4 pt-11">
-                    <div className="mt-0.5 h-16 w-16 rounded-full border-[3px] border-white bg-[linear-gradient(140deg,#2B2D25,#14150F)] shadow-[0_12px_30px_-14px_rgba(18,20,15,0.14)]" />
-                    <div className="mt-0.5 font-['Space_Grotesk'] text-[15.5px] font-bold">
-                      Marcin Zogrodnik
-                    </div>
-                    <span className="rounded-full bg-[#E9FBF2] px-2.5 py-0.75 text-[11px] font-semibold text-[#0E7A4E]">
-                      Trener personalny
-                    </span>
-                    <div className="flex items-center gap-1 text-[11.5px] text-[#8B8F81]">
-                      📍 Warszawa
-                    </div>
-
-                    <div className="mt-0.5 flex gap-2">
-                      {["IG", "TT", "✉"].map((label) => (
-                        <span
-                          key={label}
-                          className="flex h-6.5 w-6.5 items-center justify-center rounded-full border border-[#E4E6DE] bg-white text-[11px] shadow-[0_4px_10px_-6px_rgba(0,0,0,0.2)]"
-                        >
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-1.5 flex w-full flex-col gap-1.75">
-                      {[
-                        {
-                          nazwa: "Trening 1:1",
-                          opis: "Sesja stacjonarna",
-                          cena: "120 zł",
-                        },
-                        {
-                          nazwa: "Program online",
-                          opis: "Plan miesięczny",
-                          cena: "89 zł/mies.",
-                        },
-                        {
-                          nazwa: "Plan żywieniowy",
-                          opis: "Plan indywidualny",
-                          cena: "60 zł",
-                        },
-                      ].map((s) => (
-                        <div
-                          key={s.nazwa}
-                          className="flex w-full items-center justify-between rounded-[14px] border border-[#E4E6DE] bg-white px-3 py-2.25 shadow-[0_8px_18px_-12px_rgba(18,20,15,0.15)]"
-                        >
-                          <div>
-                            <div className="text-[11.5px] font-bold">
-                              {s.nazwa}
-                            </div>
-                            <div className="mt-px text-[9.5px] text-[#8B8F81]">
-                              {s.opis}
-                            </div>
-                          </div>
-                          <div className="font-['IBM_Plex_Mono'] text-[12px] font-bold text-[#0E7A4E]">
-                            {s.cena}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-1.5 w-full rounded-[13px] bg-[#12140F] py-2.75 text-center text-[12.5px] font-bold text-white">
-                      Umów darmową rozmowę
-                    </div>
-
-                    <div className="mt-2 flex w-full flex-col gap-1.5 rounded-[14px] border border-[#E4E6DE] bg-white p-2.5 shadow-[0_8px_18px_-12px_rgba(18,20,15,0.15)]">
-                      <div>
-                        <div className="text-[9px] font-semibold uppercase tracking-[0.04em] text-[#8B8F81]">
-                          Imię
-                        </div>
-                        <div className="h-5 rounded-[7px] bg-[#F2F4EF]" />
-                      </div>
-                      <div>
-                        <div className="text-[9px] font-semibold uppercase tracking-[0.04em] text-[#8B8F81]">
-                          Email
-                        </div>
-                        <div className="h-5 rounded-[7px] bg-[#F2F4EF]" />
-                      </div>
-                      <div className="mt-1 rounded-[10px] bg-[#17B975] py-2 text-center text-[11px] font-bold text-white">
-                        Wyślij wiadomość
-                      </div>
-                    </div>
-                  </div>
+                  <Image
+                    src="/mockup-hero.png"
+                    alt="Profil trenera w Fitly"
+                    fill
+                    priority
+                    className="object-cover object-top"
+                  />
                 </div>
               </div>
 
               {/* dymek: statystyka */}
-              <div className="absolute -right-1.5 bottom-16 z-4 flex flex-col items-start gap-0.5 rounded-xl border border-[#E4E6DE] bg-white px-4 py-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18)] sm:-right-8.5">
+              <div className="absolute -right-1.5 bottom-16 z-20 flex flex-col items-start gap-0.5 rounded-xl border border-[#E4E6DE] bg-white px-4 py-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18)] sm:-right-8.5 lg:right-20">
                 <span className="font-['Space_Grotesk'] text-[20px] font-bold text-[#0E7A4E]">
                   +24
                 </span>
@@ -285,13 +209,114 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <section className="py-28">
+          <div className="max-w-5xl mx-auto grid items-center gap-16 px-8 lg:grid-cols-2">
+            <div>
+              <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                PROFIL TRENERA
+              </span>
+
+              <h2 className="mt-5 font-grotesk text-4xl font-bold">
+                Tak wygląda Twój profil.
+              </h2>
+
+              <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+                Jeden link, który możesz wkleić do Instagrama, TikToka lub
+                Facebooka. Klient od razu zobaczy Twoją ofertę i wyśle
+                zgłoszenie bez pisania wiadomości prywatnej.
+              </p>
+
+              <div className="mt-10 space-y-5">
+                {[
+                  "Profesjonalne zdjęcie i opis",
+                  "Linki do social media",
+                  "Lista usług z cenami",
+                  "Formularz kontaktowy",
+                  "Działa idealnie na telefonie",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="flex size-8 items-center justify-center rounded-full bg-green-100">
+                      <Check className="size-4 text-green-600" />
+                    </div>
+
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="/marcin-zogrodnik"
+                className="mt-10 inline-flex rounded-full bg-black px-6 py-3 font-semibold text-white"
+              >
+                Zobacz pełny profil
+              </Link>
+            </div>
+
+            <div className="flex justify-center">
+              {/* tutaj wrzuć screenshot telefonu */}
+              <Image
+                src="/mockup.png"
+                alt="Podgląd profilu"
+                className="w-140"
+                width={560}
+                height={500}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#F8F9F6] py-28">
+          <div className="container mx-auto px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="font-grotesk text-4xl font-bold">
+                Jak to działa?
+              </h2>
+
+              <p className="mt-4 text-lg text-muted-foreground">
+                Założenie strony zajmuje mniej niż 2 minuty.
+              </p>
+            </div>
+
+            <div className="mt-20 grid gap-8 md:grid-cols-3">
+              {[
+                {
+                  number: "01",
+                  title: "Załóż darmowe konto",
+                  text: "Zaloguj się przez Google. Konto utworzymy automatycznie.",
+                },
+                {
+                  number: "02",
+                  title: "Dodaj swoją ofertę",
+                  text: "Uzupełnij profil, dodaj usługi i ceny.",
+                },
+                {
+                  number: "03",
+                  title: "Udostępnij link",
+                  text: "Wklej link do bio i zacznij zbierać zgłoszenia.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.number}
+                  className="rounded-3xl border bg-white p-8"
+                >
+                  <div className="text-5xl font-black text-green-600">
+                    {item.number}
+                  </div>
+
+                  <h3 className="mt-6 text-xl font-bold">{item.title}</h3>
+
+                  <p className="mt-3 text-muted-foreground">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* STOPKA */}
       <footer className="px-8 pb-12 pt-16 text-center">
-        <div className="font-grotesk uppercase italic text-[16px] font-extrabold">
-          FITLY.
-        </div>
+        <div className="font-grotesk text-xl font-extrabold">Fitly.</div>
         <p className="mt-2.5 text-[13px] text-[#8B8F81]">
           Jeden link. Więcej klientów. © 2026 Fitly.
         </p>

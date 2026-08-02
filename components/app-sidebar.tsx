@@ -11,7 +11,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { LogoutButton } from "./dashboard/logout-button";
-import { ProfilePreviewLink } from "./dashboard/profile-preview-link";
 import { SidebarLogo } from "./dashboard/sidebar-logo";
 
 const data = {
@@ -32,10 +31,10 @@ const data = {
       title: "Formularz",
       url: "/dashboard/leads",
     },
-    // {
-    //   title: "Ustawienia",
-    //   url: "/dashboard/settings",
-    // },
+    {
+      title: "Pomysły i opinie",
+      url: "/dashboard/feedback",
+    },
     {
       title: "Fitly PRO",
       url: "/dashboard/pro",

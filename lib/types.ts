@@ -69,19 +69,30 @@ export type LeadStatus = "new" | "contacted" | "completed" | "cancelled";
 
 export type Lead = {
   id: string;
-
   trainer_id: string;
-
   service_id: string;
   service_name: string;
-
   contact: LeadContact;
-
   answers: LeadAnswer[];
-
   status: LeadStatus;
-
   is_read: boolean;
+  created_at: string;
+};
 
+export type FeedbackType = "idea" | "bug" | "question" | "other";
+
+export type FeedbackStatus = "new" | "planned" | "replied" | "closed";
+
+export type Feedback = {
+  id: string;
+  user_id: string;
+  type: FeedbackType;
+  message: string;
+  title: string;
+  email: string | null;
+  status: FeedbackStatus;
+  full_name: string | null;
+  admin_reply: string | null;
+  replied_at: string | null;
   created_at: string;
 };

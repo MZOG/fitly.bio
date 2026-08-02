@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/select";
 
 import { sendFeedback } from "@/app/actions/send-feedback";
+import { Input } from "@/components/ui/input";
 
 const feedbackLabels = {
   idea: "💡 Pomysł",
@@ -32,7 +34,9 @@ const feedbackTypes = [
 export function FeedbackForm() {
   const [type, setType] = useState("idea");
   const [message, setMessage] = useState("");
+  const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onSubmit = async () => {
     if (!message.trim()) {
@@ -40,13 +44,19 @@ export function FeedbackForm() {
       return;
     }
 
+    if (!title.trim()) {
+      toast.error("Podaj krótki tytuł.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await sendFeedback(type, message);
+      await sendFeedback(type, message, title);
 
       setMessage("");
       setType("idea");
+      router.refresh();
 
       toast.success("Dziękujemy za opinię ❤️");
     } catch {
@@ -58,6 +68,15 @@ export function FeedbackForm() {
 
   return (
     <div className="space-y-6 rounded-xl border p-6">
+      <div>
+        <label className="mb-2 block text-sm font-medium">Krótki tytuł</label>
+
+        <Input
+          placeholder="Np. Własna domena"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
       <div>
         <label className="mb-2 block text-sm font-medium">Typ zgłoszenia</label>
 

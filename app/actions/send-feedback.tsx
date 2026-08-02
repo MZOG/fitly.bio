@@ -5,9 +5,23 @@ import { createClient } from "@/lib/supabase/server";
 import { resend } from "@/lib/resend";
 import FeedbackEmail from "../emails/feedback-email";
 
-export async function sendFeedback(type: string, message: string) {
+export async function sendFeedback(
+  type: string,
+  message: string,
+  title: string,
+) {
   const cookieStore = await cookies();
   const supabase = await createClient(cookieStore);
+
+  const feedbackTypeLabels = {
+    idea: "💡 Pomysł",
+    bug: "🐛 Problem",
+    question: "❓ Pytanie",
+    other: "📝 Inne",
+  } as const;
+
+  const feedbackType =
+    feedbackTypeLabels[type as keyof typeof feedbackTypeLabels] ?? type;
 
   const {
     data: { user },
@@ -25,7 +39,10 @@ export async function sendFeedback(type: string, message: string) {
 
   const { error } = await supabase.from("feedback").insert({
     user_id: user.id,
+    full_name: profile?.full_name,
+    email: user.email,
     type,
+    title,
     message,
   });
 
@@ -40,7 +57,8 @@ export async function sendFeedback(type: string, message: string) {
     react: FeedbackEmail({
       name: profile?.full_name ?? "Nieznany użytkownik",
       email: user.email ?? "",
-      type,
+      type: feedbackType,
+      title,
       message,
     }),
   });

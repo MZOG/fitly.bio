@@ -13,6 +13,10 @@ import {
 import { LogoutButton } from "./dashboard/logout-button";
 import { SidebarLogo } from "./dashboard/sidebar-logo";
 
+import { cookies } from "next/headers";
+import { createClient } from "@/lib/supabase/server";
+import { ADMIN_EMAIL } from "@/lib/constants";
+
 const data = {
   navMain: [
     {
@@ -39,10 +43,25 @@ const data = {
       title: "Fitly PRO",
       url: "/dashboard/pro",
     },
+    {
+      title: "Feedback",
+      url: "/dashboard/admin/feedback",
+    },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export async function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  const cookieStore = await cookies();
+  const supabase = await createClient(cookieStore);
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const isAdmin = user?.email === ADMIN_EMAIL;
+
   return (
     <Sidebar {...props}>
       <SidebarHeader className="px-5 py-3">
@@ -50,11 +69,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent className="px-2">
         <SidebarMenu>
-          {data.navMain.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton render={<a href={item.url}>{item.title}</a>} />
-            </SidebarMenuItem>
-          ))}
+          {data.navMain
+            .filter(
+              (item) => isAdmin || item.url !== "/dashboard/admin/feedback",
+            )
+            .map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  render={<a href={item.url}>{item.title}</a>}
+                />
+              </SidebarMenuItem>
+            ))}
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="px-2 pb-3 mb-10">

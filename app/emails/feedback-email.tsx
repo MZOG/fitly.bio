@@ -14,10 +14,17 @@ type Props = {
   name: string;
   email: string;
   type: string;
+  title: string;
   message: string;
 };
 
-export default function FeedbackEmail({ name, email, type, message }: Props) {
+export default function FeedbackEmail({
+  name,
+  email,
+  type,
+  message,
+  title,
+}: Props) {
   return (
     <Html>
       <Head />
@@ -49,6 +56,10 @@ export default function FeedbackEmail({ name, email, type, message }: Props) {
           </Heading>
 
           <Section>
+            <Text>
+              <strong>Tytuł:</strong> {title}
+            </Text>
+
             <Text>
               <strong>Użytkownik:</strong> {name}
             </Text>

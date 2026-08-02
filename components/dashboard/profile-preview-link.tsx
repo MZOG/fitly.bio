@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { Copy, ExternalLink } from "lucide-react";
 
-import { SidebarMenuButton } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { getProfileUrl } from "@/lib/profile-url";
 import { toast } from "sonner";
 
 export function ProfilePreviewLink() {
@@ -17,34 +16,37 @@ export function ProfilePreviewLink() {
 
   const copy = async () => {
     await navigator.clipboard.writeText(url);
-    toast.success("Link skopiowany");
+    toast.success("Link do profilu został skopiowany");
   };
 
   return (
-    <div className="space-y-2">
-      <SidebarMenuButton
-        render={
-          <Link
-            href={getProfileUrl(profile)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>Podgląd profilu</span>
+    <div className="rounded-xl border bg-white p-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-medium">Twój profil</p>
 
-            <ExternalLink className="ml-auto size-4" />
-          </Link>
-        }
-      />
-      <div className="flex items-center gap-2 rounded-md bg-white border border-dashed px-3 py-2 text-xs">
-        <span className="flex-1 truncate text-muted-foreground">{url}</span>
+          <p className="text-sm text-muted-foreground">
+            Udostępnij ten link w bio na Instagramie lub TikToku.
+          </p>
+        </div>
 
-        <button type="button" onClick={copy} className="hover:text-foreground">
+        <Button variant="outline" size="sm" onClick={copy}>
           <Copy className="size-4" />
-        </button>
+          Kopiuj
+        </Button>
       </div>
-      <p className="text-xs px-3 text-muted-foreground">
-        Skopiuj i wklej do swojego Bio.
-      </p>
+
+      <div className="mt-4 flex items-center justify-between rounded-lg border bg-muted/40 px-4 py-3">
+        <span className="truncate text-sm font-medium">{url}</span>
+
+        <Link
+          href={url}
+          target="_blank"
+          className="text-muted-foreground transition hover:text-foreground"
+        >
+          <ExternalLink className="size-4" />
+        </Link>
+      </div>
     </div>
   );
 }

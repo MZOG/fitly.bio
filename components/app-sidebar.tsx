@@ -56,10 +56,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuButton render={<a href={item.url}>{item.title}</a>} />
             </SidebarMenuItem>
           ))}
-
-          <SidebarMenuItem className="mt-5">
-            <ProfilePreviewLink />
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="px-2 pb-3 mb-10">

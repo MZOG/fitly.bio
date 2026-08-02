@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { ProfileCompletionBanner } from "@/components/dashboard/profile-completion-banner";
+import { ProfilePreviewLink } from "@/components/dashboard/profile-preview-link";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -62,6 +63,8 @@ export default async function DashboardPage() {
       <PanelTitle title="Panel" />
 
       {profile && <ProfileCompletionBanner profile={profile} />}
+
+      <ProfilePreviewLink />
 
       <DashboardStats
         leads={stats.leads}

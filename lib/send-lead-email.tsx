@@ -27,6 +27,7 @@ export async function sendLeadEmail({
   const result = await resend.emails.send({
     from: "Fitly <hello@fitly.bio>",
     to: trainerEmail,
+    replyTo: contact.email,
     subject: shouldSendLimitedEmail
       ? "Masz nowe zgłoszenie"
       : `Nowe zgłoszenie - ${serviceName}`,

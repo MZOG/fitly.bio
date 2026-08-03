@@ -59,6 +59,23 @@ export function NewLeadEmail({ serviceName, contact, answers }: Props) {
               </Section>
             ))}
           </Section>
+
+          <Section
+            style={{
+              marginTop: "32px",
+              padding: "16px 20px",
+              backgroundColor: "#F5F7F5",
+              border: "1px solid #E5E7EB",
+              borderRadius: "12px",
+            }}
+          >
+            <Text style={{ margin: 0, fontSize: "14px", color: "#4B5563" }}>
+              💬 <strong>Wskazówka:</strong> Aby odpowiedzieć tej osobie,
+              kliknij <strong>„Odpowiedz”</strong> w swoim programie pocztowym.
+              Odpowiedź zostanie automatycznie wysłana na adres{" "}
+              <strong>{contact.email}</strong>.
+            </Text>
+          </Section>
         </Container>
       </Body>
     </Html>

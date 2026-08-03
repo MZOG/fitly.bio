@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./providers/auth-provider";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { Toaster } from "@/components/ui/sonner";
+import { Clarity } from "@/components/clarity";
 
 const geist = Geist({
   variable: "--font-sans",
@@ -66,6 +68,8 @@ export default function RootLayout({
           <main>{children}</main>
         </AuthProvider>
         <Toaster position="bottom-center" richColors />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+        <Clarity />
       </body>
     </html>
   );

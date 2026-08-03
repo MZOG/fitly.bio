@@ -57,7 +57,7 @@ export async function replyFeedback(
 
   if (feedback.email) {
     const { error: emailError } = await resend.emails.send({
-      from: "Fitly <onboarding@resend.dev>",
+      from: "Fitly <hello@fitly.bio>",
       to: [feedback.email],
       subject: "Odpowiedź na Twoje zgłoszenie",
       react: FeedbackReplyEmail({

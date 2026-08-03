@@ -51,7 +51,7 @@ export async function sendFeedback(
   }
 
   const { data, error: errorek } = await resend.emails.send({
-    from: "Fitly <onboarding@resend.dev>",
+    from: "Fitly <hello@fitly.bio>",
     to: ["fitlybio@gmail.com"],
     subject: "💡 Nowy feedback",
     react: FeedbackEmail({

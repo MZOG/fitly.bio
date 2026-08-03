@@ -25,9 +25,8 @@ export async function sendLeadEmail({
   const shouldSendLimitedEmail = trainerPlan === "free" && totalLeads > 5;
 
   const result = await resend.emails.send({
-    from: "Fitly <onboarding@resend.dev>",
-    // to: trainerEmail,
-    to: "fitlybio@gmail.com",
+    from: "Fitly <hello@fitly.bio>",
+    to: trainerEmail,
     subject: shouldSendLimitedEmail
       ? "Masz nowe zgłoszenie"
       : `Nowe zgłoszenie - ${serviceName}`,

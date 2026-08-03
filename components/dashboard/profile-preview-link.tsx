@@ -12,7 +12,7 @@ export function ProfilePreviewLink() {
 
   if (!profile?.slug) return null;
 
-  const url = `https://fitly.bio/${profile.slug}`;
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/${profile.slug}`;
 
   const copy = async () => {
     await navigator.clipboard.writeText(url);

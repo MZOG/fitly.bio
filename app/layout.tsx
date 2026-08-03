@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   title: "Fitly - Darmowa strona dla trenerów personalnych",
   description:
     "Stwórz profesjonalną stronę dla trenera personalnego w kilka minut. Dodaj usługi, formularz kontaktowy i udostępnij jeden link w bio na Instagramie lub TikToku.",
+  metadataBase: new URL("https://fitly.bio"),
   keywords: [
     "strona dla trenera personalnego",
     "strona internetowa dla trenera",

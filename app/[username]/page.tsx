@@ -23,7 +23,7 @@ export async function generateMetadata({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name, bio, avatar_url")
+    .select("full_name, bio, avatar_url, slug")
     .eq("slug", username)
     .single();
 
@@ -37,6 +37,31 @@ export async function generateMetadata({
     title: `${profile.full_name} | Trener personalny`,
     description:
       profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+    openGraph: {
+      title: `${profile.full_name} | Trener personalny`,
+      description:
+        profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+      url: `https://fitly.bio/${profile.slug}`,
+      siteName: "Fitly",
+      images: [
+        {
+          url: `https://fitly.bio/${profile.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: profile.full_name ?? "Profil trenera",
+        },
+      ],
+      locale: "pl_PL",
+      type: "profile",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${profile.full_name} | Trener personalny`,
+      description:
+        profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+      images: [`https://fitly.bio/${profile.slug}/opengraph-image`],
+    },
   };
 }
 

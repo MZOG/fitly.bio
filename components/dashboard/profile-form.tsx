@@ -109,11 +109,15 @@ export function ProfileForm({ user, profile }: Props) {
     startTransition(async () => {
       const supabase = createClient();
 
-      const slug = createSlug(values.username || values.full_name);
+      const username =
+        values.username.trim() === "" ? null : createSlug(values.username);
+
+      const slug = createSlug(username ?? values.full_name);
 
       const { error } = await supabase.from("profiles").upsert({
         id: user.id,
         ...values,
+        username,
         slug,
         onboarding_completed: true,
       });

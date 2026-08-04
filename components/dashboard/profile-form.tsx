@@ -114,6 +114,15 @@ export function ProfileForm({ user, profile }: Props) {
 
       const slug = createSlug(username ?? values.full_name);
 
+      const hasInvalidSocial = values.socials.some(
+        (social) => social.url.trim() !== "" && social.platform.trim() === "",
+      );
+
+      if (hasInvalidSocial) {
+        toast.error("Wybierz platformę dla każdego dodanego linku.");
+        return;
+      }
+
       const { error } = await supabase.from("profiles").upsert({
         id: user.id,
         ...values,

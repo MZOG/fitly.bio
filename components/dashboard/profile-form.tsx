@@ -31,6 +31,7 @@ import {
 
 import { Gym, Social, Profile } from "@/lib/types";
 import PanelTitle from "./panel-title";
+import { useRouter } from "next/navigation";
 
 type Props = {
   user: {
@@ -69,6 +70,7 @@ export function ProfileForm({ user, profile }: Props) {
     label: item,
     value: item,
   }));
+  const router = useRouter();
 
   const form = useForm<ProfileFormValues>({
     defaultValues: {
@@ -113,6 +115,7 @@ export function ProfileForm({ user, profile }: Props) {
         id: user.id,
         ...values,
         slug,
+        onboarding_completed: true,
       });
 
       if (error) {
@@ -121,6 +124,8 @@ export function ProfileForm({ user, profile }: Props) {
       }
 
       toast.success("Profil zapisany");
+      router.push("/dashboard");
+      router.refresh();
     });
   };
 

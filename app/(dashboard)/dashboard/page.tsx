@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { ProfileCompletionBanner } from "@/components/dashboard/profile-completion-banner";
 import { ProfilePreviewLink } from "@/components/dashboard/profile-preview-link";
+import { OnboardingBanner } from "@/components/dashboard/onboarding-banner";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -25,13 +26,14 @@ export default async function DashboardPage() {
       .from("profiles")
       .select(
         `
-    avatar_url,
-    bio,
-    city,
-    specializations,
-    socials,
-    services
-  `,
+          avatar_url,
+          bio,
+          city,
+          specializations,
+          socials,
+          services,
+          onboarding_completed
+        `,
       )
       .eq("id", user.id)
       .single(),
@@ -57,6 +59,14 @@ export default async function DashboardPage() {
     services: profile?.services?.length ?? 0,
     latestLeads: leads?.slice(0, 5) ?? [],
   };
+
+  if (!profile?.onboarding_completed) {
+    return (
+      <section className="container">
+        <OnboardingBanner />
+      </section>
+    );
+  }
 
   return (
     <section className="max-w-3xl mx-auto space-y-8">

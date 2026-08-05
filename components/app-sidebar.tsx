@@ -43,6 +43,13 @@ const data = {
       title: "Fitly PRO",
       url: "/dashboard/pro",
     },
+  ],
+
+  admin: [
+    {
+      title: "Użytkownicy",
+      url: "/dashboard/admin/users",
+    },
     {
       title: "Feedback",
       url: "/dashboard/admin/feedback",
@@ -69,18 +76,30 @@ export async function AppSidebar({
       </SidebarHeader>
       <SidebarContent className="px-2">
         <SidebarMenu>
-          {data.navMain
-            .filter(
-              (item) => isAdmin || item.url !== "/dashboard/admin/feedback",
-            )
-            .map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  render={<a href={item.url}>{item.title}</a>}
-                />
-              </SidebarMenuItem>
-            ))}
+          {data.navMain.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton render={<a href={item.url}>{item.title}</a>} />
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
+
+        {isAdmin && (
+          <div className="mt-6">
+            <p className="px-3 pb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Administracja
+            </p>
+
+            <SidebarMenu>
+              {data.admin.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    render={<a href={item.url}>{item.title}</a>}
+                  />
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </div>
+        )}
       </SidebarContent>
       <SidebarFooter className="px-2 pb-3 mb-10">
         <SidebarMenu>

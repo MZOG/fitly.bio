@@ -98,6 +98,7 @@ export default async function UserProfilePage({ params }: Props) {
             avatar_url={profile.avatar_url}
             socials={profile.socials}
             city={profile.city}
+            gyms={profile.gyms}
           />
 
           {/* specjalizacje */}

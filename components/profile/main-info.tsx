@@ -5,7 +5,7 @@ import { Profile } from "@/lib/types";
 
 type MainInfoProps = Pick<
   Profile,
-  "full_name" | "bio" | "avatar_url" | "socials" | "city"
+  "full_name" | "bio" | "avatar_url" | "socials" | "city" | "gyms"
 >;
 
 export const SOCIAL_LABELS = {
@@ -25,6 +25,7 @@ export default function MainInfo({
   socials,
   avatar_url,
   city,
+  gyms,
 }: MainInfoProps) {
   return (
     <>
@@ -40,6 +41,16 @@ export default function MainInfo({
             <Badge className="flex items-center gap-1 mt-2">
               <span>{city}</span>
             </Badge>
+          )}
+
+          {gyms.length > 0 && (
+            <div className="mt-1">
+              {gyms.map((gym) => (
+                <Badge variant="outline" key={gym.name}>
+                  {gym.name}
+                </Badge>
+              ))}
+            </div>
           )}
 
           {bio && (

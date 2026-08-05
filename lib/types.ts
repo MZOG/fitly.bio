@@ -96,3 +96,14 @@ export type Feedback = {
   replied_at: string | null;
   created_at: string;
 };
+
+export type AdminUser = {
+  id: string;
+  full_name: string;
+  city: string | null;
+  bio: string | null;
+  slug: string | null;
+  plan: "free" | "pro";
+  is_public: boolean;
+  onboarding_completed: boolean;
+};

@@ -1,15 +1,10 @@
+import { DefaultProfile } from "@/components/profile/themes/default";
+import { MinimalProfile } from "@/components/profile/themes/minimal";
+import { DarkProfile } from "@/components/profile/themes/dark";
 import { notFound } from "next/navigation";
-
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
-import { ServicesSection } from "@/components/dashboard/services-section";
-
 import { Profile } from "@/lib/types";
-import ProfileCTA from "@/components/profile/cta";
-import ProfileHeader from "@/components/profile/profile-header";
-import Specializations from "@/components/profile/specializations";
-import Localization from "@/components/profile/localization";
-import MainInfo from "@/components/profile/main-info";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -86,40 +81,14 @@ export default async function UserProfilePage({ params }: Props) {
     notFound();
   }
 
-  return (
-    <section className="min-h-screen bg-[linear-gradient(180deg,#FAFCF8,#F3F6EF_40%)]">
-      <div className="md:mx-auto max-w-2xl">
-        <ProfileHeader />
+  switch (profile.theme) {
+    case "minimal":
+      return <MinimalProfile profile={profile} />;
 
-        <div className="px-5">
-          <MainInfo
-            full_name={profile.full_name}
-            bio={profile.bio}
-            avatar_url={profile.avatar_url}
-            socials={profile.socials}
-            city={profile.city}
-            gyms={profile.gyms}
-          />
+    case "dark":
+      return <DarkProfile profile={profile} />;
 
-          {/* specjalizacje */}
-          {profile.specializations.length > 0 && (
-            <Specializations specializations={profile.specializations} />
-          )}
-
-          {/* usługi i cennik */}
-          <ServicesSection
-            trainerId={profile.id}
-            services={profile.services ?? []}
-          />
-
-          {/* CTA */}
-          {profile.plan === "free" && <ProfileCTA />}
-
-          <div className="mt-8 md:mt-10 flex justify-center">
-            <p className="text-sm text-gray-600">&copy; 2026 Fitly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+    default:
+      return <DefaultProfile profile={profile} />;
+  }
 }

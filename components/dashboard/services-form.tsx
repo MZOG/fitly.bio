@@ -11,6 +11,9 @@ import { Separator } from "../ui/separator";
 import { Service } from "@/lib/types";
 import { ServiceFieldsEditor } from "./service-fields-editor";
 import { Save, Trash2 } from "lucide-react";
+import { Field, FieldDescription, FieldLabel } from "../ui/field";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 type Props = {
   services: Service[];
@@ -27,6 +30,7 @@ const DEFAULT_SERVICES: Service[] = [
     name: "Trening personalny",
     price: "",
     description: "",
+    button_text: "Umów trening",
     fields: [
       {
         id: "goal",
@@ -61,6 +65,7 @@ const DEFAULT_SERVICES: Service[] = [
     name: "Prowadzenie online",
     price: "",
     description: "",
+    button_text: "Umów trening",
     fields: [
       {
         id: "goal",
@@ -94,6 +99,7 @@ const DEFAULT_SERVICES: Service[] = [
     name: "Plan dietetyczny",
     price: "",
     description: "",
+    button_text: "Umów trening",
     fields: [
       {
         id: "goal",
@@ -220,62 +226,72 @@ export function ServicesForm({ services, plan }: Props) {
       <div className="space-y-4">
         {fields.map((field, index) => (
           <div key={field.id} className="rounded-xl border p-5 space-y-4">
-            <div>
-              <label className="text-sm font-medium">Nazwa usługi</label>
+            <Field className="gap-2">
+              <FieldLabel>Nazwa usługi</FieldLabel>
 
-              <input
-                className="mt-1 w-full rounded-md border px-3 py-2"
+              <Input
                 readOnly={!isPro && index < 3}
                 {...form.register(`services.${index}.name`)}
               />
-            </div>
+            </Field>
 
-            <div>
-              <label className="text-sm font-medium">Cena</label>
+            <Field className="gap-2">
+              <FieldLabel>Cena</FieldLabel>
 
-              <input
-                className="mt-1 w-full rounded-md border px-3 py-2"
+              <Input
                 placeholder="150 zł"
                 {...form.register(`services.${index}.price`)}
               />
-            </div>
+            </Field>
 
-            <div>
+            <Field className="gap-2">
               <label className="text-sm font-medium">Opis</label>
 
-              <textarea
+              <Textarea
                 rows={3}
                 className="mt-1 w-full rounded-md border px-3 py-2"
                 readOnly={!isPro && index < 3}
                 {...form.register(`services.${index}.description`)}
               />
+            </Field>
 
-              {!isPro && (
+            <Field className="gap-2">
+              <FieldLabel>Tekst przycisku</FieldLabel>
+
+              <Input
+                disabled={!isPro}
+                placeholder="np. Umów trening"
+                {...form.register(`services.${index}.button_text`)}
+              />
+
+              <FieldDescription>
+                Tekst wyświetlany na przycisku na Twoim profilu.
+              </FieldDescription>
+            </Field>
+
+            {/* {!isPro && (
                 <p className="text-sm text-muted-foreground">
                   Opis usługi jest dostępny w planie Pro.
                 </p>
+              )} */}
+
+            <div className="space-y-2 mt-1">
+              {!isPro ? (
+                <div className="rounded-lg border border-dashed p-4">
+                  <p className="text-sm text-muted-foreground">
+                    W planie Pro możesz tworzyć własne pytania formularza,
+                    oznaczać je jako wymagane oraz dodawać odpowiedzi
+                    jednokrotnego i wielokrotnego wyboru.
+                  </p>
+                </div>
+              ) : (
+                <ServiceFieldsEditor
+                  fields={form.watch(`services.${index}.fields`) ?? []}
+                  onChange={(fields) =>
+                    form.setValue(`services.${index}.fields`, fields)
+                  }
+                />
               )}
-
-              <div className="space-y-2 mt-5">
-                <h3 className="font-medium">Formularz zgłoszeniowy</h3>
-
-                {!isPro ? (
-                  <div className="rounded-lg border border-dashed p-4">
-                    <p className="text-sm text-muted-foreground">
-                      W planie Pro możesz tworzyć własne pytania formularza,
-                      oznaczać je jako wymagane oraz dodawać odpowiedzi
-                      jednokrotnego i wielokrotnego wyboru.
-                    </p>
-                  </div>
-                ) : (
-                  <ServiceFieldsEditor
-                    fields={form.watch(`services.${index}.fields`) ?? []}
-                    onChange={(fields) =>
-                      form.setValue(`services.${index}.fields`, fields)
-                    }
-                  />
-                )}
-              </div>
             </div>
 
             {isPro && (
@@ -303,6 +319,7 @@ export function ServicesForm({ services, plan }: Props) {
                 price: "",
                 description: "",
                 fields: [],
+                button_text: "Umów trening",
               })
             }
           >

@@ -29,9 +29,10 @@ import {
   SelectValue,
 } from "../ui/select";
 
-import { Gym, Social, Profile } from "@/lib/types";
+import { Gym, Social, Profile, ProfileTheme } from "@/lib/types";
 import PanelTitle from "./panel-title";
 import { useRouter } from "next/navigation";
+import { ThemeSelector } from "./profile/theme-selector";
 
 type Props = {
   user: {
@@ -50,6 +51,7 @@ type ProfileFormValues = {
   specializations: string[];
 
   socials: Social[];
+  theme: ProfileTheme;
 };
 
 export const SOCIAL_PLATFORMS = [
@@ -80,8 +82,8 @@ export function ProfileForm({ user, profile }: Props) {
       city: profile?.city ?? "",
       gyms: profile?.gyms ?? [{ name: "" }],
       specializations: profile?.specializations ?? [],
-
       socials: profile?.socials ?? [],
+      theme: profile?.theme ?? "default",
     },
   });
 
@@ -401,6 +403,15 @@ export function ProfileForm({ user, profile }: Props) {
                 Dodaj social
               </Button>
             </div>
+          </Field>
+
+          <Field>
+            <FieldLabel>Wygląd profilu</FieldLabel>
+
+            <ThemeSelector
+              value={form.watch("theme")}
+              onChange={(theme) => form.setValue("theme", theme)}
+            />
           </Field>
         </FieldGroup>
       </FieldSet>

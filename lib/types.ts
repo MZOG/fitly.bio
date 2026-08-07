@@ -20,6 +20,7 @@ export type Profile = {
   socials: Social[];
   plan: string | null;
   services: Service[];
+  theme: ProfileTheme;
 };
 
 export type ServiceField = {
@@ -37,6 +38,7 @@ export type Service = {
   price: string;
   description: string;
   fields: ServiceField[];
+  button_text: string;
 };
 
 export type LeadContact = {
@@ -107,3 +109,5 @@ export type AdminUser = {
   is_public: boolean;
   onboarding_completed: boolean;
 };
+
+export type ProfileTheme = "default" | "minimal" | "dark";

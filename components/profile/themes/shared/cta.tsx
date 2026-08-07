@@ -1,6 +1,15 @@
+import { Profile } from "@/lib/types";
 import Link from "next/link";
 
-export default function ProfileCTA() {
+type Props = {
+  profile: Profile;
+};
+
+export default function JoinFitly({ profile }: Props) {
+  if (profile.plan === "pro") {
+    return;
+  }
+
   return (
     <div className="mt-12 bg-green-100/40 font-grotesk border border-green-600/20 rounded-lg px-5 py-10 flex flex-col items-center">
       <h3 className="font-montserrat font-black text-2xl italic uppercase text-green-700">

@@ -88,23 +88,17 @@ export default function LeadForm({
 
   return (
     <>
-      <DrawerHeader className="mt-5">
-        <DrawerTitle>{service.name}</DrawerTitle>
+      <DrawerHeader className="mt-5 p-0">
+        <DrawerTitle className="text-fitly">{service.name}</DrawerTitle>
 
         <DrawerDescription>
           Wypełnij formularz, a trener skontaktuje się z Tobą.
         </DrawerDescription>
       </DrawerHeader>
-      <div className="mt-10 scroll-mt-5">
-        <h2 className="text-center text-lg font-grotesk font-black">Ankieta</h2>
-        {/* Wybrana usługa */}
-        <div className="mt-3 rounded-lg bg-white border p-4">
-          <p className="text-sm text-gray-600">Wybrana usługa</p>
-
-          <div className="mt-1 flex items-center justify-between">
-            <p className="font-grotesk font-medium">{service.name}</p>
-          </div>
-        </div>
+      <div className="mt-5 scroll-mt-5">
+        <h2 className="text-center md:text-left text-lg font-medium">
+          Ankieta
+        </h2>
 
         <form className="mt-5 flex flex-col gap-5" onSubmit={handleSubmit}>
           {/* To przesyłasz do backendu */}

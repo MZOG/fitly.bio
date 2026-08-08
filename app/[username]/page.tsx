@@ -18,7 +18,7 @@ export async function generateMetadata({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name, bio, avatar_url, slug")
+    .select("full_name, bio, avatar_url, slug, city")
     .eq("slug", username)
     .single();
 
@@ -29,11 +29,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${profile.full_name} | Trener personalny`,
+    title: `${profile.full_name} - Trener personalny ${profile.city ? `${profile.city}` : ""}`,
     description:
       profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
     openGraph: {
-      title: `${profile.full_name} | Trener personalny`,
+      title: `${profile.full_name} - Trener personalny ${profile.city ? `${profile.city}` : ""}`,
       description:
         profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
       url: `https://fitly.bio/${profile.slug}`,
@@ -52,7 +52,7 @@ export async function generateMetadata({
 
     twitter: {
       card: "summary_large_image",
-      title: `${profile.full_name} | Trener personalny`,
+      title: `${profile.full_name} - Trener personalny ${profile.city ? `${profile.city}` : ""}`,
       description:
         profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
       images: [`https://fitly.bio/${profile.slug}/opengraph-image`],

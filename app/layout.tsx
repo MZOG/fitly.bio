@@ -7,6 +7,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
 import { Clarity } from "@/components/clarity";
 
+import { soehne } from "@/lib/fonts";
+
 const geist = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -61,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="pl"
-      className={`${spaceGrotesk.variable} ${geist.className} antialiased`}
+      className={`${spaceGrotesk.variable} ${geist.className} ${soehne.variable} antialiased`}
     >
       <body>
         <AuthProvider>

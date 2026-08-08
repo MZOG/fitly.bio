@@ -27,10 +27,12 @@ type FormValues = {
 const DEFAULT_SERVICES: Service[] = [
   {
     id: "personal-training",
-    name: "Trening personalny",
-    price: "",
-    description: "",
+    name: "Trening personalny 1:1",
+    price: "150 zł",
+    description:
+      "Indywidualna sesja na siłowni z pełną korektą techniki i planem dopasowanym do Twojego celu.",
     button_text: "Umów trening",
+    unit: "za sesję (60 min)",
     fields: [
       {
         id: "goal",
@@ -62,10 +64,12 @@ const DEFAULT_SERVICES: Service[] = [
   },
   {
     id: "online-training",
-    name: "Prowadzenie online",
-    price: "",
-    description: "",
-    button_text: "Umów trening",
+    name: "Plan treningowy online",
+    price: "250 zł",
+    description:
+      "Spersonalizowany plan w aplikacji, cotygodniowe korekty i kontakt na czacie przez cały miesiąc.",
+    button_text: "Zamów plan",
+    unit: "miesięcznie",
     fields: [
       {
         id: "goal",
@@ -95,11 +99,13 @@ const DEFAULT_SERVICES: Service[] = [
     ],
   },
   {
-    id: "diet-plan",
-    name: "Plan dietetyczny",
-    price: "",
-    description: "",
-    button_text: "Umów trening",
+    id: "pakiet-10",
+    name: "Pakiet 10 treningów",
+    price: "2000 zł",
+    unit: "oszczędzasz 200 zł",
+    description:
+      "Dziesięć sesji personalnych w korzystnej cenie - najlepszy wybór, jeśli myślisz o dłuższej współpracy.",
+    button_text: "Kup pakiet",
     fields: [
       {
         id: "goal",
@@ -245,6 +251,19 @@ export function ServicesForm({ services, plan }: Props) {
             </Field>
 
             <Field className="gap-2">
+              <FieldLabel>Opis ceny</FieldLabel>
+
+              <Input
+                placeholder="np. za godzinę, za miesiąc"
+                {...form.register(`services.${index}.unit`)}
+              />
+              <FieldDescription>
+                Tekst wyświetlany pod ceną usługi na Twoim profilu. Np. "za
+                godzinę" lub "miesięcznie".
+              </FieldDescription>
+            </Field>
+
+            <Field className="gap-2">
               <label className="text-sm font-medium">Opis</label>
 
               <Textarea
@@ -259,7 +278,7 @@ export function ServicesForm({ services, plan }: Props) {
               <FieldLabel>Tekst przycisku</FieldLabel>
 
               <Input
-                disabled={!isPro}
+                // disabled={!isPro}
                 placeholder="np. Umów trening"
                 {...form.register(`services.${index}.button_text`)}
               />
@@ -320,6 +339,7 @@ export function ServicesForm({ services, plan }: Props) {
                 description: "",
                 fields: [],
                 button_text: "Umów trening",
+                unit: null,
               })
             }
           >

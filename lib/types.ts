@@ -39,6 +39,7 @@ export type Service = {
   description: string;
   fields: ServiceField[];
   button_text: string;
+  unit: string | null;
 };
 
 export type LeadContact = {

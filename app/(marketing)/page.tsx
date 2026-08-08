@@ -56,8 +56,7 @@ export default function HomePage() {
                   Załóż darmowe konto
                 </Link>
                 <Link
-                  target="_blank"
-                  href="/marcin-zogrodnik"
+                  href="/demo"
                   className="group inline-flex items-center gap-2.5 px-2 py-3.5 text-[15px] font-semibold text-[#1B1D17]"
                 >
                   <Play />
@@ -101,7 +100,7 @@ export default function HomePage() {
               </div>
 
               {/* Telefon */}
-              <div className="relative z-10 h-[620px] w-[300px] rounded-[46px] bg-[#12140F] p-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18),0_2px_0_rgba(255,255,255,0.04)_inset]">
+              <div className="relative z-10 h-155 w-75 rounded-[46px] bg-[#12140F] p-3 shadow-[0_20px_60px_-24px_rgba(18,20,15,0.18),0_2px_0_rgba(255,255,255,0.04)_inset]">
                 <div className="relative h-full w-full overflow-hidden rounded-[34px] bg-black">
                   {/* Dynamic Island */}
                   <div className="absolute left-1/2 top-2.5 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-[#12140F]" />

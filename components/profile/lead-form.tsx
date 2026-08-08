@@ -88,7 +88,7 @@ export default function LeadForm({
 
   return (
     <>
-      <DrawerHeader className="mt-5 p-0">
+      <DrawerHeader className="mt-5 p-0 font-soehne">
         <DrawerTitle className="text-fitly">{service.name}</DrawerTitle>
 
         <DrawerDescription>
@@ -96,12 +96,11 @@ export default function LeadForm({
         </DrawerDescription>
       </DrawerHeader>
       <div className="mt-5 scroll-mt-5">
-        <h2 className="text-center md:text-left text-lg font-medium">
+        <h2 className="text-center md:text-left text-lg font-medium font-soehne">
           Ankieta
         </h2>
 
         <form className="mt-5 flex flex-col gap-5" onSubmit={handleSubmit}>
-          {/* To przesyłasz do backendu */}
           <input type="hidden" name="serviceId" value={service.id} />
 
           {service.fields.map((field) => {
@@ -109,7 +108,7 @@ export default function LeadForm({
               case "textarea":
                 return (
                   <Field key={field.id} className="gap-2">
-                    <FieldLabel className="text-base">
+                    <FieldLabel className="text-base font-soehne">
                       {field.label}
                       {field.required && (
                         <span className="text-red-600">*</span>
@@ -117,7 +116,7 @@ export default function LeadForm({
                     </FieldLabel>
 
                     {field.description && (
-                      <FieldDescription className="text-gray-600">
+                      <FieldDescription className="text-gray-600 font-soehne">
                         {field.description}
                       </FieldDescription>
                     )}
@@ -130,7 +129,7 @@ export default function LeadForm({
                           {...controllerField}
                           value={(controllerField.value as string) ?? ""}
                           required={field.required}
-                          className="bg-white border border-border rounded-lg"
+                          className="bg-white border border-border rounded-lg font-soehne"
                         />
                       )}
                     />
@@ -140,10 +139,12 @@ export default function LeadForm({
               case "radio":
                 return (
                   <Field key={field.id} className="gap-2">
-                    <FieldLabel className="text-base">{field.label}</FieldLabel>
+                    <FieldLabel className="text-base font-soehne">
+                      {field.label}
+                    </FieldLabel>
 
                     {field.description && (
-                      <FieldDescription className="text-gray-600">
+                      <FieldDescription className="text-gray-600 font-soehne">
                         {field.description}
                         {field.required && (
                           <span className="text-red-600">*</span>
@@ -162,7 +163,7 @@ export default function LeadForm({
                           {field.options.map((option) => (
                             <label
                               key={option}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-2 font-soehne"
                             >
                               <input
                                 type="radio"
@@ -184,7 +185,7 @@ export default function LeadForm({
               case "checkbox":
                 return (
                   <Field key={field.id} className="gap-2">
-                    <FieldLabel className="text-base">
+                    <FieldLabel className="text-base font-soehne">
                       {field.label}
                       {field.required && (
                         <span className="text-red-600">*</span>
@@ -192,7 +193,7 @@ export default function LeadForm({
                     </FieldLabel>
 
                     {field.description && (
-                      <FieldDescription className="text-gray-600">
+                      <FieldDescription className="text-gray-600 font-soehne">
                         {field.description}
                       </FieldDescription>
                     )}
@@ -210,7 +211,7 @@ export default function LeadForm({
                             return (
                               <label
                                 key={option}
-                                className="flex items-center gap-2"
+                                className="flex items-center gap-2 font-soehne"
                               >
                                 <input
                                   type="checkbox"
@@ -247,15 +248,15 @@ export default function LeadForm({
           <Separator />
 
           <Field className="gap-2">
-            <FieldLabel htmlFor="name">
+            <FieldLabel htmlFor="name" className="text-base font-soehne">
               Imię i nazwisko
-              <span className="text-red-600">*</span>
+              <span className="text-red-600 font-soehne">*</span>
             </FieldLabel>
 
             <Input
               id="name"
               placeholder="Wpisz swoje imię i nazwisko"
-              className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg"
+              className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg placeholder:text-soehne"
               {...form.register("name", {
                 required: "Imię i nazwisko jest wymagane",
               })}
@@ -263,15 +264,15 @@ export default function LeadForm({
           </Field>
 
           <Field className="gap-2">
-            <FieldLabel htmlFor="phone">
-              Numer telefonu <span className="text-red-600">*</span>
+            <FieldLabel htmlFor="phone" className="text-base font-soehne">
+              Numer telefonu <span className="text-red-600 font-soehne">*</span>
             </FieldLabel>
 
             <Input
               id="phone"
               type="tel"
               placeholder="Wpisz swój numer telefonu"
-              className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg"
+              className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg placeholder:text-soehne"
               {...form.register("phone", {
                 required: "Numer telefonu jest wymagany",
               })}
@@ -279,22 +280,22 @@ export default function LeadForm({
           </Field>
 
           <Field className="gap-2">
-            <FieldLabel htmlFor="email">
-              Adres e-mail <span className="text-red-600">*</span>
+            <FieldLabel htmlFor="email" className="text-base font-soehne">
+              Adres e-mail <span className="text-red-600 font-soehne">*</span>
             </FieldLabel>
 
             <Input
               id="email"
               type="email"
               placeholder="Wpisz swój adres e-mail"
-              className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg"
+              className="placeholder:text-gray-600 placeholder:text-[13px] bg-white border-border rounded-lg placeholder:text-soehne"
               {...form.register("email", {
                 required: "Adres e-mail jest wymagany",
               })}
             />
           </Field>
 
-          <div className="rounded-lg bg-white border p-4 text-sm ">
+          <div className="rounded-lg bg-white border p-4 text-sm text-gray-700 font-soehne">
             Po wysłaniu zgłoszenia trener skontaktuje się z Tobą, aby wspólnie
             ustalić dogodny termin treningu.
           </div>
@@ -305,11 +306,17 @@ export default function LeadForm({
               size="lg"
               variant="outline"
               onClick={handleCancel}
+              className="font-soehne"
             >
               Anuluj
             </Button>
 
-            <Button type="submit" size="lg" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              size="lg"
+              disabled={isSubmitting}
+              className="font-soehne"
+            >
               {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
             </Button>
           </div>

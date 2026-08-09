@@ -6,6 +6,7 @@ import JoinFitly from "../shared/cta";
 import { DefaultSpecializations } from "./default-specializations";
 import DefaultAvatar from "./default-avatar";
 import DefaultInfo from "./default-info";
+import DefaultSocials from "./default-socials";
 
 type Props = {
   profile: Profile;
@@ -23,7 +24,7 @@ export function DefaultProfile({ profile }: Props) {
         <DefaultAvatar profile={profile} />
         <DefaultInfo profile={profile} />
       </div>
-
+      <DefaultSocials socials={profile.socials} />
       <DefaultSpecializations profile={profile} />
       <DefaultServices profile={profile} />
       {/* <JoinFitly profile={profile} /> */}

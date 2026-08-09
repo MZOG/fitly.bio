@@ -11,7 +11,7 @@ export default function DefaultInfo({ profile }: { profile: Profile }) {
         {profile.full_name}
       </h1>
 
-      <p className="mt-3 max-w-lg text-balance font-soehne leading-relaxed text-muted-foreground">
+      <p className="mt-3 text-[15px] md:text-base max-w-lg font-soehne leading-relaxed text-muted-foreground">
         {profile.bio}
       </p>
 

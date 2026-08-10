@@ -5,9 +5,9 @@ export default function ProfileHeader() {
     <header className="flex justify-center">
       <Link
         href="/"
-        className="text-center text-2xl px-5 font-grotesk font-extrabold text-fitly"
+        className="text-center text-2xl px-5 font-grotesk font-extrabold "
       >
-        Fitly.
+        Fit<span className="text-fitly">ly</span>
       </Link>
     </header>
   );

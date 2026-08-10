@@ -6,8 +6,8 @@ export function Footer() {
           Powered by
         </p>
 
-        <p className="mt-1 text-fitly font-grotesk text-xl font-semibold">
-          Fitly.
+        <p className="mt-1 font-grotesk text-xl font-semibold">
+          Fit<span className="text-fitly">ly</span>
         </p>
       </div>
     </footer>

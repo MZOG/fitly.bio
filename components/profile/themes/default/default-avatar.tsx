@@ -2,6 +2,10 @@ import { Profile } from "@/lib/types";
 import Image from "next/image";
 
 export default function DefaultAvatar({ profile }: { profile: Profile }) {
+  if (!profile.avatar_url) {
+    return null;
+  }
+
   return (
     <div className="relative">
       <div className="size-32 overflow-hidden rounded-full ring-3 ring-fitly/25 ring-offset-3 ring-offset-background sm:size-40">

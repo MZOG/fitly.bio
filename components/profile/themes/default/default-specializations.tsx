@@ -22,7 +22,7 @@ export function DefaultSpecializations({ profile }: Props) {
         {profile.specializations.map((item) => (
           <span
             key={item}
-            className="font-soehne text-fitly inline-flex bg-fitly/2 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs md:text-sm font-medium ring-1 ring-fitly/30"
+            className="font-soehne text-fitly inline-flex bg-white items-center gap-1.5 rounded-full px-3 py-1 text-xs md:text-sm font-medium ring-1 ring-fitly/30"
           >
             {item}
           </span>

@@ -12,10 +12,10 @@ export default function MinimalAvatar({ profile }: { profile: Profile }) {
         <Image
           src={profile.avatar_url}
           alt={profile.full_name ?? ""}
-          width={isDesktop ? 152 : 80}
-          height={isDesktop ? 152 : 80}
+          width={isDesktop ? 120 : 80}
+          height={isDesktop ? 120 : 80}
           priority
-          className="size-20 md:size-38 rounded-full object-cover ring-1 ring-gray-700 ring-offset-2"
+          className="size-20 md:size-30 rounded-full object-cover ring-1 ring-gray-700 ring-offset-2"
         />
       ) : (
         <div className="flex size-28 items-center justify-center rounded-full bg-gray-100 text-4xl font-semibold text-gray-700">

@@ -12,11 +12,14 @@ export function Specializations({ profile }: Props) {
 
   return (
     <section>
-      <div className="flex flex-wrap justify-center gap-2">
+      <h2 className="text-xs mb-2 uppercase tracking-widest font-medium text-muted-foreground">
+        Specializacje
+      </h2>
+      <div className="flex flex-wrap  gap-2">
         {profile.specializations.map((item) => (
           <Badge
             key={item}
-            className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700"
+            className="rounded-full border border-gray-200 bg-white font-medium text-gray-700"
           >
             {item}
           </Badge>

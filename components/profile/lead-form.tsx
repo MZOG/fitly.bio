@@ -295,11 +295,6 @@ export default function LeadForm({
             />
           </Field>
 
-          <div className="rounded-lg bg-white border p-4 text-sm text-gray-700 font-soehne">
-            Po wysłaniu zgłoszenia trener skontaktuje się z Tobą, aby wspólnie
-            ustalić dogodny termin treningu.
-          </div>
-
           <div className="flex justify-between">
             <Button
               type="button"

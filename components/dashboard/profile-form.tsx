@@ -405,14 +405,14 @@ export function ProfileForm({ user, profile }: Props) {
             </div>
           </Field>
 
-          <Field>
+          {/* <Field>
             <FieldLabel>Wygląd profilu</FieldLabel>
 
             <ThemeSelector
               value={form.watch("theme")}
               onChange={(theme) => form.setValue("theme", theme)}
             />
-          </Field>
+          </Field> */}
         </FieldGroup>
       </FieldSet>
 

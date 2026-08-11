@@ -8,6 +8,7 @@ import { Services } from "./services";
 import { Info } from "./info";
 import { Separator } from "@/components/ui/separator";
 import MinimalLogo from "./minimal-logo";
+import MinimalSocials from "./minimal-socials";
 
 type Props = {
   profile: Profile;
@@ -19,9 +20,9 @@ export function MinimalProfile({ profile }: Props) {
       <div className="mx-auto flex max-w-lg flex-col gap-7 md:gap-10 px-5 py-5">
         <MinimalLogo />
         <Header profile={profile} />
+        <MinimalSocials profile={profile} />
         {/* <Info profile={profile} /> */}
-        {/* <Bio profile={profile} /> */}
-        {/* <Specializations profile={profile} /> */}
+        <Specializations profile={profile} />
         {/* <div>
           <Separator className="mb-5" />
           <Services profile={profile} />

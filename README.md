@@ -1,14 +1,5 @@
 # ⚡ fitly.bio
 
-> **The ultimate "Link in Bio" & Lead Generation platform built specifically for Personal Trainers and Fitness Coaches.**
-
-[![Next.js](https://img.shields.io/badge/Frontend-Next.js-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![Supabase](https://img.shields.io/badge/Backend-Supabase-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
-[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-
----
-
 ## 🏋️‍♂️ About The Project
 
 Standard "Link in Bio" tools like Linktree are often too generic for personal trainers. They lack built-in fitness price lists, client onboarding questionnaires, and instant lead management.

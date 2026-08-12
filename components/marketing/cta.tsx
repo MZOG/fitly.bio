@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-export function CallToAction() {
+export default function CallToAction() {
   return (
     <section className="bg-fitly/5 font-soehne">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-24">

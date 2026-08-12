@@ -112,3 +112,14 @@ export type AdminUser = {
 };
 
 export type ProfileTheme = "default" | "minimal" | "dark";
+
+export type GalleryItem = {
+  id: string;
+  profile_id: string;
+  type: "image" | "comparison";
+  image_url: string | null;
+  before_url: string | null;
+  after_url: string | null;
+  caption: string | null;
+  created_at: string;
+};

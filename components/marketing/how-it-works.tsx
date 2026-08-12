@@ -15,7 +15,7 @@ const steps = [
   },
 ];
 
-export function HowItWorks() {
+export default function HowItWorks() {
   return (
     <section id="jak-to-dziala" className="bg-fitly/5 font-soehne">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-28">

@@ -20,7 +20,7 @@ const proFeatures = [
   { label: "Zdjęcia „Przed / Po” z suwakiem", soon: true },
 ];
 
-export function Pricing() {
+export default function Pricing() {
   return (
     <section id="cennik" className="font-soehne">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">

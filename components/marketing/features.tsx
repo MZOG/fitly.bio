@@ -40,7 +40,7 @@ const features = [
   },
 ];
 
-export function Features() {
+export default function Features() {
   return (
     <section id="funkcje" className="bg-background font-soehne">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">

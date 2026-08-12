@@ -12,7 +12,7 @@ const scattered = [
   { icon: ClipboardList, label: "Formularz Google" },
 ];
 
-export function Idea() {
+export default function Idea() {
   return (
     <section className="bg-fitly text-primary-foreground font-soehne">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">

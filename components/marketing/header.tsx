@@ -59,14 +59,12 @@ export default function Header() {
 
         {/* mobile view */}
         <div className="flex items-center gap-2 justify-end md:hidden">
-          <Button
-            className="bg-fitly h-10 px-5 text-[17px] font-normal"
-            render={
-              <Link href="/login" className="md:hidden">
-                Załóż profil
-              </Link>
-            }
-          />
+          <Link
+            href="/login"
+            className="md:hidden bg-fitly h-10 px-5 text-[17px] font-normal"
+          >
+            Załóż profil
+          </Link>
 
           <Button
             onClick={() => setOpen((v) => !v)}

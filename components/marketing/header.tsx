@@ -64,7 +64,6 @@ export default function Header() {
             className="text-[15px] inline-flex items-center gap-2 rounded-full bg-fitly px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
             Załóż profil
-            <ArrowUpRight className="size-4" />
           </Link>
 
           <Button

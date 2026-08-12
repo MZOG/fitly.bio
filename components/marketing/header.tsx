@@ -61,9 +61,10 @@ export default function Header() {
         <div className="flex items-center gap-2 justify-end md:hidden">
           <Link
             href="/login"
-            className="md:hidden bg-fitly h-10 px-5 text-[17px] font-normal"
+            className="text-[15px] inline-flex items-center gap-2 rounded-full bg-fitly px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
             Załóż profil
+            <ArrowUpRight className="size-4" />
           </Link>
 
           <Button

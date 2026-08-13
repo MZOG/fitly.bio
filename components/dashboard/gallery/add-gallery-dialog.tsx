@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { ImagePlus } from "lucide-react";
 
 type Props = {
   open: boolean;
@@ -23,6 +24,28 @@ export default function AddGalleryDialog({ open, onOpenChange }: Props) {
   const [caption, setCaption] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const getImageDimensions = (file: File) => {
+    return new Promise<{ width: number; height: number }>((resolve, reject) => {
+      const image = new Image();
+
+      image.onload = () => {
+        resolve({
+          width: image.naturalWidth,
+          height: image.naturalHeight,
+        });
+
+        URL.revokeObjectURL(image.src);
+      };
+
+      image.onerror = () => {
+        URL.revokeObjectURL(image.src);
+        reject(new Error("Nie udało się odczytać wymiarów zdjęcia"));
+      };
+
+      image.src = URL.createObjectURL(file);
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -33,6 +56,7 @@ export default function AddGalleryDialog({ open, onOpenChange }: Props) {
     let filePath: string | null = null;
 
     try {
+      const { width, height } = await getImageDimensions(file);
       const supabase = createClient();
 
       const fileExt = file.name.split(".").pop();
@@ -63,6 +87,8 @@ export default function AddGalleryDialog({ open, onOpenChange }: Props) {
       await createGalleryItem({
         imageUrl: publicUrl,
         caption,
+        width,
+        height,
       });
 
       setFile(null);
@@ -99,11 +125,47 @@ export default function AddGalleryDialog({ open, onOpenChange }: Props) {
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <Input
+          {/* <Input
             type="file"
             accept="image/jpeg,image/png,image/webp"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          />
+          /> */}
+
+          <div>
+            <label
+              htmlFor="gallery-image"
+              className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-muted-foreground/20 bg-muted/30 px-6 py-10 text-center transition-colors hover:border-fitly/50 hover:bg-muted/50"
+            >
+              <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-background shadow-sm">
+                <ImagePlus className="size-6 text-muted-foreground" />
+              </div>
+
+              {file ? (
+                <>
+                  <p className="font-medium">{file.name}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Kliknij, aby wybrać inne zdjęcie
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="font-medium">Wybierz zdjęcie</p>
+
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    JPG, PNG lub WebP
+                  </p>
+                </>
+              )}
+            </label>
+
+            <input
+              id="gallery-image"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="sr-only"
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+            />
+          </div>
 
           <Input
             placeholder="Podpis (opcjonalnie)"

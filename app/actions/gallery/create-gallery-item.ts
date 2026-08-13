@@ -7,11 +7,15 @@ import { createClient } from "@/lib/supabase/server";
 type CreateGalleryItemInput = {
   imageUrl: string;
   caption?: string;
+  width: number;
+  height: number;
 };
 
 export async function createGalleryItem({
   imageUrl,
   caption,
+  width,
+  height,
 }: CreateGalleryItemInput) {
   const cookieStore = await cookies();
   const supabase = await createClient(cookieStore);
@@ -52,6 +56,8 @@ export async function createGalleryItem({
     type: "image",
     image_url: imageUrl,
     caption: caption || null,
+    width,
+    height,
   });
 
   if (error) {

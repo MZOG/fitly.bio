@@ -7,9 +7,11 @@ type Props = {
 
 export default function GalleryGrid({ gallery }: Props) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
       {gallery.map((item) => (
-        <GalleryCard key={item.id} item={item} />
+        <div key={item.id} className="mb-5 break-inside-avoid">
+          <GalleryCard item={item} />
+        </div>
       ))}
     </div>
   );

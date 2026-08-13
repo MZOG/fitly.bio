@@ -21,6 +21,7 @@ export type Profile = {
   plan: string | null;
   services: Service[];
   theme: ProfileTheme;
+  gallery: GalleryItem[];
 };
 
 export type ServiceField = {
@@ -122,4 +123,6 @@ export type GalleryItem = {
   after_url: string | null;
   caption: string | null;
   created_at: string;
+  width: number | null;
+  height: number | null;
 };

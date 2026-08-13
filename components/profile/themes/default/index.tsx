@@ -7,6 +7,7 @@ import { DefaultSpecializations } from "./default-specializations";
 import DefaultAvatar from "./default-avatar";
 import DefaultInfo from "./default-info";
 import DefaultSocials from "./default-socials";
+import Gallery from "../../gallery";
 
 type Props = {
   profile: Profile;
@@ -27,6 +28,8 @@ export function DefaultProfile({ profile }: Props) {
         </div>
         <DefaultSocials socials={profile.socials} />
         <DefaultSpecializations profile={profile} />
+
+        <Gallery gallery={profile.gallery} />
         <DefaultServices profile={profile} />
         {/* <JoinFitly profile={profile} /> */}
         <Footer />

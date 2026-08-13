@@ -32,6 +32,10 @@ const data = {
       url: "/dashboard/services",
     },
     {
+      title: "Galeria",
+      url: "/dashboard/gallery",
+    },
+    {
       title: "Formularz",
       url: "/dashboard/leads",
     },

@@ -81,6 +81,17 @@ export default async function UserProfilePage({ params }: Props) {
     notFound();
   }
 
+  const { data: gallery, error: galleryError } = await supabase
+    .from("gallery")
+    .select("*")
+    .eq("profile_id", profile.id)
+    .order("created_at", { ascending: false });
+
+  const profileWithGallery = {
+    ...profile,
+    gallery: gallery ?? [],
+  };
+
   switch (profile.theme) {
     case "minimal":
       return <MinimalProfile profile={profile} />;
@@ -89,6 +100,6 @@ export default async function UserProfilePage({ params }: Props) {
       return <DarkProfile profile={profile} />;
 
     default:
-      return <DefaultProfile profile={profile} />;
+      return <DefaultProfile profile={profileWithGallery} />;
   }
 }

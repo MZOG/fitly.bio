@@ -117,7 +117,7 @@ export type ProfileTheme = "default" | "minimal" | "dark";
 export type GalleryItem = {
   id: string;
   profile_id: string;
-  type: "image" | "comparison";
+  type: "image" | "before_after";
   image_url: string | null;
   before_url: string | null;
   after_url: string | null;
@@ -125,4 +125,8 @@ export type GalleryItem = {
   created_at: string;
   width: number | null;
   height: number | null;
+  before_width: number | null;
+  before_height: number | null;
+  after_width: number | null;
+  after_height: number | null;
 };

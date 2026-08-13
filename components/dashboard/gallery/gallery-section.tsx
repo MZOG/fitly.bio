@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GalleryItem } from "@/lib/types";
-import GalleryGrid from "./gallery-grid";
 import GalleryEmpty from "./gallery-empty";
 import AddGalleryDialog from "./add-gallery-dialog";
+import { GalleryList } from "./gallery-list";
 
 type Props = {
   gallery: GalleryItem[];
@@ -52,11 +52,11 @@ export function GallerySection({ gallery, plan }: Props) {
         {gallery.length === 0 ? (
           <GalleryEmpty onAdd={() => setOpen(true)} />
         ) : (
-          <GalleryGrid gallery={gallery} />
+          <GalleryList gallery={gallery} />
         )}
       </div>
 
-      <AddGalleryDialog open={open} onOpenChange={setOpen} />
+      <AddGalleryDialog open={open} onOpenChange={setOpen} plan={plan} />
     </>
   );
 }

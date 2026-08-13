@@ -4,11 +4,18 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
-type CreateGalleryItemInput = {
-  imageUrl: string;
+type CreateGalleryItemParams = {
+  type: "image" | "before_after";
+  imageUrl?: string;
+  beforeUrl?: string;
+  afterUrl?: string;
   caption?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
+  beforeWidth?: number;
+  beforeHeight?: number;
+  afterWidth?: number;
+  afterHeight?: number;
 };
 
 export async function createGalleryItem({
@@ -16,7 +23,14 @@ export async function createGalleryItem({
   caption,
   width,
   height,
-}: CreateGalleryItemInput) {
+  type,
+  beforeUrl,
+  afterUrl,
+  beforeHeight,
+  beforeWidth,
+  afterHeight,
+  afterWidth,
+}: CreateGalleryItemParams) {
   const cookieStore = await cookies();
   const supabase = await createClient(cookieStore);
 
@@ -53,11 +67,17 @@ export async function createGalleryItem({
 
   const { error } = await supabase.from("gallery").insert({
     profile_id: user.id,
-    type: "image",
-    image_url: imageUrl,
+    type,
+    image_url: imageUrl ?? null,
+    before_url: beforeUrl ?? null,
+    after_url: afterUrl ?? null,
     caption: caption || null,
-    width,
-    height,
+    width: width ?? null,
+    height: height ?? null,
+    before_width: beforeWidth ?? null,
+    before_height: beforeHeight ?? null,
+    after_width: afterWidth ?? null,
+    after_height: afterHeight ?? null,
   });
 
   if (error) {

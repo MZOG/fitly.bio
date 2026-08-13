@@ -21,9 +21,13 @@ type Props = {
   item: GalleryItem;
 };
 
-export default function GalleryCard({ item }: Props) {
+export default function BeforeAfterCard({ item }: Props) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  if (!item.before_url || !item.after_url) {
+    return null;
+  }
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -38,16 +42,34 @@ export default function GalleryCard({ item }: Props) {
 
   return (
     <div className="overflow-hidden rounded-2xl border bg-white">
-      <div className="relative">
-        {item.image_url && (
+      <div className="grid grid-cols-2">
+        <div className="relative">
           <Image
-            src={item.image_url}
-            alt={item.caption ?? "Zdjęcie w galerii"}
-            width={item.width ?? 1200}
-            height={item.height ?? 1200}
+            src={item.before_url}
+            alt="Przed"
+            width={item.before_width ?? 1200}
+            height={item.before_height ?? 1200}
             className="h-auto w-full"
           />
-        )}
+
+          <span className="absolute left-3 top-3 rounded-full bg-black/70 px-3 py-1 text-xs font-medium text-white">
+            Przed
+          </span>
+        </div>
+
+        <div className="relative">
+          <Image
+            src={item.after_url}
+            alt="Po"
+            width={item.after_width ?? 1200}
+            height={item.after_height ?? 1200}
+            className="h-auto w-full"
+          />
+
+          <span className="absolute left-3 top-3 rounded-full bg-black/70 px-3 py-1 text-xs font-medium text-white">
+            Po
+          </span>
+        </div>
       </div>
 
       <div className="flex items-center justify-between gap-3 p-4">
@@ -66,11 +88,11 @@ export default function GalleryCard({ item }: Props) {
 
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Usunąć zdjęcie?</DialogTitle>
+              <DialogTitle>Usunąć metamorfozę?</DialogTitle>
 
               <DialogDescription>
-                Zdjęcie zostanie trwale usunięte z Twojej galerii. Tej operacji
-                nie można cofnąć.
+                Oba zdjęcia zostaną trwale usunięte z galerii. Tej operacji nie
+                można cofnąć.
               </DialogDescription>
             </DialogHeader>
 
@@ -90,7 +112,7 @@ export default function GalleryCard({ item }: Props) {
                 onClick={handleDelete}
                 disabled={isDeleting}
               >
-                {isDeleting ? "Usuwanie..." : "Usuń zdjęcie"}
+                {isDeleting ? "Usuwanie..." : "Usuń metamorfozę"}
               </Button>
             </DialogFooter>
           </DialogContent>

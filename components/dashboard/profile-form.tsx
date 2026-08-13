@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+
 import {
   Field,
   FieldDescription,
@@ -14,6 +15,7 @@ import {
   FieldLabel,
   FieldSet,
 } from "@/components/ui/field";
+
 import { toast } from "sonner";
 import { ProFeature } from "./pro-feature";
 import { createSlug } from "@/lib/slug";
@@ -21,6 +23,7 @@ import { Plus, Save, Trash2 } from "lucide-react";
 import { AvatarUpload } from "./avatar-upload";
 import { MultiSelect } from "../ui/multi-select";
 import { SPECIALIZATIONS } from "@/lib/specializations";
+
 import {
   Select,
   SelectContent,
@@ -30,9 +33,7 @@ import {
 } from "../ui/select";
 
 import { Gym, Social, Profile, ProfileTheme } from "@/lib/types";
-import PanelTitle from "./panel-title";
 import { useRouter } from "next/navigation";
-import { ThemeSelector } from "./profile/theme-selector";
 
 type Props = {
   user: {
@@ -67,11 +68,14 @@ export type SocialPlatform = (typeof SOCIAL_PLATFORMS)[number];
 
 export function ProfileForm({ user, profile }: Props) {
   const [isPending, startTransition] = useTransition();
+
   const isPro = profile?.plan === "pro";
+
   const specializationOptions = SPECIALIZATIONS.map((item) => ({
     label: item,
     value: item,
   }));
+
   const router = useRouter();
 
   const form = useForm<ProfileFormValues>({
@@ -139,6 +143,7 @@ export function ProfileForm({ user, profile }: Props) {
       }
 
       toast.success("Profil zapisany");
+
       router.push("/dashboard");
       router.refresh();
     });
@@ -177,249 +182,282 @@ export function ProfileForm({ user, profile }: Props) {
 
   const usernamePreviewSlug = createSlug(username || fullName);
 
-  // useEffect(() => {
-  //   if (!profile) return;
-
-  //   form.reset({
-  //     full_name: profile.full_name ?? "",
-  //     username: profile.username ?? "",
-  //     bio: profile.bio ?? "",
-  //     city: profile.city ?? "",
-  //     gyms: profile.gyms?.length ? profile.gyms : [{ name: "" }],
-  //     specializations: profile.specializations ?? [],
-  //     socials: {
-  //       instagram: profile.socials?.instagram ?? "",
-  //       facebook: profile.socials?.facebook ?? "",
-  //       tiktok: profile.socials?.tiktok ?? "",
-  //       youtube: profile.socials?.youtube ?? "",
-  //       linkedin: profile.socials?.linkedin ?? "",
-  //       website: profile.socials?.website ?? "",
-  //     },
-  //   });
-  // }, [profile, form]);
-
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="space-y-8 max-w-3xl mx-auto"
+      className="mx-auto max-w-4xl space-y-8"
     >
-      <PanelTitle title="Mój profil" />
-      <FieldSet>
-        <FieldGroup>
-          <Field>
-            <FieldLabel>Zdjęcie profilowe</FieldLabel>
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Mój profil</h1>
 
-            <AvatarUpload
-              userId={user.id}
-              avatarUrl={profile?.avatar_url ?? null}
-            />
+          <p className="mt-1 text-sm text-muted-foreground">
+            Zarządzaj informacjami, które widzą osoby odwiedzające Twój profil.
+          </p>
+        </div>
 
-            <FieldDescription>
-              JPG, PNG lub WEBP. Zdjęcie będzie widoczne na Twoim profilu.
-            </FieldDescription>
-          </Field>
-          <Field>
-            <FieldLabel>Imię i nazwisko</FieldLabel>
-            <Input {...form.register("full_name")} />
-            <FieldDescription className="text-xs">
-              fitly.bio/
-              {profilePreviewSlug}
-            </FieldDescription>
-            {isPro && (
-              <FieldDescription>
-                W planie <span className="font-semibold">pro</span> adres
-                profilu jest tworzony z pola
-                <span className="underline underline-offset-2">
-                  {" "}
-                  Nazwa użytkownika
-                </span>
-                .
-              </FieldDescription>
-            )}
-          </Field>
+        <Button type="submit" disabled={isPending}>
+          <Save />
+          {isPending ? "Zapisywanie..." : "Zapisz zmiany"}
+        </Button>
+      </div>
 
-          <ProFeature>
+      {/* Informacje podstawowe */}
+      <div className="rounded-2xl border bg-background p-6">
+        <div className="mb-6">
+          <h2 className="font-semibold">Informacje podstawowe</h2>
+
+          <p className="mt-1 text-sm text-muted-foreground">
+            Zdjęcie profilowe, nazwa i krótki opis.
+          </p>
+        </div>
+
+        <FieldSet>
+          <FieldGroup>
             <Field>
-              <FieldLabel>Nazwa użytkownika</FieldLabel>
-              <Input
-                {...form.register("username", {
-                  setValueAs: (value: string) => createSlug(value),
-                })}
+              <FieldLabel>Zdjęcie profilowe</FieldLabel>
+
+              <AvatarUpload
+                userId={user.id}
+                avatarUrl={profile?.avatar_url ?? null}
               />
-              <FieldDescription className="text-xs">
-                fitly.bio/
-                {usernamePreviewSlug}
+
+              <FieldDescription>
+                JPG, PNG lub WEBP. Zdjęcie będzie widoczne na Twoim profilu.
               </FieldDescription>
             </Field>
-          </ProFeature>
 
-          <Field>
-            <FieldLabel>Bio</FieldLabel>
+            <Field>
+              <FieldLabel>Imię i nazwisko</FieldLabel>
 
-            <Textarea
-              rows={5}
-              maxLength={isPro ? undefined : 400}
-              {...form.register("bio", {
-                maxLength: isPro
-                  ? undefined
-                  : {
-                      value: 400,
-                      message: "Bio może mieć maksymalnie 400 znaków.",
-                    },
-              })}
-            />
+              <Input {...form.register("full_name")} />
 
-            <FieldDescription>
-              {bio.length}
-              {!isPro && "/400"} znaków
-            </FieldDescription>
-          </Field>
+              <FieldDescription className="text-xs">
+                fitly.bio/
+                {profilePreviewSlug}
+              </FieldDescription>
 
-          <Field>
-            <FieldLabel>Specjalizacje</FieldLabel>
-
-            <MultiSelect
-              value={form.watch("specializations")}
-              options={specializationOptions}
-              maxSelected={isPro ? undefined : 3}
-              placeholder="Wybierz specjalizacje"
-              onChange={(value) => {
-                form.setValue("specializations", value);
-              }}
-            />
-
-            <FieldDescription>
-              {isPro
-                ? `${form.watch("specializations").length} wybranych`
-                : `${form.watch("specializations").length}/3 wybrane`}
-            </FieldDescription>
-          </Field>
-
-          <Field>
-            <FieldLabel>Miasto</FieldLabel>
-            <Input {...form.register("city")} />
-          </Field>
-
-          <Field>
-            <FieldLabel>Siłownie</FieldLabel>
-
-            <div className="space-y-2">
-              {gymFields.map((field, index) => (
-                <div key={field.id} className="flex gap-2">
-                  <Input
-                    readOnly={!isPro && index > 0}
-                    className={
-                      !isPro && index > 0 ? "opacity-50 cursor-not-allowed" : ""
-                    }
-                    {...form.register(`gyms.${index}.name`)}
-                    placeholder="Nazwa siłowni"
-                  />
-
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => removeGym(index)}
-                  >
-                    <Trash2 className="text-red-600" />
-                    Usuń
-                  </Button>
-                </div>
-              ))}
-
-              <Button
-                type="button"
-                variant="outline"
-                disabled={!isPro && gymFields.length >= 1}
-                onClick={() => appendGym({ name: "" })}
-              >
-                <Plus />
-                Dodaj siłownię
-              </Button>
-              {!isPro && gymFields.length > 1 && (
+              {isPro && (
                 <FieldDescription>
-                  Przejdź na <span className="font-semibold">pro</span>, aby
-                  edytować dodatkowe siłownie. Możesz je jednak usunąć.
+                  W planie <span className="font-semibold">pro</span> adres
+                  profilu jest tworzony z pola{" "}
+                  <span className="underline underline-offset-2">
+                    Nazwa użytkownika
+                  </span>
+                  .
                 </FieldDescription>
               )}
-            </div>
-          </Field>
+            </Field>
 
-          <Field>
-            <FieldLabel>Social media</FieldLabel>
+            <ProFeature>
+              <Field>
+                <FieldLabel>Nazwa użytkownika</FieldLabel>
 
-            <div className="space-y-3">
-              {socialFields.map((field, index) => (
-                <div
-                  key={field.id}
-                  className="grid grid-cols-[180px_1fr_auto] gap-3"
+                <Input
+                  {...form.register("username", {
+                    setValueAs: (value: string) => createSlug(value),
+                  })}
+                />
+
+                <FieldDescription className="text-xs">
+                  fitly.bio/
+                  {usernamePreviewSlug}
+                </FieldDescription>
+              </Field>
+            </ProFeature>
+
+            <Field>
+              <FieldLabel>Bio</FieldLabel>
+
+              <Textarea
+                rows={5}
+                maxLength={isPro ? undefined : 400}
+                {...form.register("bio", {
+                  maxLength: isPro
+                    ? undefined
+                    : {
+                        value: 400,
+                        message: "Bio może mieć maksymalnie 400 znaków.",
+                      },
+                })}
+              />
+
+              <FieldDescription>
+                {bio.length}
+                {!isPro && "/400"} znaków
+              </FieldDescription>
+            </Field>
+          </FieldGroup>
+        </FieldSet>
+      </div>
+
+      {/* Specjalizacja i lokalizacja */}
+      <div className="rounded-2xl border bg-background p-6">
+        <div className="mb-6">
+          <h2 className="font-semibold">Specjalizacja i lokalizacja</h2>
+
+          <p className="mt-1 text-sm text-muted-foreground">
+            Powiedz klientom, w czym się specjalizujesz i gdzie pracujesz.
+          </p>
+        </div>
+
+        <FieldSet>
+          <FieldGroup>
+            <Field>
+              <FieldLabel>Specjalizacje</FieldLabel>
+
+              <MultiSelect
+                value={form.watch("specializations")}
+                options={specializationOptions}
+                maxSelected={isPro ? undefined : 3}
+                placeholder="Wybierz specjalizacje"
+                onChange={(value) => {
+                  form.setValue("specializations", value);
+                }}
+              />
+
+              <FieldDescription>
+                {isPro
+                  ? `${form.watch("specializations").length} wybranych`
+                  : `${form.watch("specializations").length}/3 wybrane`}
+              </FieldDescription>
+            </Field>
+
+            <Field>
+              <FieldLabel>Miasto</FieldLabel>
+
+              <Input {...form.register("city")} />
+            </Field>
+
+            <Field>
+              <FieldLabel>Siłownie</FieldLabel>
+
+              <div className="space-y-2">
+                {gymFields.map((field, index) => (
+                  <div key={field.id} className="flex gap-2">
+                    <Input
+                      readOnly={!isPro && index > 0}
+                      className={
+                        !isPro && index > 0
+                          ? "cursor-not-allowed opacity-50"
+                          : ""
+                      }
+                      {...form.register(`gyms.${index}.name`)}
+                      placeholder="Nazwa siłowni"
+                    />
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => removeGym(index)}
+                    >
+                      <Trash2 className="text-red-600" />
+                      Usuń
+                    </Button>
+                  </div>
+                ))}
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={!isPro && gymFields.length >= 1}
+                  onClick={() => appendGym({ name: "" })}
                 >
-                  <Select
-                    value={form.watch(`socials.${index}.platform`) ?? ""}
-                    onValueChange={(value) => {
-                      if (value === null) return;
+                  <Plus />
+                  Dodaj siłownię
+                </Button>
 
-                      form.setValue(`socials.${index}.platform`, value);
-                    }}
+                {!isPro && gymFields.length > 1 && (
+                  <FieldDescription>
+                    Przejdź na <span className="font-semibold">pro</span>, aby
+                    edytować dodatkowe siłownie. Możesz je jednak usunąć.
+                  </FieldDescription>
+                )}
+              </div>
+            </Field>
+          </FieldGroup>
+        </FieldSet>
+      </div>
+
+      {/* Social media */}
+      <div className="rounded-2xl border bg-background p-6">
+        <div className="mb-6">
+          <h2 className="font-semibold">Social media</h2>
+
+          <p className="mt-1 text-sm text-muted-foreground">
+            Dodaj swoje profile społecznościowe, aby klienci mogli Cię łatwo
+            znaleźć.
+          </p>
+        </div>
+
+        <FieldSet>
+          <FieldGroup>
+            <Field>
+              <div className="space-y-3">
+                {socialFields.map((field, index) => (
+                  <div
+                    key={field.id}
+                    className="grid grid-cols-1 gap-3 sm:grid-cols-[180px_1fr_auto]"
                   >
-                    <SelectTrigger className="border-border bg-white rounded-lg">
-                      <SelectValue placeholder="Platforma" />
-                    </SelectTrigger>
+                    <Select
+                      value={form.watch(`socials.${index}.platform`) ?? ""}
+                      onValueChange={(value) => {
+                        if (value === null) return;
 
-                    <SelectContent className="rounded-lg">
-                      {SOCIAL_PLATFORMS.map((platform) => (
-                        <SelectItem key={platform.value} value={platform.value}>
-                          {platform.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                        form.setValue(`socials.${index}.platform`, value);
+                      }}
+                    >
+                      <SelectTrigger className="rounded-lg border-border bg-white">
+                        <SelectValue placeholder="Platforma" />
+                      </SelectTrigger>
 
-                  <Input
-                    placeholder="https://..."
-                    {...form.register(`socials.${index}.url`)}
-                  />
+                      <SelectContent className="rounded-lg">
+                        {SOCIAL_PLATFORMS.map((platform) => (
+                          <SelectItem
+                            key={platform.value}
+                            value={platform.value}
+                          >
+                            {platform.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeSocial(index)}
-                  >
-                    <Trash2 className="size-4" />
-                  </Button>
-                </div>
-              ))}
+                    <Input
+                      placeholder="https://..."
+                      {...form.register(`socials.${index}.url`)}
+                    />
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() =>
-                  appendSocial({
-                    platform: "",
-                    url: "",
-                  })
-                }
-              >
-                Dodaj social
-              </Button>
-            </div>
-          </Field>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeSocial(index)}
+                    >
+                      <Trash2 className="size-4" />
+                    </Button>
+                  </div>
+                ))}
 
-          {/* <Field>
-            <FieldLabel>Wygląd profilu</FieldLabel>
-
-            <ThemeSelector
-              value={form.watch("theme")}
-              onChange={(theme) => form.setValue("theme", theme)}
-            />
-          </Field> */}
-        </FieldGroup>
-      </FieldSet>
-
-      <Button type="submit" disabled={isPending}>
-        <Save />
-        {isPending ? "Zapisywanie..." : "Zapisz"}
-      </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    appendSocial({
+                      platform: "",
+                      url: "",
+                    })
+                  }
+                >
+                  <Plus />
+                  Dodaj social
+                </Button>
+              </div>
+            </Field>
+          </FieldGroup>
+        </FieldSet>
+      </div>
     </form>
   );
 }

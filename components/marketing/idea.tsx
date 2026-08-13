@@ -1,9 +1,12 @@
+"use client";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import {
   AtSign,
   MessageCircle,
   ClipboardList,
   ArrowRight,
   Link2,
+  ArrowDown,
 } from "lucide-react";
 
 const scattered = [
@@ -13,6 +16,8 @@ const scattered = [
 ];
 
 export default function Idea() {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   return (
     <section className="bg-fitly text-primary-foreground font-soehne">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
@@ -53,7 +58,11 @@ export default function Idea() {
           {/* Arrow */}
           <div className="flex justify-center">
             <span className="flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
-              <ArrowRight className="size-6" />
+              {isDesktop ? (
+                <ArrowRight className="size-6" />
+              ) : (
+                <ArrowDown className="size-6" />
+              )}
             </span>
           </div>
 

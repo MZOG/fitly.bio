@@ -31,7 +31,7 @@ export function DefaultServices({ profile }: Props) {
           {profile.services.map((service) => (
             <li
               key={service.name}
-              className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md"
+              className="rounded-2xl bg-card p-5  ring-1 ring-border transition-shadow hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-grotesk text-lg font-semibold text-foreground text-balance">

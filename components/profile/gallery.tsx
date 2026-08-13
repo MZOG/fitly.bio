@@ -31,7 +31,7 @@ export default function Gallery({ gallery }: Props) {
                 alt={item.caption ?? "Zdjęcie"}
                 width={item.width ?? 1200}
                 height={item.height ?? 1200}
-                className="h-auto w-full"
+                className="h-auto w-full border rounded-2xl"
               />
             )}
           </div>

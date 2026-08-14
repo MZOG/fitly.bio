@@ -56,9 +56,12 @@ export function ProfileCompletionBanner({ profile }: Props) {
           </div>
         </div>
 
-        <Button
-          render={<Link href="/dashboard/profile">Uzupełnij profil</Link>}
-        ></Button>
+        <Link
+          className="bg-fitly px-5 py-2 rounded-full text-white font-medium hover:bg-blue-700"
+          href="/dashboard/profile"
+        >
+          Uzupełnij profil
+        </Link>
       </CardContent>
     </Card>
   );

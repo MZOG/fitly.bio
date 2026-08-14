@@ -237,7 +237,7 @@ export default function ProPage() {
               </div>
             </div>
 
-            <Button size="lg">Odblokuj Pro</Button>
+            <Button size="lg">Wkrótce</Button>
           </div>
         </div>
       </div>

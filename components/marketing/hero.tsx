@@ -33,6 +33,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
+              data-umami-event="hero-signup-click"
               href="/login"
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-fitly hover:bg-fitly/90 px-5 py-2.5 text-base font-medium text-primary-foreground"
             >
@@ -40,6 +41,7 @@ export function Hero() {
               <ArrowUpRight className="size-5 transition-transform" />
             </Link>
             <Link
+              data-umami-event="hero-check-demo"
               href="/demo"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-base text-muted-foreground transition-colors hover:bg-secondary"
             >

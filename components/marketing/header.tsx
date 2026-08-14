@@ -31,6 +31,7 @@ export default function Header() {
         >
           {navLinks.map((link) => (
             <Link
+              data-umami-event={`nav-click-${link.label}`}
               key={link.href}
               href={link.href}
               className="text-[15px] transition-colors hover:text-fitly"
@@ -43,6 +44,7 @@ export default function Header() {
         {/* dekstop view */}
         <div className="hidden items-center gap-5 md:flex md:justify-end">
           <Link
+            data-umami-event="login-desktop-click"
             href="/login"
             className="text-sm hover:text-fitly text-[15px] text-foreground transition-colors"
           >
@@ -50,6 +52,7 @@ export default function Header() {
           </Link>
           <Link
             href="/login"
+            data-umami-event="signup-desktop-click"
             className="group text-[15px] inline-flex items-center gap-2 rounded-full bg-fitly px-5 py-2.5 text-sm font-semibold text-primary-foreground "
           >
             Załóż profil
@@ -60,6 +63,7 @@ export default function Header() {
         {/* mobile view */}
         <div className="flex items-center gap-2 justify-end md:hidden">
           <Link
+            data-umami-event="signup-mobile-click"
             href="/login"
             className="text-[15px] inline-flex items-center gap-2 rounded-full bg-fitly px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
@@ -67,6 +71,7 @@ export default function Header() {
           </Link>
 
           <Button
+            data-umami-event="mobile-menu-click"
             onClick={() => setOpen((v) => !v)}
             variant="outline"
             className="size-10 bg-white!"

@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./providers/auth-provider";
-import { GoogleAnalytics } from "@next/third-parties/google";
-
 import { Toaster } from "@/components/ui/sonner";
-import { Clarity } from "@/components/clarity";
-
 import { soehne } from "@/lib/fonts";
+
+import Script from "next/script";
 
 const geist = Geist({
   variable: "--font-sans",
@@ -70,8 +68,12 @@ export default function RootLayout({
           <main>{children}</main>
         </AuthProvider>
         <Toaster position="bottom-center" richColors />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
-        <Clarity />
+
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

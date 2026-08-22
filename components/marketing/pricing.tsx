@@ -2,22 +2,28 @@ import { Check, Sparkles, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 const freeFeatures = [
-  "Publiczny profil trenera",
-  "Informacje o trenerze",
-  "Oferta i cennik usług",
+  "Własny profil trenera pod jednym linkiem",
+  "Nazwa użytkownika i własny adres profilu",
+  "Opis trenera i informacje o Tobie",
+  "Specjalizacje i obszary, w których pomagasz",
+  "Oferta usług wraz z cenami",
   "Formularz zgłoszeniowy do każdej usługi",
   "Linki do social mediów",
-  "Podstawowy motyw profilu",
-  "Galeria (maks. 2 zdjęcia)",
+  "Galeria zdjęć - do 2 zdjęć",
+  "Profesjonalny wygląd profilu",
 ];
 
 const proFeatures = [
+  { label: "Wszystko z planu FREE", soon: false },
   { label: "Nielimitowana galeria zdjęć", soon: false },
-  { label: "Dodatkowe motywy profilu", soon: false },
-  { label: "Personalizacja wyglądu", soon: false },
+  { label: "Zdjęcia „Przed / Po” z suwakiem", soon: false },
+
+  { label: "Możliwość dodania większej liczby siłowni", soon: false },
+  { label: "Pełna personalizacja wyglądu profilu", soon: true },
+
+  { label: "Dodatkowe motywy profilu", soon: true },
   { label: "Statystyki odwiedzin i kliknięć", soon: true },
   { label: "Opinie klientów", soon: true },
-  { label: "Zdjęcia „Przed / Po” z suwakiem", soon: true },
 ];
 
 export default function Pricing() {
@@ -40,7 +46,7 @@ export default function Pricing() {
         <div className="mx-auto mt-14 grid max-w-4xl gap-6 lg:grid-cols-2">
           {/* FREE */}
           <div className="flex flex-col rounded-3xl border border-border bg-card p-8">
-            <p className="text-lg font-bold text-foreground">FREE</p>
+            <p className="text-2xl font-bold font-grotesk">Za darmo</p>
             <p className="mt-1 text-sm text-muted-foreground">
               Wszystko, by ruszyć z profesjonalnym profilem.
             </p>
@@ -70,12 +76,8 @@ export default function Pricing() {
           </div>
 
           {/* PRO */}
-          <div className="relative text-white flex flex-col rounded-3xl border-2 border-fitly bg-fitly p-8 shadow-2xl shadow-primary/20">
-            <span className="absolute -top-3 right-8 inline-flex items-center gap-1.5 rounded-full bg-white border border-fitly px-3 py-1 text-xs font-medium text-fitly">
-              <Sparkles className="size-3" />
-              Najpopularniejszy
-            </span>
-            <p className="text-lg font-bold">PRO</p>
+          <div className=" text-white flex flex-col rounded-3xl border-2 border-fitly bg-fitly p-8 shadow-2xl shadow-primary/20">
+            <p className="text-2xl font-bold font-grotesk">PRO</p>
             <p className="mt-1 text-sm text-primary-foreground/70">
               Wszystko z FREE oraz narzędzia do rozwoju marki.
             </p>
@@ -84,9 +86,9 @@ export default function Pricing() {
             </div>
             <Link
               href="/login"
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-fitly "
+              className="mt-6 inline-flex font-medium items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-fitly "
             >
-              Dołącz do listy oczekujących
+              Dołącz do Fitly
               <ArrowUpRight className="size-4 transition-transform" />
             </Link>
             <ul className="mt-8 space-y-3">

@@ -152,30 +152,6 @@ export function ProfileForm({ user, profile }: Props) {
   const fullName = form.watch("full_name");
   const username = form.watch("username");
 
-  const changePlan = async (plan: "free" | "pro") => {
-    const supabase = createClient();
-
-    const slug =
-      plan === "pro"
-        ? createSlug(profile?.username ?? "")
-        : createSlug(profile?.full_name ?? "");
-
-    const { error } = await supabase
-      .from("profiles")
-      .update({
-        plan,
-        slug,
-      })
-      .eq("id", user.id);
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    window.location.reload();
-  };
-
   const profilePreviewSlug = createSlug(
     isPro ? username || fullName : fullName,
   );
@@ -185,7 +161,7 @@ export function ProfileForm({ user, profile }: Props) {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="mx-auto max-w-4xl space-y-8"
+      className="max-w-3xl space-y-8"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-4">

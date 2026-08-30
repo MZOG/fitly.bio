@@ -10,6 +10,7 @@ import {
 import { cookies } from "next/headers";
 
 import { Geist } from "next/font/google";
+import { MobileNavigation } from "@/components/mobile-navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +39,16 @@ export default async function DashboardLayout({
 
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger />
+          <p className="font-grotesk font-medium text-xl ">
+            Fit<span className="text-fitly">ly</span>
+          </p>
         </header>
 
-        <main className="flex-1 p-6">{children}</main>
+        <div>
+          <MobileNavigation />
+
+          <main className="flex-1 p-6">{children}</main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

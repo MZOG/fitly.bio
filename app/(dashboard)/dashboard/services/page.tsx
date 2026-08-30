@@ -27,7 +27,7 @@ export default async function ServicesPage() {
     .single();
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl ">
       <PanelTitle title="Oferta i cennik" />
 
       <Accordion defaultValue={["free"]} className="mb-5">

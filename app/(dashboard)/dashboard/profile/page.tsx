@@ -1,19 +1,7 @@
-import PanelTitle from "@/components/dashboard/panel-title";
-import { ProFeature } from "@/components/dashboard/pro-feature";
 import { ProfileForm } from "@/components/dashboard/profile-form";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
   const cookieStore = await cookies();
@@ -24,7 +12,7 @@ export default async function ProfilePage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return null; // albo redirect("/login")
+    redirect("/login");
   }
 
   const { data: profile } = await supabase

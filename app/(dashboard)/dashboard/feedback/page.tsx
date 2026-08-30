@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -16,7 +16,7 @@ export default async function FeedbackPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    notFound();
+    redirect("/login");
   }
 
   const { data: communityFeedback } = await supabase
@@ -26,7 +26,7 @@ export default async function FeedbackPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <section className="mx-auto max-w-3xl space-y-10">
+    <section className="max-w-3xl space-y-8">
       <div>
         <PanelTitle title="Pomysły i opinie" />
 

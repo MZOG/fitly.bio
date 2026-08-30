@@ -4,7 +4,7 @@ import PanelTitle from "@/components/dashboard/panel-title";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { ProfileCompletionBanner } from "@/components/dashboard/profile-completion-banner";
 import { ProfilePreviewLink } from "@/components/dashboard/profile-preview-link";
 import { OnboardingBanner } from "@/components/dashboard/onboarding-banner";
@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    notFound();
+    redirect("/login");
   }
 
   const [{ data: profile }, { data: leads }] = await Promise.all([
@@ -69,7 +69,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <section className="max-w-3xl mx-auto space-y-8">
+    <section className="space-y-8 max-w-3xl">
       <PanelTitle title="Panel" />
 
       {profile && <ProfileCompletionBanner profile={profile} />}

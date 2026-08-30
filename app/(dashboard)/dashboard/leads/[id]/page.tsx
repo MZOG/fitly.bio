@@ -48,7 +48,7 @@ export default async function LeadPage({ params }: Props) {
   }
 
   return (
-    <section className="max-w-5xl mx-auto">
+    <section className="max-w-4xl">
       <PanelTitle title={lead.contact.name} />
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">

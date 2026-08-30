@@ -36,7 +36,7 @@ const data = {
       url: "/dashboard/gallery",
     },
     {
-      title: "Formularz",
+      title: "Zgłoszenia",
       url: "/dashboard/leads",
     },
     {
@@ -74,7 +74,7 @@ export async function AppSidebar({
   const isAdmin = user?.email === ADMIN_EMAIL;
 
   return (
-    <Sidebar {...props}>
+    <Sidebar className="hidden md:flex" {...props}>
       <SidebarHeader className="px-5 py-3">
         <SidebarLogo />
       </SidebarHeader>

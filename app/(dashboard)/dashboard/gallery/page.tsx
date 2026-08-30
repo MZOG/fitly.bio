@@ -36,7 +36,7 @@ export default async function GalleryPage() {
   }
 
   return (
-    <section className="max-w-5xl mx-auto">
+    <section className="max-w-3xl ">
       <GallerySection gallery={gallery ?? []} plan={profile.plan} />
     </section>
   );

@@ -146,15 +146,10 @@ const features = [
 
 export default function ProPage() {
   return (
-    <div className="mx-auto max-w-5xl space-y-10">
+    <div className="max-w-5xl space-y-10">
       {/* Header */}
       <div className="max-w-2xl">
-        <Badge variant="secondary" className="mb-4 gap-1">
-          <Sparkles className="size-3.5" />
-          Fitly Pro
-        </Badge>
-
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-2xl font-semibold tracking-tight">
           Rozwiń swój profil
         </h1>
 

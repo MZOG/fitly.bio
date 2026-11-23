@@ -1,9 +1,9 @@
+import { Toaster } from "@/components/ui/sonner";
+import { soehne } from "@/lib/fonts";
 import type { Metadata } from "next";
 import { Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./providers/auth-provider";
-import { Toaster } from "@/components/ui/sonner";
-import { soehne } from "@/lib/fonts";
 
 import Script from "next/script";
 
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description: "Stwórz profesjonalny profil trenera personalnego.",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/api/og`,
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "Fitly",

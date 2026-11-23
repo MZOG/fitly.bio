@@ -1,19 +1,17 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const runtime = "nodejs";
 
 export async function GET() {
-  const regular = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/fonts/SpaceGrotesk-Regular.ttf`,
-  ).then((res) => res.arrayBuffer());
+  const fontsDir = join(process.cwd(), "assets/fonts");
 
-  const medium = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/fonts/SpaceGrotesk-Medium.ttf`,
-  ).then((res) => res.arrayBuffer());
-
-  const bold = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/fonts/SpaceGrotesk-Bold.ttf`,
-  ).then((res) => res.arrayBuffer());
+  const [regular, medium, bold] = await Promise.all([
+    readFile(join(fontsDir, "SpaceGrotesk-Regular.ttf")),
+    readFile(join(fontsDir, "SpaceGrotesk-Medium.ttf")),
+    readFile(join(fontsDir, "SpaceGrotesk-Bold.ttf")),
+  ]);
 
   return new ImageResponse(
     <div

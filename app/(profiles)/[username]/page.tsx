@@ -1,11 +1,11 @@
+import { DarkProfile } from "@/components/profile/themes/dark";
 import { DefaultProfile } from "@/components/profile/themes/default";
 import { MinimalProfile } from "@/components/profile/themes/minimal";
-import { DarkProfile } from "@/components/profile/themes/dark";
-import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
 import { Profile } from "@/lib/types";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,

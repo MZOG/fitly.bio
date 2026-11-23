@@ -6,15 +6,15 @@ const columns = [
     links: [
       {
         name: "Funkcje",
-        href: "#funkcje",
+        href: "/funkcje",
       },
       {
         name: "Cennik",
-        href: "#cennik",
+        href: "/cennik",
       },
       {
         name: "Jak to działa",
-        href: "#jak-to-działa",
+        href: "/jak-to-dziala",
       },
     ],
   },
@@ -35,29 +35,25 @@ const columns = [
       // },
       {
         name: "Pomoc",
-        href: "/help",
+        href: "/pomoc",
       },
     ],
   },
   {
     title: "Firma",
     links: [
-      // {
-      //   name: "O nas",
-      //   href: "#o-nas",
-      // },
+      {
+        name: "O nas",
+        href: "/o-nas",
+      },
       {
         name: "Kontakt",
-        href: "/page/kontakt",
+        href: "/kontakt",
       },
-      // {
-      //   name: "Blog",
-      //   href: "#blog",
-      // },
-      // {
-      //   name: "Kariera",
-      //   href: "#kariera",
-      // }
+      {
+        name: "Blog",
+        href: "/blog",
+      },
     ],
   },
 ];

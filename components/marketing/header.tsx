@@ -3,16 +3,19 @@
 import { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 
 const navLinks = [
-  { label: "Jak to działa", href: "#jak-to-dziala" },
-  { label: "Funkcje", href: "#funkcje" },
-  { label: "Cennik", href: "#cennik" },
+  { label: "Jak to działa", href: "/jak-to-dziala" },
+  { label: "Funkcje", href: "/funkcje" },
+  { label: "Cennik", href: "/cennik" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
@@ -26,7 +29,7 @@ export default function Header() {
         </Link>
 
         <nav
-          className="hidden items-center gap-8 md:flex"
+          className="hidden items-center justify-center gap-6 md:flex lg:gap-8"
           aria-label="Główna nawigacja"
         >
           {navLinks.map((link) => (
@@ -34,7 +37,8 @@ export default function Header() {
               data-umami-event={`nav-click-${link.label}`}
               key={link.href}
               href={link.href}
-              className="text-[15px] transition-colors hover:text-fitly"
+              aria-current={pathname === link.href ? "page" : undefined}
+              className="text-[15px] whitespace-nowrap transition-colors hover:text-fitly aria-[current=page]:text-fitly"
             >
               {link.label}
             </Link>
@@ -94,7 +98,8 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="md:px-2 py-3 text-foreground hover:bg-secondary"
+                aria-current={pathname === link.href ? "page" : undefined}
+                className="md:px-2 py-3 text-foreground hover:bg-secondary aria-[current=page]:text-fitly"
               >
                 {link.label}
               </Link>

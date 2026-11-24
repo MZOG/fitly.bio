@@ -26,7 +26,8 @@ const proFeatures = [
   { label: "Opinie klientów", soon: true },
 ];
 
-export default function Pricing() {
+export default function Pricing({ asPage = false }: { asPage?: boolean }) {
+  const Heading = asPage ? "h1" : "h2";
   return (
     <section id="cennik" className="font-soehne">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
@@ -34,9 +35,9 @@ export default function Pricing() {
           <span className="inline-flex items-center gap-2 rounded-full border border-fitly/20 bg-fitly/5 px-4 py-1.5 text-sm font-medium text-fitly">
             Cennik
           </span>
-          <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
+          <Heading className="mt-6 text-3xl font-bold leading-tight tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
             Zacznij za darmo, rozwijaj się z Fitly PRO
-          </h2>
+          </Heading>
           <p className="mt-5 text-lg  leading-relaxed text-muted-foreground text-balance">
             Wybierz plan dopasowany do etapu, na którym jesteś. Bez zobowiązań -
             zaczynasz kiedy chcesz.

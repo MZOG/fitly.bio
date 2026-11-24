@@ -29,7 +29,7 @@ export default function CallToAction() {
                   <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
                 <Link
-                  href="#jak-to-dziala"
+                  href="/jak-to-dziala"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white px-7 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-white hover:text-fitly"
                 >
                   Zobacz jak to działa

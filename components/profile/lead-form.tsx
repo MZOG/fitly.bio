@@ -91,14 +91,17 @@ export default function LeadForm({
       <DrawerHeader className="mt-5 p-0 font-soehne">
         <DrawerTitle className="text-fitly">{service.name}</DrawerTitle>
 
-        <DrawerDescription>
+        {/* <DrawerDescription>
           Wypełnij formularz, a trener skontaktuje się z Tobą.
-        </DrawerDescription>
+        </DrawerDescription> */}
       </DrawerHeader>
       <div className="mt-5 scroll-mt-5">
-        <h2 className="text-center md:text-left text-lg font-medium font-soehne">
-          Ankieta
-        </h2>
+        {service.fields.length > 0 && (
+          <p className="text-sm text-muted-foreground font-soehne">
+            Poniżej znajdziesz kilka pytań od trenera, które pomogą mu lepiej
+            przygotować się do treningu.
+          </p>
+        )}
 
         <form className="mt-5 flex flex-col gap-5" onSubmit={handleSubmit}>
           <input type="hidden" name="serviceId" value={service.id} />

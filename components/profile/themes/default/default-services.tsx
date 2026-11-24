@@ -14,6 +14,7 @@ type Props = {
 export function DefaultServices({ profile }: Props) {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
+  console.log(selectedService);
   const handleSelectService = (service: Service) => {
     setSelectedService(service);
   };

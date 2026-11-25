@@ -1,12 +1,12 @@
 "use client";
 
 import { useTransition } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { BioEditor } from "./bio-editor";
 
 import {
   Field,
@@ -246,17 +246,26 @@ export function ProfileForm({ user, profile }: Props) {
             <Field>
               <FieldLabel>Bio</FieldLabel>
 
-              <Textarea
-                rows={5}
-                maxLength={isPro ? undefined : 400}
-                {...form.register("bio", {
+              <Controller
+                control={form.control}
+                name="bio"
+                rules={{
                   maxLength: isPro
                     ? undefined
                     : {
                         value: 400,
                         message: "Bio może mieć maksymalnie 400 znaków.",
                       },
-                })}
+                }}
+                render={({ field }) => (
+                  <BioEditor
+                    name={field.name}
+                    value={field.value ?? ""}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    maxLength={isPro ? undefined : 400}
+                  />
+                )}
               />
 
               <FieldDescription>

@@ -1,4 +1,5 @@
 import { Profile } from "@/lib/types";
+import { BioText } from "@/lib/bio";
 
 type Props = {
   profile: Profile;
@@ -11,9 +12,10 @@ export function Bio({ profile }: Props) {
 
   return (
     <section className="mx-auto max-w-sm">
-      <p className="text-center text-base leading-7 text-gray-600">
-        {profile.bio}
-      </p>
+      <BioText
+        text={profile.bio}
+        className="text-center text-base leading-7 text-gray-600"
+      />
     </section>
   );
 }

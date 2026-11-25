@@ -1,3 +1,4 @@
+import { bioToPlainText } from "@/lib/bio";
 import { DarkProfile } from "@/components/profile/themes/dark";
 import { DefaultProfile } from "@/components/profile/themes/default";
 import { MinimalProfile } from "@/components/profile/themes/minimal";
@@ -28,14 +29,16 @@ export async function generateMetadata({
     };
   }
 
+  const description = profile.bio
+    ? bioToPlainText(profile.bio)
+    : `Umów trening personalny z ${profile.full_name}.`;
+
   return {
     title: `${profile.full_name} - Trener personalny ${profile.city ? `${profile.city}` : ""}`,
-    description:
-      profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+    description,
     openGraph: {
       title: `${profile.full_name} - Trener personalny ${profile.city ? `${profile.city}` : ""}`,
-      description:
-        profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+      description,
       url: `https://fitly.bio/${profile.slug}`,
       siteName: "Fitly",
       images: [
@@ -53,8 +56,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${profile.full_name} - Trener personalny ${profile.city ? `${profile.city}` : ""}`,
-      description:
-        profile.bio ?? `Umów trening personalny z ${profile.full_name}.`,
+      description,
       images: [`https://fitly.bio/${profile.slug}/opengraph-image`],
     },
   };

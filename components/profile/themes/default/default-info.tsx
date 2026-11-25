@@ -1,5 +1,6 @@
 import { Profile } from "@/lib/types";
 import { Dumbbell, MapPin } from "lucide-react";
+import { BioText } from "@/lib/bio";
 
 export default function DefaultInfo({ profile }: { profile: Profile }) {
   return (
@@ -11,9 +12,12 @@ export default function DefaultInfo({ profile }: { profile: Profile }) {
         {profile.full_name}
       </h1>
 
-      <p className="mt-3 text-[15px] md:text-base max-w-lg font-soehne leading-relaxed text-muted-foreground">
-        {profile.bio}
-      </p>
+      {profile.bio && (
+        <BioText
+          text={profile.bio}
+          className="mt-3 text-[15px] md:text-base max-w-lg font-soehne leading-relaxed text-muted-foreground"
+        />
+      )}
 
       <div className="mt-6 flex  items-center gap-3 sm:flex-row flex-wrap sm:justify-center">
         {profile.city && (

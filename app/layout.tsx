@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    images: [`${process.env.NEXT_PUBLIC_APP_URL}/api/og`],
+    images: ["/api/og"],
   },
 };
 

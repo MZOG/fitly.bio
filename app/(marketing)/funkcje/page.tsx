@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import {
   BarChart3,
   Check,
@@ -16,11 +17,12 @@ import {
 import CallToAction from "@/components/marketing/cta";
 import { PageHero, SectionBadge } from "@/components/marketing/page-sections";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Funkcje – Fitly",
   description:
     "Profil trenera w jednym linku, oferta z cennikiem, formularze zgłoszeniowe, panel zgłoszeń, galeria i social media. Zobacz, co oferuje Fitly.",
-};
+  path: "/funkcje",
+});
 
 type Plan = "free" | "pro" | "soon";
 

@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { Check, Minus } from "lucide-react";
 import Pricing from "@/components/marketing/pricing";
 import CallToAction from "@/components/marketing/cta";
 import { SectionBadge } from "@/components/marketing/page-sections";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Cennik – Fitly",
   description:
     "Zacznij za darmo, bez karty płatniczej. Porównaj plan darmowy i Fitly PRO i wybierz plan dopasowany do Twojego etapu.",
-};
+  path: "/cennik",
+});
 
 type Cell = boolean | string;
 

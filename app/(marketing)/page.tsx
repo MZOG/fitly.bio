@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { lazy, Suspense } from "react";
 
 const Features = lazy(() => import("../../components/marketing/features"));
@@ -21,6 +23,14 @@ const renderLoader = () => {
     </div>
   );
 };
+
+export const metadata: Metadata = pageMetadata({
+  title: "Fitly - Darmowa strona dla trenerów personalnych",
+  ogTitle: "Fitly",
+  description:
+    "Stwórz profesjonalną stronę dla trenera personalnego w kilka minut. Dodaj usługi, formularz kontaktowy i udostępnij jeden link w bio na Instagramie lub TikToku.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

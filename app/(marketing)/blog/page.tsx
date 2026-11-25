@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -14,11 +15,12 @@ import {
 import CallToAction from "@/components/marketing/cta";
 import { PageHero, SectionBadge } from "@/components/marketing/page-sections";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog – Fitly",
   description:
     "Blog Fitly dla trenerów personalnych: marketing w social mediach, pozyskiwanie klientów, ustalanie cen i budowanie marki osobistej.",
-};
+  path: "/blog",
+});
 
 const topics = [
   {

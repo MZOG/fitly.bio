@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import {
   ClipboardCheck,
   Eye,
@@ -18,11 +19,12 @@ import {
   SectionBadge,
 } from "@/components/marketing/page-sections";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Jak to działa – Fitly",
   description:
     "Załóż konto, uzupełnij profil, dodaj usługi i udostępnij jeden link. Zobacz krok po kroku, jak Fitly pomaga trenerom personalnym zdobywać zgłoszenia.",
-};
+  path: "/jak-to-dziala",
+});
 
 const clientJourney = [
   {

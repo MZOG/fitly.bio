@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -13,11 +14,12 @@ import {
 import CallToAction from "@/components/marketing/cta";
 import { PageHero, SectionBadge } from "@/components/marketing/page-sections";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "O nas – Fitly",
   description:
     "Fitly to narzędzie stworzone dla trenerów personalnych. Poznaj naszą misję i dowiedz się, dlaczego budujemy prosty profil trenera w jednym linku.",
-};
+  path: "/o-nas",
+});
 
 const values = [
   {

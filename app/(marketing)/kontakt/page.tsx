@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/metadata";
 import { ArrowUpRight, Mail } from "lucide-react";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Kontakt – Fitly",
+  description:
+    "Masz pytanie dotyczące Fitly albo potrzebujesz pomocy? Napisz do nas na hello@fitly.bio.",
+  path: "/kontakt",
+});
 
 export default function ContactPage() {
   return (

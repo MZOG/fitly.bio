@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { SectionBadge } from "@/components/marketing/page-sections";
 import {
@@ -19,11 +20,12 @@ import {
   UserRound,
 } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Pomoc – jak korzystać z Fitly",
   description:
     "Przewodnik dla trenerów personalnych: dlaczego warto założyć profil w Fitly, jak go skonfigurować i jak zdobywać zgłoszenia od klientów.",
-};
+  path: "/pomoc",
+});
 
 const benefits = [
   {

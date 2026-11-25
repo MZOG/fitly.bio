@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const runtime = "nodejs";
+// Prerender at build time so crawlers (LinkedIn, Facebook) get the image instantly from the CDN.
+export const dynamic = "force-static";
 
 export async function GET() {
   const fontsDir = join(process.cwd(), "assets/fonts");

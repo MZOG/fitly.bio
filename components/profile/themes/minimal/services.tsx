@@ -10,6 +10,19 @@ type Props = {
   profile: Profile;
 };
 
+function ServicePrice({ service }: { service: Service }) {
+  return (
+    <div>
+      <p className="font-grotesk text-lg font-medium">{service.price}</p>
+      {service.is_package && service.price_per_session && (
+        <p className="text-sm text-gray-600">
+          {service.price_per_session} / trening
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function Services({ profile }: Props) {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
@@ -32,6 +45,11 @@ export function Services({ profile }: Props) {
             >
               <div className="flex flex-col gap-4">
                 <div>
+                  {service.is_package && (
+                    <span className="mb-1.5 inline-flex rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+                      Pakiet
+                    </span>
+                  )}
                   <p className="font-grotesk font-medium">{service.name}</p>
 
                   {service.description && (
@@ -43,9 +61,7 @@ export function Services({ profile }: Props) {
 
                 {/* Mobile */}
                 <div className="flex items-center justify-between md:hidden">
-                  <p className={cn("font-grotesk text-lg font-medium")}>
-                    {service.price}
-                  </p>
+                  <ServicePrice service={service} />
                 </div>
 
                 <Button
@@ -61,9 +77,7 @@ export function Services({ profile }: Props) {
 
                 {/* Desktop */}
                 <div className="hidden items-center justify-between md:flex">
-                  <p className="font-grotesk text-lg font-medium">
-                    {service.price}
-                  </p>
+                  <ServicePrice service={service} />
 
                   <Button
                     type="button"

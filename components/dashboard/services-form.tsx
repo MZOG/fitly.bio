@@ -103,6 +103,8 @@ const DEFAULT_SERVICES: Service[] = [
     name: "Pakiet 10 treningów",
     price: "2000 zł",
     unit: "oszczędzasz 200 zł",
+    is_package: true,
+    price_per_session: "200 zł",
     description:
       "Dziesięć sesji personalnych w korzystnej cenie - najlepszy wybór, jeśli myślisz o dłuższej współpracy.",
     button_text: "Kup pakiet",
@@ -241,14 +243,47 @@ export function ServicesForm({ services, plan }: Props) {
               />
             </Field>
 
+            <label className="flex w-fit cursor-pointer items-center gap-2.5 text-sm font-medium">
+              <input
+                type="checkbox"
+                className="size-4 cursor-pointer accent-fitly"
+                {...form.register(`services.${index}.is_package`)}
+              />
+              Pakiet
+              <span className="font-normal text-muted-foreground">
+                (kilka treningów w jednej cenie)
+              </span>
+            </label>
+
             <Field className="gap-2">
               <FieldLabel>Cena</FieldLabel>
 
               <Input
-                placeholder="150 zł"
+                placeholder={
+                  form.watch(`services.${index}.is_package`)
+                    ? "np. 470 zł"
+                    : "150 zł"
+                }
                 {...form.register(`services.${index}.price`)}
               />
+              {form.watch(`services.${index}.is_package`) && (
+                <FieldDescription>Cena za cały pakiet.</FieldDescription>
+              )}
             </Field>
+
+            {form.watch(`services.${index}.is_package`) && (
+              <Field className="gap-2">
+                <FieldLabel>Cena za trening</FieldLabel>
+
+                <Input
+                  placeholder="np. 118 zł"
+                  {...form.register(`services.${index}.price_per_session`)}
+                />
+                <FieldDescription>
+                  Wyświetlana pod ceną pakietu, np. „118 zł / trening”.
+                </FieldDescription>
+              </Field>
+            )}
 
             <Field className="gap-2">
               <FieldLabel>Opis ceny</FieldLabel>
@@ -258,8 +293,8 @@ export function ServicesForm({ services, plan }: Props) {
                 {...form.register(`services.${index}.unit`)}
               />
               <FieldDescription>
-                Tekst wyświetlany pod ceną usługi na Twoim profilu. Np. "za
-                godzinę" lub "miesięcznie".
+                Tekst wyświetlany pod ceną usługi na Twoim profilu. Np. „za
+                godzinę” lub „miesięcznie”.
               </FieldDescription>
             </Field>
 
@@ -340,6 +375,8 @@ export function ServicesForm({ services, plan }: Props) {
                 fields: [],
                 button_text: "Umów trening",
                 unit: null,
+                is_package: false,
+                price_per_session: null,
               })
             }
           >

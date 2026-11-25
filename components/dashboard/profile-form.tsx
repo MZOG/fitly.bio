@@ -144,7 +144,6 @@ export function ProfileForm({ user, profile }: Props) {
 
       toast.success("Profil zapisany");
 
-      router.push("/dashboard");
       router.refresh();
     });
   };

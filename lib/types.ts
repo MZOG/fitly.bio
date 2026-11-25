@@ -41,6 +41,10 @@ export type Service = {
   fields: ServiceField[];
   button_text: string;
   unit: string | null;
+  /** Service is a package of several sessions (shows a "Pakiet" badge). */
+  is_package?: boolean;
+  /** Price of a single session inside the package, entered by the trainer, e.g. "120 zł". */
+  price_per_session?: string | null;
 };
 
 export type LeadContact = {

@@ -35,13 +35,25 @@ export function DefaultServices({ profile }: Props) {
               className="rounded-2xl bg-card p-5 ring-1 ring-border transition-shadow hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-4">
-                <h3 className="font-grotesk text-lg font-semibold text-foreground text-balance">
-                  {service.name}
-                </h3>
+                <div>
+                  {service.is_package && (
+                    <span className="mb-1.5 inline-flex rounded-full bg-fitly/10 px-2.5 py-0.5 font-soehne text-xs font-medium text-fitly">
+                      Pakiet
+                    </span>
+                  )}
+                  <h3 className="font-grotesk text-lg font-semibold text-foreground text-balance">
+                    {service.name}
+                  </h3>
+                </div>
                 <div className="shrink-0 text-right">
                   <span className="font-grotesk text-xl font-bold text-foreground">
                     {service.price}
                   </span>
+                  {service.is_package && service.price_per_session ? (
+                    <span className="block text-sm font-medium text-foreground font-soehne">
+                      {service.price_per_session} / trening
+                    </span>
+                  ) : null}
                   {service.unit ? (
                     <span className="block text-xs text-muted-foreground font-soehne">
                       {service.unit}
